@@ -9,7 +9,7 @@ pre-requisites: node && npm
  `git clone https://github.com/dominik-git/school-exam.git`
  
   ssh:
- `git clone git@bitbucket.org:senteon/ninjadoc-webclient.git`
+ `git clonegit@github.com:dominik-git/school-exam.git`
  
  2. Open project in desired enviroment (webstorm, vscode...)
  3. Use command `npm install` for installing module packages. App is located by default on `localhost:3000`.  
