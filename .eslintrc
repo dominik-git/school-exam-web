@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:flowtype/recommended", // flow type litning rules for eslint
+    "airbnb"
+  ],
+  "plugins": [
+    "prettier",
+    "flowtype"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "env": {
+    "jest": true,
+    "browser": true,    // set document as global
+    "es6": true,
+    "serviceworker": true
+  },
+  "rules": {
+    "arrow-parens": 0,
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}], //allow jsx format in js files.
+    "prettier/prettier": "error",
+    "quotes": [2,"double"],
+    "no-extra-semi": 1,
+    "import/no-extraneous-dependencies": 0,
+    "no-underscore-dangle": 0,
+    "no-param-reassign":"warn",
+    "comma-dangle": ["error",{
+      "objects": "never"
+    }],
+    "max-len": [
+      1,
+      120
+    ]
+  }
+}
+
