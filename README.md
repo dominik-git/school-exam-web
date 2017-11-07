@@ -1,4 +1,4 @@
-# Frontend React App for Senteon 
+# Frontend React App 
 
 pre-requisites: node && npm
 
@@ -6,7 +6,7 @@ pre-requisites: node && npm
 ## 1. Clone && Installation Project
   
   https:
- `git clone https://username@bitbucket.org/senteon/ninjadoc-webclient.git`
+ `git clone https://github.com/dominik-git/school-exam.git`
  
   ssh:
  `git clone git@bitbucket.org:senteon/ninjadoc-webclient.git`
