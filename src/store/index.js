@@ -11,6 +11,6 @@ export default function configureStore(initialState) {
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
       : compose;
 
-  const store = createStore(createReducer(), fromJS(initialState), composeEnhancers(...enhancers));
+  const store = createStore(createReducer, fromJS(initialState), composeEnhancers(...enhancers));
   return store;
 }

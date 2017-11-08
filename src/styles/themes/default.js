@@ -1,3 +1,5 @@
+import { rem } from "polished";
+
 const color = {
   primary: "#004085",
   secondary: "#dddfe2",
@@ -6,15 +8,16 @@ const color = {
   warning: "#fff3cd",
   info: "#d1ecf1",
   light: "#fefefe",
-  dark: "#d6d8d9"
+  dark: "#d6d8d9",
 };
 const border = {
-  primaryBorder: "4px"
+  primaryBorder: "4px",
 };
 
 const theme = {
   color,
-  border
+  border,
+  rem: sizeInPx => rem(sizeInPx),
 };
 
 export default theme;

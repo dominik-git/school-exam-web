@@ -1,12 +1,12 @@
-// @flow
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import "babel-polyfill";
 import { BrowserRouter } from "react-router-dom";
+import "../src/styles/global.styles";
 import configureStore from "./store/index";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import "./styles/global.styles";
 
 const initialState = {};
 const store = configureStore(initialState);

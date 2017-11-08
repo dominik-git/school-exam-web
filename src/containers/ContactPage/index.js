@@ -1,13 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import GoogleMapComponent from "../../components/GoogleMap";
-
-// const MyMapComponent = withScriptjs(
-//   withGoogleMap(props => (
-//     <GoogleMap defaultZoom={16} defaultCenter={{ lat: 48.7290529, lng: 21.2764167 }}>
-//       {props.isMarkerShown && <Marker position={{ lat: 48.7290529, lng: 21.2764167 }} />}
-//     </GoogleMap>
-//   )),
-// );
+import ContactForm from "./form";
 
 class ContactPage extends React.Component {
   constructor() {
@@ -16,6 +10,23 @@ class ContactPage extends React.Component {
       isMarkerShown: true,
     };
   }
+  submit = values => {
+    const { firstName, lastName, email } = values.toJS();
+    const errors = {};
+    // if (firstName.length < 2) {
+    //   errors.firstName = "must be longer";
+    //   console.log(errors.firstName);
+    // }
+    if (!firstName.trim()) {
+      errors.firstName = "Required";
+      console.log(errors.firstName);
+    } else if (firstName.trim().length < 3) {
+      errors.firstName = "Must be 15 characters or less";
+      console.log(errors.firstName);
+    }
+    // print the form values to the console
+    console.log(values.get("firstName"), values.get("lastName"), values.get("email"));
+  };
 
   render() {
     const MarkerPosition = { lat: 48.7290529, lng: 21.2764167 };
@@ -27,16 +38,17 @@ class ContactPage extends React.Component {
           CenterPosition={CenterPosition}
           isMarkerShown={this.state.isMarkerShown}
         />
-        {/* <MyMapComponent
-          isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-          loadingElement={<div style={{ height: "100%" }} />}
-          containerElement={<div style={{ height: "400px" }} />}
-          mapElement={<div style={{ height: "100%" }} />}
-        />
-      </div> */}
+        <ContactForm onSubmit={this.submit} />
       </div>
     );
   }
 }
-export default ContactPage;
+function mapStateToProps() {
+  return {};
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ContactPage);
