@@ -62,3 +62,4 @@ export const CapsLockMessage = styled.span`
 export const StyledFormLabel = styled.div`
   padding-bottom: ${props => props.theme.rem(3)};
 `;
+export const StyledTextArea = styled.textarea``;

@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { SubmissionError } from "redux-form/immutable";
 import GoogleMapComponent from "../../components/GoogleMap";
 import ContactForm from "./form";
+import ContactInfo from "./contactInfo";
+import { isRequired, isEmail, isLength } from "../../services/validation";
+import { StyledContactPageWrapper } from "./styles";
 
 class ContactPage extends React.Component {
   constructor() {
@@ -9,37 +13,41 @@ class ContactPage extends React.Component {
     this.state = {
       isMarkerShown: true,
     };
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
-  submit = values => {
-    const { firstName, lastName, email } = values.toJS();
+  /*eslint-disable */
+  async handleSubmitForm(values) {
+    const { firstName, lastName, email, textarea } = values.toJS();
+    console.log(textarea);
     const errors = {};
-    // if (firstName.length < 2) {
-    //   errors.firstName = "must be longer";
-    //   console.log(errors.firstName);
-    // }
-    if (!firstName.trim()) {
-      errors.firstName = "Required";
+    //validate first name field
+    if (isRequired(firstName)) {
+      errors.firstName = "is required";
       console.log(errors.firstName);
-    } else if (firstName.trim().length < 3) {
-      errors.firstName = "Must be 15 characters or less";
+    } else if (isLength(firstName, 3)) {
+      errors.firstName = "must be longer";
       console.log(errors.firstName);
     }
-    // print the form values to the console
-    console.log(values.get("firstName"), values.get("lastName"), values.get("email"));
-  };
+    if (Object.keys(errors).length > 0) {
+      throw new SubmissionError(errors);
+    }
+    return errors;
+  }
 
   render() {
+    //marker position "priemyselna 2"
     const MarkerPosition = { lat: 48.7290529, lng: 21.2764167 };
     const CenterPosition = { lat: 48.7290529, lng: 21.2764167 };
     return (
-      <div>
+      <StyledContactPageWrapper>
         <GoogleMapComponent
           MarkerPosition={MarkerPosition}
           CenterPosition={CenterPosition}
           isMarkerShown={this.state.isMarkerShown}
         />
-        <ContactForm onSubmit={this.submit} />
-      </div>
+        <ContactForm onSubmit={this.handleSubmitForm} />
+        <ContactInfo />
+      </StyledContactPageWrapper>
     );
   }
 }

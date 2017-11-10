@@ -1,14 +1,15 @@
 import React from "react";
 import uniqueId from "lodash/uniqueId";
 import PropTypes from "prop-types";
-import { StyledFormLabel, StyledFormGroupWrapper, StyledInput } from "./styles";
+import { StyledFormLabel, StyledFormGroupWrapper, StyledInput, StyledTextArea } from "./styles";
 import Text from "../Text";
 
 const ReduxFormField = ({ input, label, type, meta: { touched, error } }) => (
   // eslint-disable-line
   <StyledFormGroupWrapper controlId={uniqueId(`${input.name}`)}>
     <StyledFormLabel htmlFor={`${input.name}`}>{label}</StyledFormLabel>
-    <StyledInput {...input} type={type} placeholder={label} />
+    {type === "text" || type === "email" ? <StyledInput {...input} type={type} placeholder={label} /> : null}
+    {type === "textarea" ? <StyledTextArea {...input} placeholder={label} cols="30" rows="5" /> : null}
     {touched && error && <Text warning>{error}</Text>}
   </StyledFormGroupWrapper>
 );

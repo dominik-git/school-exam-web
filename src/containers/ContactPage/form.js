@@ -18,6 +18,9 @@ const ContactForm = props => {
         <div>
           <Field name="email" label="email" component={ReduxFormField} type="email" />
         </div>
+        <div>
+          <Field name="textarea" label="textarea" component={ReduxFormField} type="textarea" />
+        </div>
         <button type="submit">Submit</button>
       </form>
     </StyledFormWrapper>
