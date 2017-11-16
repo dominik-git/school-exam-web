@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-const showSlider = () => "display:flex;";
-const hideSlider = () => "display:none;";
 export const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
@@ -10,7 +8,7 @@ export const StyledWrapper = styled.div`
   z-index: 100;
   height: 100%;
   width: 100%;
-  ${props => (props.isSliderShow ? showSlider() : hideSlider())};
+  display: flex;
 `;
 export const StyledOverlay = styled.div`
   background-color: rgb(51, 51, 51);

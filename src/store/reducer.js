@@ -1,15 +1,8 @@
 import { combineReducers } from "redux-immutable";
 import { reducer as formReducer } from "redux-form/immutable";
+import { photoReducer } from "../containers/GalleryPage/ducks";
 
 export default combineReducers({
   form: formReducer,
+  photos: photoReducer,
 });
-
-// return (state, action) => {
-//   if (!isFSA(action)) {
-//     console.warn(
-//       `Action ${action.type} is not FSA compliant. For more info visit https://github.com/acdlite/flux-standard-action`,
-//     );
-//   }
-//   return appReducer(state, action);
-// };

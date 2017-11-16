@@ -6,7 +6,7 @@ import { StyledHeaderWrapper, StyledLogoWrapper, StyledLinkWrapper } from "./sty
 
 class Header extends React.Component {
   render() {
-    const activeStyle = { color: "blue" };
+    const activeStyle = { color: "red" };
     return (
       <StyledHeaderWrapper>
         <StyledLogoWrapper />

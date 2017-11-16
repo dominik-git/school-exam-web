@@ -7,6 +7,7 @@ import slide3 from "./assets/slide3.jpg";
 
 const timePerSlide = 4000;
 const defaultSlidePossition = 0;
+let myInterval = {};
 
 class HomePage extends React.Component {
   constructor() {
@@ -18,7 +19,10 @@ class HomePage extends React.Component {
     this.handlePossiiton = this.handlePossiiton.bind(this);
   }
   componentDidMount() {
-    setInterval(this.handlePossiiton, timePerSlide);
+    myInterval = setInterval(this.handlePossiiton, timePerSlide);
+  }
+  componentWillUnmount() {
+    clearInterval(myInterval);
   }
 
   handlePossiiton() {

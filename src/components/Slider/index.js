@@ -15,30 +15,18 @@ import {
 class Slider extends React.Component {
   constructor() {
     super();
-    this.state = {
-      resizeIcon: false,
-    };
-
-    this.handleResizeIcon = this.handleResizeIcon.bind(this);
-    this.setResizeToFalse = this.setResizeToFalse.bind(this);
-    this.setDelayForState = this.setDelayForState.bind(this);
+  }
+  componentWillMount() {
+    console.log("image in slider", this.props.imageObj);
   }
 
-  setDelayForState() {
-    setTimeout(this.setResizeToFalse, 300);
-  }
-  setResizeToFalse() {
-    this.setState({ resizeIcon: false });
-  }
-  handleResizeIcon() {
-    this.setState({ resizeIcon: true }, () => this.setDelayForState());
-  }
   render() {
+    const image = this.props.imageObj.data;
     return (
       <StyledWrapper isSliderShow={this.props.isSliderShow}>
         <StyledOverlay onClick={this.props.closeSlider} />
         <StyledContent>
-          {this.props.image}
+          <img src={`data:image;base64,${image}`} />
           <LeftIconWrapper onClick={this.props.moveLeft} isMoveLeftPossible={this.props.isMoveLeftPossible}>
             <StyledLeftIcon src={BackIcon} onClick={this.handleResizeIcon} />
           </LeftIconWrapper>

@@ -42,6 +42,7 @@
     "redux": "^3.7.2",
     "redux-form": "^7.0.4",
     "redux-immutable": "^4.0.0",
+    "redux-promise": "^0.5.3",
     "reselect": "~3.0.1",
     "sanitize.css": "^5.0.0",
     "styled-components": "^2.1.2",
@@ -59,6 +60,7 @@
     "eslint-plugin-react": "^7.3.0",
     "flow-bin": "^0.54.1",
     "flux-standard-action": "^1.2.0",
+    "http-proxy-middleware": "^0.17.4",
     "husky": "^0.14.3",
     "jest": "^21.0.2",
     "jest-cli": "^21.0.2",
@@ -87,5 +89,14 @@
   },
   "babel": {
     "presets": ["react-app"]
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8080",
+      "ws": true,
+      "pathRewrite": {
+        "^/api": "/"
+      }
+    }
   }
 }

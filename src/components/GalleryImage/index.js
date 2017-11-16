@@ -13,7 +13,7 @@ class GalleryImage extends React.Component {
   render() {
     return (
       <StyledWrapper onClick={this.showSliderAndPassImage}>
-        <div>{this.props.obj}</div>
+        <StyledImage src={`data:image;base64,${this.props.obj}`} />
       </StyledWrapper>
     );
   }
