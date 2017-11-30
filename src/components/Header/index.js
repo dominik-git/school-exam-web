@@ -1,37 +1,47 @@
 import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { seletectContent } from "../LanguageSwitcher/ducks";
 // import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-// import HomePage from "homePage";
 import { StyledHeaderWrapper, StyledLogoWrapper, StyledLinkWrapper } from "./styles";
+import LanguageSwitcher from "../LanguageSwitcher/index";
 
 class Header extends React.Component {
   render() {
     const activeStyle = { color: "red" };
+    // data parsed from redux store
+    const menu = this.props.content.get("menu");
     return (
       <StyledHeaderWrapper>
         <StyledLogoWrapper />
         <StyledLinkWrapper>
           <NavLink exact to="/" activeStyle={activeStyle}>
-            Uvod
+            {menu.get("home")}
           </NavLink>
           <NavLink to="/autoservice" activeStyle={activeStyle}>
-            Autoservis
+            {menu.get("autoservice")}
           </NavLink>
           <NavLink to="/sales" activeStyle={activeStyle}>
-            Zlavy
+            {menu.get("sales")}
           </NavLink>
           <NavLink to="/galery" activeStyle={activeStyle}>
-            Galeria
+            {menu.get("gallery")}
           </NavLink>
           <NavLink to="/contact" activeStyle={activeStyle}>
-            Kontakt
+            {menu.get("contact")}
           </NavLink>
           <NavLink to="/review" activeStyle={activeStyle}>
-            Recenzie
+            {menu.get("review")}
           </NavLink>
         </StyledLinkWrapper>
+        <LanguageSwitcher />
       </StyledHeaderWrapper>
     );
   }
 }
-export default Header;
+
+const mapStateToProps = createStructuredSelector({
+  content: seletectContent(),
+});
+export default connect(mapStateToProps, null)(Header);

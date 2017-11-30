@@ -1,5 +1,6 @@
 import { fromJS } from "immutable";
 import { createSelector } from "reselect";
+import { returnFetchPhotosPromise } from "../../services/axiosServices";
 
 const FETCH_PHOTO_SUCCESSFUL = "FETCH_GALLERY_PHOTOS_SUCCESSFULLY";
 const FETCH_PHOTO_FAILED = "FETCH_GALLERY_PHOTOS_FAILED";
@@ -23,6 +24,16 @@ export function failedFetchPhotos() {
     type: FETCH_PHOTO_FAILED,
   };
 }
+
+export const asyncAction = () => async dispatch => {
+  try {
+    const response = await returnFetchPhotosPromise();
+    console.log(response);
+    dispatch(fetchPhotos(response.data));
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // state initialization
 const initialState = fromJS({

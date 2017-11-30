@@ -10,7 +10,7 @@ const ReduxFormField = ({ input, label, type, meta: { touched, error } }) => (
     <StyledFormLabel htmlFor={`${input.name}`}>{label}</StyledFormLabel>
     {type === "text" || type === "email" ? <StyledInput {...input} type={type} placeholder={label} /> : null}
     {type === "textarea" ? <StyledTextArea {...input} placeholder={label} cols="30" rows="5" /> : null}
-    {touched && error && <Text warning>{error}</Text>}
+    {error && <Text warning>{error}</Text>}
   </StyledFormGroupWrapper>
 );
 

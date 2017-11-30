@@ -10,6 +10,7 @@ import {
   StyledRightIcon,
   LeftIconWrapper,
   RightIconWrapper,
+  StyledImage,
 } from "./styles";
 
 class Slider extends React.Component {
@@ -26,7 +27,7 @@ class Slider extends React.Component {
       <StyledWrapper isSliderShow={this.props.isSliderShow}>
         <StyledOverlay onClick={this.props.closeSlider} />
         <StyledContent>
-          <img src={`data:image;base64,${image}`} />
+          <StyledImage src={`data:image;base64,${image}`} />
           <LeftIconWrapper onClick={this.props.moveLeft} isMoveLeftPossible={this.props.isMoveLeftPossible}>
             <StyledLeftIcon src={BackIcon} onClick={this.handleResizeIcon} />
           </LeftIconWrapper>

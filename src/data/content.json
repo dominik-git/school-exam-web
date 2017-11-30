@@ -1,0 +1,80 @@
+[
+  {
+    "lang": "en",
+    "menu": {
+      "autoservice": "Autoservice",
+      "home": "Home",
+      "sales": "Sales",
+      "gallery": "Gallery",
+      "contact": "Contact",
+      "review": "Review"
+    },
+    "home": {
+      "header": "Getting started with React and Flux",
+      "text":
+        "This is a very basic example how to create multilingual React website using Flux. You can take this code as a base and build on it, replacing current content retrieval from JSON with calls to APIs, extending functionality, etc.",
+      "goUp": "Go up"
+    },
+    "about": {
+      "header": "About the solution",
+      "text":
+        "This Website is created using React version 1.14. Using Flux as a pattern for dealing with changes. This solution is left as clean as possible, just using pure Bootstrap, no styling, no addition JavaScript. Tests are written in Mocha, using Chai as assertion library and Sinon as a mocking/spying/faking helper. There it is beneficial - ES2015 syntax is being used. Gulp is used for task automation. React code is being transpiled using Babel version 6, Babel is used for ES2015 code transformation as well. For these two transformations Babel presets are being used.",
+      "goUp": "Go up"
+    },
+    "errors": {
+      "fieldIsRequired": "Field is required",
+      "emailDoNotMatch": "Emails do not match"
+    },
+    "contactForm": {
+      "emailField": "Email adress",
+      "confirmEmailField": "Confirm email",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "reviewForm": {
+      "emailField": "Email adress",
+      "firstName": "Name",
+      "lastName": "Surname",
+      "message": "Message"
+    }
+  },
+  {
+    "lang": "sk",
+    "menu": {
+      "autoservice": "Autosevis",
+      "home": "Domov",
+      "sales": "Zlavy",
+      "gallery": "Galeria",
+      "contact": "Kontakt",
+      "review": "Recenzie"
+    },
+    "home": {
+      "header": "Kaip pradėti darbą su React ir Flux",
+      "text":
+        "Tai labai paprastas pavyzdys, kaip sukurti daugiakalbę interneto svetainę naudojant React ir Flux. Galite remtis šiuo kodu kaip pagrindu, pakeičiant turinio gavimą iš JSON į kreipinius į API, pridedant naują funkcionalumą ir t.t.",
+      "goUp": "Į viršų"
+    },
+    "about": {
+      "header": "Apie šį sprendimą",
+      "text":
+        "Ši svetainė yra sukurta naudojant React versiją 1.14. Flux biblioteka yra naudojama kaip šablonas reaguojant į duomenų pokyčius. Šis sprendimas padaryti kuo paprastesniu, naudojant gryną Bootstrap, be papildomų stilių ar JavaScript kodo. Testai parašyti Mocha, naudojant Chai ir Sinon. Ten, kur tai naudinga - naudojama ES2015 sintaksė. Gulp naudojamas užduočių automatizavimui. React kodas yra transformuojamas naudojant Babel 6 versiją, Babel taip pat yra naudojamas ES2015 kodo transformacijai. Šiom dviejom transformacijom įvykdyti naudojami Babel presets.",
+      "goUp": "Į viršų"
+    },
+    "errors": {
+      "fieldIsRequired": "Pole je povinne",
+      "emailDoNotMatch": "Emailove adresy sa nezhoduju"
+    },
+    "contactForm": {
+      "emailField": "Emailova adresa",
+      "confirmEmailField": "Potvrd emailovu adresu",
+      "subject": "Predmet",
+      "message": "Sprava"
+    },
+    "reviewForm": {
+      "emailField": "Emailova adresa",
+      "firstName": "Meno",
+      "lastName": "Priezvisko",
+      "message": "Sprava"
+    }
+  }
+]

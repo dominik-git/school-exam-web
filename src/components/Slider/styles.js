@@ -39,12 +39,13 @@ export const LeftIconWrapper = styled.div`
   justify-content: center;
   position: absolute;
   left: 0;
-  top: 50%;
-  height: 50px;
+  top: 40%;
+  height: 130px;
   width: 50px;
+  background: rgba(0, 0, 0, 0.78);
   ${props => (props.isMoveLeftPossible === true ? "opacity: 1" : "opacity: 0")};
   &: hover {
-    background: red;
+    background: rgba(0, 0, 0, 0.51);
     transition: 1s;
   }
 `;
@@ -54,12 +55,18 @@ export const RightIconWrapper = styled.div`
   justify-content: center;
   position: absolute;
   right: 0;
-  top: 50%;
-  height: 50px;
+  top: 40%;
+  height: 130px;
   width: 50px;
+  background: rgba(0, 0, 0, 0.78);
   ${props => (props.isMoveRightPossible === true ? "opacity: 1" : "opacity: 0")};
   &: hover {
-    background: red;
+    background: rgba(0, 0, 0, 0.51);
     transition: 1s;
   }
+`;
+
+export const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
 `;

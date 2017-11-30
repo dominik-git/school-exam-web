@@ -1,14 +1,14 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { createStructuredSelector } from "reselect";
 import Slider from "../../components/Slider";
 import { Styledwrapper, ImagesWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
-import { fetchPhotos, testAction, selectTest, selectMyPhotos, failedFetchPhotos, selectError } from "./ducks";
+import { UploadPhoto } from "../../services/axiosServices";
+import { selectMyPhotos, asyncAction } from "./ducks";
 
 /*eslint-disable */
+
 class GalleryPage extends React.Component {
   constructor() {
     super();
@@ -26,50 +26,20 @@ class GalleryPage extends React.Component {
     this.handleMoveRight = this.handleMoveRight.bind(this);
     this.showSliderAndPassImage = this.showSliderAndPassImage.bind(this);
     this.closeSlider = this.closeSlider.bind(this);
-    this.handleUploadFile = this.handleUploadFile.bind(this);
     this.handleSetFile = this.handleSetFile.bind(this);
   }
 
   // show or hide arrow after rendered page
+  componentWillMount() {}
   componentDidMount() {
-    this.initSliderStates();
-    this.handleFetchPhotos();
-  }
-
-  initSliderStates() {
-    this.handleMoveLeft();
-    this.handleMoveRight();
-  }
-  handleSetFile(e) {
-    const imageFile = e.target.files[0];
-    this.setState({ uploadFile: imageFile }, () => {});
-  }
-
-  // if store is empty then fetch photos and save it in the Store, if data was fethed before then use it and dont call fetch again
-  async handleFetchPhotos() {
     if (this.props.galleryPhotos.size === 0) {
-      try {
-        const { data } = await axios.get("/api/gallery");
-        this.props.fetchPhotos(data);
-        this.setState({
-          arrayOfImages: this.props.galleryPhotos.toJSON(),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      console.log("photo was downloaded");
+      this.props.dispatch(asyncAction());
     }
   }
 
-  handleUploadFile() {
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
-    const data = new FormData();
-    data.append("photo", this.state.uploadFile);
-    axios
-      .post("/api/gallery", data, config)
-      .then(response => console.log(response))
-      .catch(errors => console.log(errors));
+  handleSetFile(e) {
+    const imageFile = e.target.files[0];
+    this.setState({ uploadFile: imageFile }, () => {});
   }
 
   // show slider (set state isSliderShow to "true") and show appropriate image, function
@@ -97,7 +67,7 @@ class GalleryPage extends React.Component {
 
   // if image is the last we cant move right and set state "isMoveRightPossible" to false
   isMoveRightPossibleFunc() {
-    const length = this.state.arrayOfImages.length - 1;
+    const length = this.props.galleryPhotos.size - 1;
     if (this.state.positionOfSelectedImage === length) {
       this.setState({ isMoveRightPossible: false });
     } else {
@@ -121,10 +91,9 @@ class GalleryPage extends React.Component {
   }
   // move right
   handleMoveRight() {
-    const length = this.state.arrayOfImages.length - 1;
-    const { positionOfSelectedImage, lenghtOfArrayOfImages } = this.state;
+    const length = this.props.galleryPhotos.size - 1;
+    const { positionOfSelectedImage } = this.state;
     if (positionOfSelectedImage < length) {
-      console.log("move right");
       this.setState(
         {
           positionOfSelectedImage: positionOfSelectedImage + 1,
@@ -136,8 +105,15 @@ class GalleryPage extends React.Component {
     }
   }
   render() {
-    const { isMoveLeftPossible, isMoveRightPossible, isSliderShow } = this.state;
-    const imageObj = this.state.arrayOfImages[this.state.positionOfSelectedImage];
+    console.log(this.props.galleryPhotos.toJSON());
+    const {
+      isMoveLeftPossible,
+      isMoveRightPossible,
+      isSliderShow,
+      arrayOfImages,
+      positionOfSelectedImage,
+    } = this.state;
+    const imageObj = this.props.galleryPhotos.toJSON()[positionOfSelectedImage];
     const galerryImages = this.props.galleryPhotos
       .toJSON()
       .map((item, index) => (
@@ -158,7 +134,13 @@ class GalleryPage extends React.Component {
           accept="image/*"
           encType="multipart/form-data"
         />
-        <button onClick={this.handleUploadFile}>button</button>
+        <button
+          onClick={() => {
+            UploadPhoto(this.state.uploadFile);
+          }}
+        >
+          button
+        </button>
 
         {isSliderShow ? (
           <Slider
@@ -178,11 +160,7 @@ class GalleryPage extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  test: selectTest(),
   galleryPhotos: selectMyPhotos(),
-  error: selectError(),
 });
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPhotos, testAction, failedFetchPhotos }, dispatch);
-}
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryPage);
+
+export default connect(mapStateToProps)(GalleryPage);
