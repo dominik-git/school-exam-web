@@ -1,37 +1,47 @@
 import React from "react";
-import { fromJS,update } from "immutable";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { SubmissionError } from "redux-form/immutable";
+import { ToastContainer } from "react-toastify";
 import { seletectContent } from "../../components/LanguageSwitcher/ducks";
 import ReviewForm from "./form";
 import { isRequired } from "../../services/validation";
-import { 
+import {
   returnAllReviewsPromise,
   returnApprovedReviewsPromise,
   returnPromiseUploadReview,
   returnPromiseDeleteReview,
   returnPromiseApproveReview} from "../../services/ReviewServices";
 import ReviewComponent from "../../components/ReviewComponent";
+import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
+import PaginationComponent from "../../components/PaginationComponent";
 
 class ReviewPage extends React.Component {
   constructor() {
     super();
     this.state = {
       allReviewsArray: [],
+      rating:0
     };
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.deleteReview = this.deleteReview.bind(this);
     this.approveReview = this.approveReview.bind(this);
     this.uploadReview = this.uploadReview.bind(this);
+    this.ratingChanged = this.ratingChanged.bind(this);
+    this.fetchApprovedReviews = this.fetchApprovedReviews.bind(this);
   }
   componentDidMount() {
     this.fetchAllReviews();
   }
 
+  ratingChanged(newRating) {
+    this.setState({ rating: newRating });
+  }
+
   async handleSubmitForm(values) {
     const errorMessages = this.props.content.get("errors");
     const { nickName, message } = values.toJS();
+    const { rating } = this.state;
     console.log(nickName);
     const errors = {};
     if (isRequired(message)) {
@@ -40,7 +50,7 @@ class ReviewPage extends React.Component {
     if (Object.keys(errors).length > 0) {
       throw new SubmissionError(errors);
     } else {
-      this.uploadReview(nickName, message);
+      this.uploadReview(nickName, message, rating);
     }
   }
 
@@ -48,54 +58,61 @@ class ReviewPage extends React.Component {
     try {
       const response = await returnAllReviewsPromise();
       this.setState({ allReviewsArray: response.data });
-      console.log("data", response.data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  async uploadReview(email,message){
-    try{
-      const response = await returnPromiseUploadReview(email,message);
-      console.log("succes upload review");
-    } catch(error){
-      console.log("not usccessful upload review",error);
+  async uploadReview(email, message, rating) {
+    const toastMessage = this.props.content.get("toastMessageForReviewPage");
+    try {
+      const response = await returnPromiseUploadReview(email, message, rating);
+      this.fetchAllReviews();
+      sucessfulNotification(toastMessage.get("successfullSendReview"));
+    } catch (error) {
+      console.log(error);
+      errorNotification(toastMessage.get("notSuccessfulToast"));
     }
   }
 
   async approveReview(id) {
-    try{
+    const toastMessage = this.props.content.get("toastMessageForReviewPage");
+    try {
       const response = await returnPromiseApproveReview(id);
-      console.log("successful approved id ",id);
-    } catch(error){
-      console.log("not usccessful approved",id, error);
+      sucessfulNotification(toastMessage.get("successfulAprrove"));
+    } catch (error) {
+      errorNotification(toastMessage.get("notSuccessfulToast"));
     }
   }
   async deleteReview(id) {
-    try{
-      const response = await returnPromiseDeleteReview(id)
-      console.log("successful delete review", id);
-    } catch(error){
-      console.log("not successful delete", id,error);
+    const toastMessage = this.props.content.get("toastMessageForReviewPage");
+    try {
+      const response = await returnPromiseDeleteReview(id);
+      const newArray = this.state.allReviewsArray.filter(value => value.id !== id);
+      this.setState({ allReviewsArray: newArray });
+      infoNotification(toastMessage.get("successfullyDeletedReview"));
+    } catch (error) {
+      errorNotification(toastMessage.get("notSuccessfulToast"));
     }
   }
 
-  async fetchApprovedReviews(){
-    try{
+  async fetchApprovedReviews() {
+    try {
       const response = await returnApprovedReviewsPromise();
-      console.log("succesfull download approved review", response.data);
-    } catch(error){
-      console.log("not successful download approved review");
+    } catch (error) {
+      console.log(error);
     }
   }
 
 
   render() {
     const nameOfFields = this.props.content.get("reviewForm");
-    const reviewsElemet = this.state.allReviewsArray.map(value => (
+    const array = this.state.allReviewsArray;
+    const reviewsElements = this.state.allReviewsArray.map(value => (
       <ReviewComponent
         message={value.message}
         nickName={value.nickName}
+        rating={value.rating}
         deleteReview={this.deleteReview}
         approveReview={this.approveReview}
         id={value.id}
@@ -104,8 +121,10 @@ class ReviewPage extends React.Component {
     ));
     return (
       <div>
-        <ReviewForm onSubmit={this.handleSubmitForm} nameOfFields={nameOfFields} />
-        {reviewsElemet}
+        <ToastContainer position="bottom-center" hideProgressBar />
+        <ReviewForm onSubmit={this.handleSubmitForm} nameOfFields={nameOfFields} ratingChanged={this.ratingChanged} />
+        {array.lenght !== 0 ? <PaginationComponent arrayOfReviews={array} hello={"hello"}  deleteReview={this.deleteReview}
+        approveReview={this.approveReview} /> : null}
       </div>
     );
   }

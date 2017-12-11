@@ -36,6 +36,12 @@
       "firstName": "Name",
       "lastName": "Surname",
       "message": "Message"
+    },
+    "toastMessageForReviewPage": {
+      "successfulAprrove": "Review was successfuly approved",
+      "notSuccessfulToast": "Some error occured",
+      "successfullSendReview": "Review was successfully sent",
+      "successfullyDeletedReview": "Review was successfully deleted"
     }
   },
   {
@@ -75,6 +81,12 @@
       "firstName": "Meno",
       "lastName": "Priezvisko",
       "message": "Sprava"
+    },
+    "toastMessageForReviewPage": {
+      "successfulAprrove": "Recenzia bola uspesne schvalena",
+      "notSuccessfulToast": "Doslo k chybe",
+      "successfullSendReview": "Recenzia bola uspesne odoslana",
+      "successfullyDeletedReview": "Recenzia bola uspesne vymazana"
     }
   }
 ]

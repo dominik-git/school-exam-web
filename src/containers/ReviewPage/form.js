@@ -1,18 +1,21 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form/immutable";
+import ReactStars from "react-stars";
 import PropTypes from "prop-types";
 import ReduxFormField from "../../components/FormElements";
 import { StyledFormWrapper } from "./styles";
 
 const ReviewForm = props => {
-  const { handleSubmit, nameOfFields } = props;
+  const { handleSubmit, nameOfFields, ratingChanged } = props;
   return (
     <StyledFormWrapper>
       <form onSubmit={handleSubmit}>
         <div>
           <Field name="nickName" label={nameOfFields.get("emailField")} component={ReduxFormField} type="text" />
         </div>
-        <div>Star component</div>
+        <div>
+          <ReactStars count={5} onChange={ratingChanged} size={24} color2={"#ffd700"} />
+        </div>
         <div>
           <Field name="message" label={nameOfFields.get("message")} component={ReduxFormField} type="textarea" />
         </div>
@@ -29,5 +32,6 @@ export default reduxForm({
 
 ReviewForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  nameOfFields: PropTypes.object,
+  nameOfFields: PropTypes.object.isRequired,
+  ratingChanged: PropTypes.func.isRequired,
 };

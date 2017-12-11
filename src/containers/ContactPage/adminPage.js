@@ -20,27 +20,6 @@ class ContactPage extends React.Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
   /*eslint-disable */
-  async handleSubmitForm(values) {
-    const errorMessages = this.props.content.get("errors");
-    const { subject, emailAddress, confirmEmail, message } = values.toJS();
-    const errors = {};
-    console.log(values.toJS(), errors);
-    if (isRequired(emailAddress)) {
-      errors.emailAddress = errorMessages.get("fieldIsRequired");
-    }
-    if (isRequired(confirmEmail)) {
-      errors.confirmEmail = errorMessages.get("fieldIsRequired");
-    }
-    if (confirmEmail !== emailAddress) {
-      errors.confirmEmail = errorMessages.get("emailDoNotMatch");
-    }
-    if (Object.keys(errors).length > 0) {
-      console.log("tusom");
-      throw new SubmissionError(errors);
-    } else {
-      sendContactFormular(emailAddress, message, subject);
-    }
-  }
 
   render() {
     const nameOfFields = this.props.content.get("contactForm");
@@ -49,12 +28,11 @@ class ContactPage extends React.Component {
     const CenterPosition = { lat: 48.7290529, lng: 21.2764167 };
     return (
       <StyledContactPageWrapper>
-        <GoogleMapComponent
+        {/* <GoogleMapComponent
           MarkerPosition={MarkerPosition}
           CenterPosition={CenterPosition}
           isMarkerShown={this.state.isMarkerShown}
-        />
-        <ContactForm onSubmit={this.handleSubmitForm} nameOfFields={nameOfFields} />
+        /> */}
         <ContactInfo />
       </StyledContactPageWrapper>
     );
