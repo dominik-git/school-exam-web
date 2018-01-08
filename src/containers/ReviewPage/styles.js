@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-export const StyledFormWrapper = styled.div`
-  display: inline-block;
-  width: 400px;
-  background: #9f8585;
-`;
+export const StyledFormWrapper = styled.div``;
 export const StyledFormContent = styled.div``;
 export const StyledContactInfo = styled.div`
   width: 400px;

@@ -1,14 +1,18 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  font-size: 30px;
-  z-index: 100;
-  height: 100%;
-  width: 100%;
-  display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // font-size: 30px;
+  // z-index: 100;
+  // height: 100%;
+  // width: 100%;
+  // display: flex;
+  position: absolute;
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
 `;
 export const StyledOverlay = styled.div`
   background-color: rgb(51, 51, 51);
@@ -18,13 +22,14 @@ export const StyledOverlay = styled.div`
   left: 0;
   height: 100%;
   width: 100%;
+  z-index: 10;
 `;
 export const StyledSlider = styled.div``;
 export const StyledContent = styled.div`
-  background: purple;
   height: 500px;
   width: 500px;
   position: relative;
+  z-index: 15;
 `;
 // export const StyledOverlay = styled.div`
 //   ${props => (props.resize === true ? "height: 40px" : "height: 24px")};

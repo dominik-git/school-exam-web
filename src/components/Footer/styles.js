@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const StyledFooter = styled.div`
-  margin-top: 10%;
+  margin-top: 50px;
   height: 200px;
-  background: green;
+  background: ${props => props.theme.color.bmwBlack};
 `;
 
 export const StyledFooterContent = styled.div``;

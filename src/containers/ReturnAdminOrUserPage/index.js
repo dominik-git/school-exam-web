@@ -8,9 +8,6 @@ export default function getComponents(AdminComponent, UserComponent) {
   class Wrapper extends React.Component {
     constructor() {
       super();
-      this.state = {
-        s: 1,
-      };
     }
     render() {
       if (this.props.isAdmin) {

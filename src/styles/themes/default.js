@@ -9,6 +9,11 @@ const color = {
   info: "#d1ecf1",
   light: "#fefefe",
   dark: "#d6d8d9",
+  bmwGrey: "#929292",
+  bmwLightBlue: "#009ada",
+  bmwDarkBlue: "#10369c;",
+  bmwRed: "#e10707",
+  bmwBlack: "rgb(39, 37, 37)",
 };
 const border = {
   primaryBorder: "4px",

@@ -105,7 +105,6 @@ class GalleryPage extends React.Component {
     }
   }
   render() {
-    console.log(this.props.galleryPhotos.toJSON());
     const {
       isMoveLeftPossible,
       isMoveRightPossible,

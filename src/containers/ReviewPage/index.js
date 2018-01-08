@@ -39,13 +39,12 @@ class ReviewPage extends React.Component {
   }
 
   async handleSubmitForm(values) {
-    const errorMessages = this.props.content.get("errors");
     const { nickName, message } = values.toJS();
     const { rating } = this.state;
     console.log(nickName);
     const errors = {};
     if (isRequired(message)) {
-      errors.message = errorMessages.get("fieldIsRequired");
+      errors.message = "fieldIsRequired";
     }
     if (Object.keys(errors).length > 0) {
       throw new SubmissionError(errors);

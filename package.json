@@ -18,11 +18,13 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@humblebee/styled-components-breakpoint": "^2.1.2",
     "@storybook/addon-actions": "^3.2.6",
     "@storybook/addon-links": "^3.2.6",
     "@storybook/react": "^3.2.8",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
+    "base-64": "^0.1.0",
     "chai": "^4.1.2",
     "dotenv": "^4.0.0",
     "eslint-config-react-app": "^2.0.1",
@@ -32,6 +34,7 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "^16.0.0",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
     "react-recaptcha": "^2.3.5",
     "react-redux": "^5.0.6",

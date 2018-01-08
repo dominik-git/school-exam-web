@@ -1,9 +1,9 @@
 import React from "react";
 import { StyledPaginationWrapper, StyledNumberWrapper, StyledNumber } from "./styles";
 import ReviewComponent from "../../components/ReviewComponent";
+import {Row, Col} from "react-bootstrap";
 
 const todosPerPage = 3;
-const numberToShow = 5;
 
 class PaginationComponent extends React.Component {
   constructor() {
@@ -50,24 +50,28 @@ class PaginationComponent extends React.Component {
     if (currentTodos.lenght === 0) {
       this.setState({ currentPage: currentPage - 1 });
     }
-    const renderTodos = currentTodos.map(value => (
+    const renderReviews = currentTodos.map(value => (
+      <Col xs={12} md={8} lg={4} mdOffset={2} lgOffset={0}>
       <ReviewComponent
         message={value.message}
         nickName={value.nickName}
         rating={value.rating}
+        date={value.date}
         deleteReview={this.props.deleteReview}
         approveReview={this.props.approveReview}
         id={value.id}
         key={value.id}
+        role={this.props.role}
       />
+      </Col>
     ));
 
     // Logic for displaying page numbers
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(arrayOfReviews.length / todosPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(arrayOfReviews.length / todosPerPage); i += 1) {
       pageNumbers.push(i);
     }
-    // const slicedPageNumber = this.handlePaginationNumber()
+
     const renderPageNumbers = pageNumbers.map(number => (
       <StyledNumber key={number} id={number} onClick={this.handleClick} currentPage={currentPage}>
         {number}
@@ -76,7 +80,9 @@ class PaginationComponent extends React.Component {
 
     return (
       <StyledPaginationWrapper>
-        {renderTodos}
+         <Row className="show-grid">
+         {renderReviews}
+        </Row>
         <StyledNumberWrapper>{renderPageNumbers}</StyledNumberWrapper>
       </StyledPaginationWrapper>
     );

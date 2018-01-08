@@ -3,13 +3,33 @@ import styled from "styled-components";
 export const FormControlWrapper = styled.div`
   width: 100%;
 `;
+export const StyledInputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border: black 1px solid;
+`;
+export const StyledInputIconWrapper = styled.div`
+  width: 55px;
+  background: #cacaca;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledIcon = styled.span``;
+
 export const StyledInput = styled.input`
   height: ${props => props.theme.rem(25)};
   width: 100%;
-  border: 1px solid grey;
+  height: 50px;
+  border: none;
   border-radius: ${props => props.theme.rem(3)};
   padding-left: ${props => props.theme.rem(5)};
   box-sizing: border-box;
+  &:focus {
+    border-color: #01b2b7;
+  }
 `;
 
 export const LabelWrapper = styled.div`
@@ -62,4 +82,11 @@ export const CapsLockMessage = styled.span`
 export const StyledFormLabel = styled.div`
   padding-bottom: ${props => props.theme.rem(3)};
 `;
-export const StyledTextArea = styled.textarea``;
+export const StyledTextArea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  border: none;
+  &:focus {
+    border-color: #01b2b7;
+  }
+`;

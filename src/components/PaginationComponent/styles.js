@@ -7,13 +7,12 @@ const selectedPageStyles = {
 export const StyledPaginationWrapper = Styled.div`
   display: flex;
   flex-direction: column;
-  background: #b0e3e3;
   position:relative;
-  min-height:400px;
+  justify-content:center;
 `;
 export const StyledNumberWrapper = Styled.ul`
 position: absolute;
-bottom: 0;
+bottom: -50px;
 padding: 0;
 
 `;

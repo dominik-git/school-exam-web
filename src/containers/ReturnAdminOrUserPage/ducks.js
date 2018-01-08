@@ -1,23 +1,31 @@
 import { fromJS } from "immutable";
 import { createSelector } from "reselect";
 
-const SET_ADMIN_TOKEN = "SET_ADMIN_TOKEN";
+const LOG_IN = "LOG_IN";
+const LOG_OUT = "LOG_OUT";
 
-export function storeAdminToken(payload) {
+export function logIn() {
+  console.log("log in");
   return {
-    type: SET_ADMIN_TOKEN,
-    payload,
+    type: LOG_IN,
+  };
+}
+export function logOut() {
+  return {
+    type: LOG_OUT,
   };
 }
 
 const initialState = fromJS({
-  isAdmin: true,
+  isAdmin: false,
 });
 
 export function adminReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case SET_ADMIN_TOKEN:
-      return state.set("isAdmin", action.payload);
+    case LOG_IN:
+      return state.set("isAdmin", true);
+    case LOG_OUT:
+      return state.set("isAdmin", false);
     default:
       return state;
   }

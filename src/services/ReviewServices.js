@@ -18,12 +18,12 @@ export function returnApprovedReviewsPromise() {
 }
 
 // upload new review
-export function returnPromiseUploadReview(nickName, message, rating) {
+export function returnPromiseUploadReview(nickName, message, rating, date) {
   const options = {
     method: "POST",
     url: "/api/review",
     headers: { "Content-Type": "application/json" },
-    data: JSON.stringify({ nickName, message, rating }),
+    data: JSON.stringify({ nickName, message, rating, date }),
   };
   return axios(options);
 }

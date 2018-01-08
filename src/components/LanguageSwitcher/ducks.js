@@ -12,13 +12,14 @@ export function switchLanguage(payload) {
 }
 
 const initialState = fromJS({
-  content: api.getContent("en"),
+  content: api.getContent("sk"),
+  selectedLanguage: "sk",
 });
 
 export function languageReducer(state = initialState, action = {}) {
   switch (action.type) {
     case SWITCH_LANGUAGE:
-      return state.set("content", fromJS(api.getContent(action.payload)));
+      return state.set("content", fromJS(api.getContent(action.payload))).set("selectedLanguage", action.payload);
     default:
       return state;
   }
