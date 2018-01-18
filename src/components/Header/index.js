@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { seletectContent } from "../LanguageSwitcher/ducks";
+import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
 // import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 import {
   StyledHeaderWrapper,
   StyledLogoWrapper,
@@ -81,11 +80,11 @@ class Header extends React.Component {
         <StyledInfoWrapper>
           <StyledNumber>
             <StyledIcon>{phoneIcon}</StyledIcon>
-            54545545454
+            {this.props.contactDetails.get("number1")}
           </StyledNumber>
           <StyledEmail>
             <StyledIcon>{emailIcon}</StyledIcon>
-            email.email.sk
+            {this.props.contactDetails.get("emailAddress")}
           </StyledEmail>
         </StyledInfoWrapper>
         <StyledLogoWrapper src={bmwLogo} alt={"logo"} />
@@ -112,15 +111,15 @@ class Header extends React.Component {
             Kontakt
           </StyledNavLink>
           <StyledNavLink to="/review" activeStyle={activeStyle}>
-            Recenzia
+            Recenzie
           </StyledNavLink>
         </StyledMenuWrapper>
       </StyledHeaderWrapper>
     );
   }
 }
-
 const mapStateToProps = createStructuredSelector({
-  content: seletectContent(),
+  contactDetails: selectContactDetails(),
 });
-export default connect(mapStateToProps, null)(Header);
+
+export default connect(mapStateToProps,null)(Header);

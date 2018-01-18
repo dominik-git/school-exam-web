@@ -5,7 +5,7 @@ const color = {
   secondary: "#dddfe2",
   success: "#d4edda",
   danger: "#f8d7da",
-  warning: "#fff3cd",
+  warning: "red",
   info: "#d1ecf1",
   light: "#fefefe",
   dark: "#d6d8d9",

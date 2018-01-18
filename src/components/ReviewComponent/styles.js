@@ -18,6 +18,7 @@ export const StyledRightSide = styled.div`
   flex-direction: column;
 `;
 export const StyledLeftSide = styled.div`
+  text-align: center;
   background: white;
   font-size: 18px;
 `;
@@ -52,4 +53,11 @@ export const StyledApprove = styled.div`
   background: green;
   height: 100px;
   width: 30px;
+`;
+export const StyledDeleteIcon = styled.span`
+  color: red;
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;

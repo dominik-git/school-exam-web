@@ -8,40 +8,36 @@ import {
   StyledNick,
   StyledHeader,
   StyledDelete,
-  StyledApprove,
+  StyledDeleteIcon,
   StyledIcon,
   StyledLeftSide,
   StyledRightSide,
 } from "./styles";
 
 const ReviewComponent = props => {
-  console.log(props);
   const { nickName, message, deleteReview, approveReview, id, rating, role, date } = props;
   const userIcon = <i className="fa fa-user fa-3x" aria-hidden="true" />;
   if (role === "admin") {
     return (
       <StyledWrapper>
-       <StyledLeftSide>
-       <StyledIcon>{userIcon}</StyledIcon>
-     </StyledLeftSide>
-     <StyledRightSide>
-       <StyledHeader>
-         <ReactStars count={5} size={24} color2={"#ffd700"} edit={false} value={rating} />
-         <StyledNick>{nickName}</StyledNick>
-         <StyledDate>{date}</StyledDate>
-       </StyledHeader>
-       <StyledMessage>{message}</StyledMessage>
-     </StyledRightSide>
-        <StyledDelete
+        <StyledLeftSide>
+          <StyledIcon>{userIcon}</StyledIcon>
+        </StyledLeftSide>
+        <StyledRightSide>
+          <StyledHeader>
+            <ReactStars count={5} size={24} color2={"#ffd700"} edit={false} value={rating} />
+            <StyledNick>{nickName}</StyledNick>
+            <StyledDate>{date}</StyledDate>
+          </StyledHeader>
+          <StyledMessage>{message}</StyledMessage>
+        </StyledRightSide>
+        <StyledDeleteIcon
           onClick={() => {
             deleteReview(id);
           }}
-        />
-        <StyledApprove
-          onClick={() => {
-            approveReview(id);
-          }}
-        />
+        >
+          <i className="fa fa-trash-o fa-2x" aria-hidden="true" />
+        </StyledDeleteIcon>
       </StyledWrapper>
     );
   } else if (role === "user") {

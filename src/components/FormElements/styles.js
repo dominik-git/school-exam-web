@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+const disabled = {
+  background: "#dddddd",
+  color: "#495057",
+  cursor: "no-drop",
+};
+
 export const FormControlWrapper = styled.div`
   width: 100%;
 `;
@@ -24,12 +30,17 @@ export const StyledInput = styled.input`
   width: 100%;
   height: 50px;
   border: none;
+  background:#d5d5da;
   border-radius: ${props => props.theme.rem(3)};
   padding-left: ${props => props.theme.rem(5)};
   box-sizing: border-box;
+  ${props => (props.readOnly ? disabled : null)};
   &:focus {
     border-color: #01b2b7;
   }
+`;
+export const StyledSelect = styled.div`
+  background:blue;
 `;
 
 export const LabelWrapper = styled.div`

@@ -51,3 +51,8 @@ export const StyledTitle = styled.h1`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
+export const StyledSelect = styled.select`
+  background: black;
+  height: 34px;
+  width: 268px;
+`;

@@ -8,9 +8,9 @@ import ContactForm from "./userComponents/form";
 import ContactInfo from "./userComponents/contactInfo";
 import { isRequired } from "../../services/validation";
 import { StyledContactPageWrapper, StyledTitle } from "./styles";
-import { seletectContent } from "../../components/LanguageSwitcher/ducks";
 import { sendContactFormular } from "../../services/axiosServices";
-import { returnContentPromise } from "../../services/ContactPageServices";
+import { returnContentDetailPromise } from "../../services/ContactPageServices";
+import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
 
 // const nameOfFields = this.props.content.get("contactForm");
 /*eslint-disable */
@@ -28,18 +28,17 @@ class ContactPage extends React.Component {
   }
 
   async handleSubmitForm(values) {
-    const errorMessages = this.props.content.get("errors");
     const { subject, emailAddress, confirmEmail, message } = values.toJS();
     const errors = {};
     console.log(values.toJS(), errors);
     if (isRequired(emailAddress)) {
-      errors.emailAddress = errorMessages.get("fieldIsRequired");
+      errors.emailAddress = "fieldIsRequired";
     }
     if (isRequired(confirmEmail)) {
-      errors.confirmEmail = errorMessages.get("fieldIsRequired");
+      errors.confirmEmail = "fieldIsRequired";
     }
     if (confirmEmail !== emailAddress) {
-      errors.confirmEmail = errorMessages.get("emailDoNotMatch");
+      errors.confirmEmail = "emailDoNotMatch";
     }
     if (Object.keys(errors).length > 0) {
       console.log("tusom");
@@ -50,7 +49,7 @@ class ContactPage extends React.Component {
   }
   async fetchContent() {
     try {
-      const response = await returnContentPromise();
+      const response = await returnContentDetailPromise();
       if (response.data[0] === "undefined") {
         this.setState({ content: null });
       } else {
@@ -62,8 +61,6 @@ class ContactPage extends React.Component {
   }
 
   render() {
-    console.log("o", this.state.content);
-    const nameOfFields = this.props.content.get("contactForm");
     //marker position "priemyselna 2"
     const MarkerPosition = { lat: 48.7290529, lng: 21.2764167 };
     const CenterPosition = { lat: 48.7290529, lng: 21.2764167 };
@@ -83,20 +80,20 @@ class ContactPage extends React.Component {
         <Row className="show-grid">
           <Col xs={12} md={5} lg={6}>
             <StyledTitle>Kontaktne informacie</StyledTitle>
-            {this.state.content == null ? <div>Empty</div> : <ContactInfo content={this.state.content} />}
+            {this.state.content == null ? <div>Empty</div> : <ContactInfo content={this.props.contactDetails} />}
           </Col>
           <Col xs={12} md={7} lg={6}>
             <StyledTitle>Kontaktujte nas</StyledTitle>
-            <ContactForm onSubmit={this.handleSubmitForm} nameOfFields={nameOfFields} title={"Kontaktuje nas"} />
-            {/* initialValues={{ message: "emailasdasdasasas" }} */}
+            <ContactForm onSubmit={this.handleSubmitForm} />
           </Col>
         </Row>
       </StyledContactPageWrapper>
     );
   }
 }
+
 const mapStateToProps = createStructuredSelector({
-  content: seletectContent(),
+  contactDetails: selectContactDetails(),
 });
 
 export default connect(mapStateToProps)(ContactPage);

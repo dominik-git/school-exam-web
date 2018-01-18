@@ -1,22 +1,12 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  // align-items: center;
-  // justify-content: center;
-  // font-size: 30px;
-  // z-index: 100;
-  // height: 100%;
-  // width: 100%;
-  // display: flex;
-  position: absolute;
-  width: 500px;
-  top: 50%;
-  left: 50%;
-  margin-left: -250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const StyledOverlay = styled.div`
-  background-color: rgb(51, 51, 51);
-  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.88);
   position: fixed;
   top: 0;
   left: 0;

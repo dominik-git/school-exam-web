@@ -5,7 +5,7 @@ import { ReduxFormInputWithIcon, FormTextAreaWithIcon, FormInput } from "../../.
 import { StyledFormWrapper, StyledSubmitButton } from "../styles";
 
 const ContactForm = props => {
-  const { handleSubmit, nameOfFields } = props;
+  const { handleSubmit } = props;
   const addressIcon = <i className="fa fa-envelope fa-2x" aria-hidden="true" />;
   const userIcon = <i className="fa fa-user fa-2x" aria-hidden="true" />;
   const messageIcon = <i className="fa fa-commenting fa-2x" aria-hidden="true" />;
@@ -68,5 +68,4 @@ export default reduxForm({
 
 ContactForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  nameOfFields: PropTypes.object,
 };

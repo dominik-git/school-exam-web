@@ -16,7 +16,7 @@ export async function sendContactFormular(emailAddress, message, subject) {
   }
 }
 
-export async function UploadPhoto(photoFile) {
+export  function UploadPhoto(photoFile) {
   const photoData = new FormData();
   photoData.append("photo", photoFile);
   const options = {
@@ -24,12 +24,6 @@ export async function UploadPhoto(photoFile) {
     url: "/api/gallery",
     headers: { "Content-Type": "multipart/form-data" },
     data: photoData,
-  };
-  try {
-    const response = await axios(options);
-    console.log(response);
-  } catch (error) {
-    console.log("error", error);
   }
 }
 

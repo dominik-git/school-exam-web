@@ -10,7 +10,7 @@ import { selectMyPhotos, asyncAction } from "./ducks";
 
 /*eslint-disable */
 
-class GalleryPage extends React.Component {
+class GalleryPageForUser extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -99,6 +99,7 @@ class GalleryPage extends React.Component {
       );
     }
   }
+
   render() {
     const {
       isMoveLeftPossible,
@@ -113,6 +114,7 @@ class GalleryPage extends React.Component {
         <GalleryImage
           key={item.id}
           obj={item.data}
+          id={item.id}
           position={index}
           handleSliderAndPassImage={this.showSliderAndPassImage}
         />
@@ -143,4 +145,4 @@ const mapStateToProps = createStructuredSelector({
   galleryPhotos: selectMyPhotos(),
 });
 
-export default connect(mapStateToProps)(GalleryPage);
+export default connect(mapStateToProps)(GalleryPageForUser);

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import { getStateIsAdmin } from "./ducks";
+import { getStateIsAdmin } from "../../selectors/roleSelector";
 
 export default function getComponents(AdminComponent, UserComponent) {
   class Wrapper extends React.Component {
@@ -10,6 +10,7 @@ export default function getComponents(AdminComponent, UserComponent) {
       super();
     }
     render() {
+      console.log("role", this.props.isAdmin);
       if (this.props.isAdmin) {
         return <AdminComponent />;
       }

@@ -4,7 +4,6 @@ import { createStructuredSelector } from "reselect";
 import { SubmissionError } from "redux-form/immutable";
 import { ToastContainer } from "react-toastify";
 import { Row, Col } from "react-bootstrap";
-import { seletectContent } from "../../components/LanguageSwitcher/ducks";
 import ReviewForm from "./userComponents/form";
 import { isRequired } from "../../services/validation";
 import { returnApprovedReviewsPromise, returnPromiseUploadReview } from "../../services/ReviewServices";
@@ -26,11 +25,11 @@ class ReviewPageForUser extends React.Component {
     this.fetchApprovedReviews = this.fetchApprovedReviews.bind(this);
   }
   componentDidMount() {
-    this.fetchApprovedReviews();
+  this.fetchApprovedReviews();
   }
 
   ratingChanged(newRating) {
-    this.setState({ rating: newRating });
+  this.setState({ rating: newRating });
   }
   generateCurrentDate() {
     let today = new Date();
@@ -47,7 +46,7 @@ class ReviewPageForUser extends React.Component {
     return today;
   }
 
-  async handleSubmitForm(values) {
+  handleSubmitForm(values) {
     const { nickName, message } = values.toJS();
     const { rating } = this.state;
     const errors = {};
@@ -84,7 +83,6 @@ class ReviewPageForUser extends React.Component {
 
   render() {
     const array = this.state.allReviewsArray;
-
     return (
       <div>
         <ToastContainer position="bottom-center" hideProgressBar />
@@ -104,8 +102,5 @@ class ReviewPageForUser extends React.Component {
     );
   }
 }
-const mapStateToProps = createStructuredSelector({
-  content: seletectContent(),
-});
 
-export default connect(mapStateToProps)(ReviewPageForUser);
+export default ReviewPageForUser;

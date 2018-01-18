@@ -3,7 +3,7 @@ import axios from "axios";
 import base64 from "base-64";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { logIn } from "../ReturnAdminOrUserPage/ducks";
+import { logIn } from "../../actions/roleActions";
 
 import LoginForm from "./form";
 

@@ -1,143 +1,116 @@
 import React from "react";
-import { createStructuredSelector } from "reselect";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { SubmissionError } from "redux-form/immutable";
-import GoogleMapComponent from "../../components/GoogleMap";
-// import ContactForm from "./form";
-// import ContactInfo from "./contactInfo";
-import { isRequired } from "../../services/validation";
+import { createStructuredSelector } from "reselect";
 import { StyledContactPageWrapper } from "./styles";
-import { sendContactFormular } from "../../services/axiosServices";
+import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
 import AdminContactForm from "./adminComponents/form";
-import { allowEditing, forbidEditing, getStateIsEdit } from "./ducks";
-import {
-  returnContentPromise,
-  returnUpdateContentPromise,
-  returnSaveContentPromise,
-} from "../../services/ContactPageServices";
+import { isRequired } from "../../services/validation";
+import { returnUpdateContentDetailPromise, returnSaveContentDetailPromise } from "../../services/ContactPageServices";
 
-// const nameOfFields = this.props.content.get("contactForm");
-class ContactPage extends React.Component {
-  constructor() {
-    super();
+class ContactPageForAdmin extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       isMarkerShown: true,
-      edit: false,
-      isEmpty: false,
-      initValues: {
-        address: "",
-        emailAddress: "",
-        serviceName: "",
-        phone1: "",
-        phone2: "",
-        openDay: "",
-        closeDay: "",
-      },
-      content: null,
+      readOnly: true,
     };
     this.handleEditState = this.handleEditState.bind(this);
-  }
-  componentDidMount() {
-    this.fetchContent();
+    this.handleSubmitFormUpdate = this.handleSubmitFormUpdate.bind(this);
+    this.handleSubmitFormCreate = this.handleSubmitFormCreate.bind(this); 
   }
 
   handleEditState() {
-    if (this.state.edit) {
-      this.setState({ edit: false });
-    } else if (!this.state.edit) {
-      this.setState({ edit: true });
+    if (this.state.readOnly) {
+      this.setState({ readOnly: false });
+    } else if (!this.state.readOnly) {
+      this.setState({ readOnly: true });
     }
   }
 
-  async fetchContent() {
+  async handleSubmitFormUpdate(values) {
     try {
-      const response = await returnContentPromise();
-      if (response.data[0] === undefined) {
-        this.setState({ content: null });
-      } else {
-        this.setState({ content: response.data[0] },()=>{console.log("asd",this.state.content)});
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // async handleCreateContent(values) {
-  //   try {
-  //     const response = await returnSaveContentPromise(values);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // }
-
-  // async handleUpdateContent(values) {
-  //   try {
-  //     const response = await returnUpdateContentPromise(values);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // }
-
-  async handleSubmitFormUpdate(values,id) {
-    try {
-      const response = await returnUpdateContentPromise(values.toJS(), id);
+      const response = await returnUpdateContentDetailPromise(values.toJS());
       console.log(response);
+      window.location.reload();
     } catch (error) {
       console.log("error", error);
     }
   }
+
 
   async handleSubmitFormCreate(values) {
-    try {
-      const response = await returnSaveContentPromise(values.toJS());
-      console.log(response);
-    } catch (error) {
-      console.log("error", error);
+    const {serviceName,address,emailAddress,number1} =values.toJS()
+
+    const errors = {};
+    if (isRequired(serviceName)) {
+      errors.serviceName = "fieldIsRequired";
     }
+    if (isRequired(address)) {
+      errors.address = "fieldIsRequired";
+    }
+    if (isRequired(emailAddress)) {
+      errors.emailAddress = "fieldIsRequired";
+    }
+    if (isRequired(number1)) {
+      errors.number1 = "fieldIsRequired";
+    }
+    if (Object.keys(errors).length > 0) {
+      throw new SubmissionError(errors);
+    } else {
+      try {
+        const response = await returnSaveContentDetailPromise(values.toJS());
+        if (response.status === 200) {
+          console.log(response);
+          window.location.reload();
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+    
   }
+
 
   render() {
-    // marker position "priemyselna 2"
-    // const MarkerPosition = { lat: 48.7290529, lng: 21.2764167 };
-    // const CenterPosition = { lat: 48.7290529, lng: 21.2764167 };
-    // if (content !== null) {
-
-    if (this.state.content != null || this.state.content != undefined) {
-      const { content } = this.state;
-      console.log(content);
-      const initValues = {
-        address: content.address,
-        emailAddress: "asdasd@asda.sk",
-        serviceName: content.serviceName,
-        number1: content.number1,
-        number2: content.number2,
-        openDay: content.openDay,
-        closeDay: content.closeDay,
-      };
+    const { contactDetails } = this.props;
+    const initialValues = {
+      id: contactDetails.get("id"),
+      address: contactDetails.get("address"),
+      emailAddress: contactDetails.get("emailAddress"),
+      serviceName: contactDetails.get("serviceName"),
+      number1: contactDetails.get("number1"),
+      number2: contactDetails.get("number2"),
+      openDay: contactDetails.get("openDay"),
+      closeDay: contactDetails.get("closeDay"),
+      openTime: contactDetails.get("openTime"),
+      closeTime: contactDetails.get("closeTime"),
+    };
+   
+    if (contactDetails.size == 0 ) {
       return (
         <StyledContactPageWrapper>
-          <div onClick={this.handleEditState}>as</div>
-          <AdminContactForm isEditable={this.state.edit} onSubmit={this.handleSubmitFormUpdate} initialValues={initValues} />
+          <AdminContactForm isEditable={this.state.edit} onSubmit={this.handleSubmitFormCreate} />
         </StyledContactPageWrapper>
       );
-    }
+    } 
+
     return (
       <StyledContactPageWrapper>
-        <div onClick={this.handleEditState}>as</div>
-        <AdminContactForm isEditable={this.state.edit} onSubmit={this.handleSubmitFormCreate} />
+        <button onClick={this.handleEditState}>EDIT</button>
+        <AdminContactForm
+          readOnly={this.state.readOnly}
+          changeSubmitButtonText
+          onSubmit={this.handleSubmitFormUpdate}
+          initialValues={initialValues}
+        />
       </StyledContactPageWrapper>
     );
-   
   }
 }
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ allowEditing, forbidEditing }, dispatch);
-}
+
 const mapStateToProps = createStructuredSelector({
-  isEdit: getStateIsEdit(),
+  contactDetails: selectContactDetails(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactPage);
+export default connect(mapStateToProps)(ContactPageForAdmin);

@@ -17,7 +17,7 @@ const Contactinfo = props => (
         <Text bold lg>
           Adresa
         </Text>
-        <Text>{props.content.address}</Text>
+        <Text> {props.content.get("address")}</Text>
       </StyledDetailInfo>
     </StyledRow>
     <StyledRow>
@@ -27,7 +27,7 @@ const Contactinfo = props => (
           Telefon
         </Text>
         <Text>
-          {props.content.number1}, {props.content.number2}
+          {props.content.get("number1")}, {props.content.get("number2")}
         </Text>
       </StyledDetailInfo>
     </StyledRow>
@@ -37,7 +37,7 @@ const Contactinfo = props => (
         <Text bold lg>
           Email
         </Text>
-        <Text>{props.content.emailAddress}</Text>
+        <Text>{props.content.get("emailAddress")}</Text>
       </StyledDetailInfo>
     </StyledRow>
     <StyledRow>
@@ -47,7 +47,7 @@ const Contactinfo = props => (
           Otvaracie hodiny
         </Text>
         <Text>
-          {props.content.openDay}-{props.content.closeDay}:{props.content.openTime}-{props.content.closeTime}
+          {/* {props.content.openDay}-{props.content.closeDay}:{props.content.openTime}-{props.content.closeTime} */}
         </Text>
       </StyledDetailInfo>
     </StyledRow>

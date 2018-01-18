@@ -1,57 +1,26 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { SubmissionError } from "redux-form/immutable";
 import { ToastContainer } from "react-toastify";
-import { Row, Col } from "react-bootstrap";
-import { seletectContent } from "../../components/LanguageSwitcher/ducks";
-import { isRequired } from "../../services/validation";
-import {
-  returnAllReviewsPromise,
-  returnApprovedReviewsPromise,
-  returnPromiseUploadReview,
-  returnPromiseDeleteReview,
-  returnPromiseApproveReview} from "../../services/ReviewServices";
-import ReviewComponent from "../../components/ReviewComponent";
-import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
+import { Col } from "react-bootstrap";
+import { returnAllReviewsPromise, returnPromiseDeleteReview } from "../../services/ReviewServices";
+import { infoNotification, errorNotification } from "../../services/toastServices";
 import PaginationComponent from "../../components/PaginationComponent";
-
+import { toastForReviewPage } from "../../const/toastMessages";
+import ReviewComponent from "../../components/ReviewComponent";
 
 class ReviewPageForAdmin extends React.Component {
   constructor() {
     super();
     this.state = {
       allReviewsArray: [],
-      rating:0
+      arrayOfElements: [],
+      reviewsToShow: null,
+      currentPage: 1,
     };
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.deleteReview = this.deleteReview.bind(this);
-    this.approveReview = this.approveReview.bind(this);
-    this.uploadReview = this.uploadReview.bind(this);
-    this.ratingChanged = this.ratingChanged.bind(this);
-    this.fetchApprovedReviews = this.fetchApprovedReviews.bind(this);
+    this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
   }
   componentDidMount() {
     this.fetchAllReviews();
-  }
-
-  ratingChanged(newRating) {
-    this.setState({ rating: newRating });
-  }
-
-  async handleSubmitForm(values) {
-    const { nickName, message } = values.toJS();
-    const { rating } = this.state;
-    console.log(nickName);
-    const errors = {};
-    if (isRequired(message)) {
-      errors.message = "fieldIsRequired";
-    }
-    if (Object.keys(errors).length > 0) {
-      throw new SubmissionError(errors);
-    } else {
-      this.uploadReview(nickName, message, rating);
-    }
   }
 
   async fetchAllReviews() {
@@ -63,79 +32,57 @@ class ReviewPageForAdmin extends React.Component {
     }
   }
 
-  async uploadReview(email, message, rating) {
-    const toastMessage = this.props.content.get("toastMessageForReviewPage");
-    try {
-      const response = await returnPromiseUploadReview(email, message, rating);
-      this.fetchAllReviews();
-      sucessfulNotification(toastMessage.get("successfullSendReview"));
-    } catch (error) {
-      console.log(error);
-      errorNotification(toastMessage.get("notSuccessfulToast"));
-    }
-  }
-
-  async approveReview(id) {
-    const toastMessage = this.props.content.get("toastMessageForReviewPage");
-    try {
-      const response = await returnPromiseApproveReview(id);
-      sucessfulNotification(toastMessage.get("successfulAprrove"));
-    } catch (error) {
-      errorNotification(toastMessage.get("notSuccessfulToast"));
-    }
-  }
   async deleteReview(id) {
-    const toastMessage = this.props.content.get("toastMessageForReviewPage");
     try {
-      const response = await returnPromiseDeleteReview(id);
+      await returnPromiseDeleteReview(id);
       const newArray = this.state.allReviewsArray.filter(value => value.id !== id);
       this.setState({ allReviewsArray: newArray });
-      infoNotification(toastMessage.get("successfullyDeletedReview"));
+      infoNotification(toastForReviewPage.succesfullDeleted);
     } catch (error) {
-      errorNotification(toastMessage.get("notSuccessfulToast"));
+      errorNotification(toastForReviewPage.errorMeesage);
     }
   }
-
-  async fetchApprovedReviews() {
-    try {
-      const response = await returnApprovedReviewsPromise();
-    } catch (error) {
-      console.log(error);
-    }
+  handleSetCurrentPage(currentPage) {
+    this.setState({ currentPage });
   }
-
 
   render() {
-    const nameOfFields = this.props.content.get("reviewForm");
-    const array = this.state.allReviewsArray;
-    const reviewsElements = this.state.allReviewsArray.map(value => (
-      <ReviewComponent
-        message={value.message}
-        nickName={value.nickName}
-        rating={value.rating}
-        deleteReview={this.deleteReview}
-        approveReview={this.approveReview}
-        id={value.id}
-        key={value.id}
-      />
+    const { currentPage, allReviewsArray } = this.state;
+    const todosPerPage = 3;
+    const indexOfLastElementOnThePage = currentPage * todosPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - todosPerPage;
+    const splitedArray = allReviewsArray.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
+
+    const renderReviews = splitedArray.map(value => (
+      <Col xs={12} md={8} lg={4}>
+        <ReviewComponent
+          message={value.message}
+          nickName={value.nickName}
+          rating={value.rating}
+          date={value.date}
+          deleteReview={this.deleteReview}
+          id={value.id}
+          key={value.id}
+          role={"admin"}
+        />
+      </Col>
     ));
+
     return (
       <div>
-        <ToastContainer position="bottom-center" hideProgressBar />
-        {array.lenght !== 0 ? (
+        {allReviewsArray.lenght !== 0 ? (
           <PaginationComponent
-            arrayOfReviews={array}
-            deleteReview={this.deleteReview}
-            approveReview={this.approveReview}
-            role={"admin"} />)
-            : null
-        }
+            arrayOfReviews={allReviewsArray}
+            setCurrentPage={this.handleSetCurrentPage}
+            todosPerPage={todosPerPage}
+          >
+            {renderReviews}
+          </PaginationComponent>
+        ) : null}
+        <ToastContainer position="bottom-center" hideProgressBar />
       </div>
     );
   }
 }
-const mapStateToProps = createStructuredSelector({
-  content: seletectContent(),
-});
 
-export default connect(mapStateToProps)(ReviewPageForAdmin);
+export default ReviewPageForAdmin;

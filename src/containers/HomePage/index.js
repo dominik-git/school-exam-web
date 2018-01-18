@@ -1,4 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchContactDetailsAction } from "../../actions/contactDetailActions";
+import { returnContentDetailPromise } from "../../services/ContactPageServices";
 import PropTypes from "prop-types";
 import { HomePageWrapper, StyledContent, StyledSlider, StyledImg } from "./styles";
 import slide1 from "./assets/slide1.jpg";
@@ -18,12 +22,25 @@ class HomePage extends React.Component {
     };
     this.handlePossiiton = this.handlePossiiton.bind(this);
   }
+
   componentDidMount() {
     myInterval = setInterval(this.handlePossiiton, timePerSlide);
+    // this.handleFetchContantDetail();
   }
   componentWillUnmount() {
     clearInterval(myInterval);
   }
+  // async handleFetchContantDetail() {
+  //   console.log("init");
+  //   try {
+  //     const { data } = await returnContentDetailPromise();
+  //     if (data[0] != undefined) {
+  //       this.props.dispatch(fetchContactDetailsAction(data[0]));
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   handlePossiiton() {
     const { slides, possition } = this.state;
@@ -49,5 +66,7 @@ class HomePage extends React.Component {
     );
   }
 }
-
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ fetchContactDetailsAction }, dispatch);
+// }
 export default HomePage;
