@@ -1,16 +1,23 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import Slider from "../../components/Slider";
+import { ToastContainer } from "react-toastify";
 import { Row, Col } from "react-bootstrap";
-import { Styledwrapper, ImagesWrapper } from "./styles";
+import Slider from "../../components/Slider";
+import { ImagesWrapper, StyledUpload, StyledUploadWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
-import { UploadPhoto } from "../../services/axiosServices";
-import { selectMyPhotos, asyncAction } from "./ducks";
+import {
+  returnDeletePhotosPromise,
+  returnFetchPhotosPromise,
+  returnUploadPhotoPromise
+} from "../../services/GalleryServices";
+import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
+import { toastForGalleryPage } from "../../const/toastMessages";
+import PaginationComponent from "../../components/PaginationComponent";
+import Subheader from "../../components/SubHeader";
+import bmwImage from "../../assets/bmw7.jpg";
 
 /*eslint-disable */
-
-class GalleryPageForUser extends React.Component {
+const imagesPerPage = 8;
+class GalleryPageForAdmin extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -21,21 +28,35 @@ class GalleryPageForUser extends React.Component {
       isMoveRightPossible: true,
       isSliderShow: false,
       selectedImage: "",
-      uploadFile: "",
+      uploadFile: null,
+      isLoading: true,
+      elementFileInput: null,
+      currentPage: 1,
     };
     this.handleMoveLeft = this.handleMoveLeft.bind(this);
     this.handleMoveRight = this.handleMoveRight.bind(this);
     this.showSliderAndPassImage = this.showSliderAndPassImage.bind(this);
     this.closeSlider = this.closeSlider.bind(this);
+    this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
   }
 
-  // show or hide arrow after rendered page
-  componentWillMount() {}
   componentDidMount() {
-    if (this.props.galleryPhotos.size === 0) {
-      this.props.dispatch(asyncAction());
+    this.fetchPhotos();
+  }
+  async fetchPhotos() {
+    try {
+      const response = await returnFetchPhotosPromise();
+      console.log(response.data);
+      this.setState({
+        arrayOfImages: response.data,
+        isLoading: false,
+      });
+    } catch (err) {
+      errorNotification(toastForGalleryPage.errorMeesage);
+      console.log(err);
     }
   }
+
 
   // show slider (set state isSliderShow to "true") and show appropriate image, function
   // is called in "GalleryImage" component where it's passed image
@@ -48,7 +69,6 @@ class GalleryPageForUser extends React.Component {
   // close slider
   closeSlider() {
     this.setState({ isSliderShow: false });
-    console.log("close");
   }
 
   // if image is the first we cant move left and set state "isMoveLeftPossible" to false
@@ -62,7 +82,7 @@ class GalleryPageForUser extends React.Component {
 
   // if image is the last we cant move right and set state "isMoveRightPossible" to false
   isMoveRightPossibleFunc() {
-    const length = this.props.galleryPhotos.size - 1;
+    const length = this.state.arrayOfImages.length - 1;
     if (this.state.positionOfSelectedImage === length) {
       this.setState({ isMoveRightPossible: false });
     } else {
@@ -86,8 +106,10 @@ class GalleryPageForUser extends React.Component {
   }
   // move right
   handleMoveRight() {
-    const length = this.props.galleryPhotos.size - 1;
-    const { positionOfSelectedImage } = this.state;
+    const { positionOfSelectedImage, arrayOfImages } = this.state;
+    console.log(arrayOfImages.length);
+    const length = arrayOfImages.length - 1;
+
     if (positionOfSelectedImage < length) {
       this.setState(
         {
@@ -100,6 +122,9 @@ class GalleryPageForUser extends React.Component {
     }
   }
 
+  handleSetCurrentPage(currentPage) {
+    this.setState({ currentPage });
+  }
   render() {
     const {
       isMoveLeftPossible,
@@ -107,21 +132,29 @@ class GalleryPageForUser extends React.Component {
       isSliderShow,
       arrayOfImages,
       positionOfSelectedImage,
+      isLoading,
+      currentPage, allReviewsArray
     } = this.state;
-    const imageObj = this.props.galleryPhotos.toJSON()[positionOfSelectedImage];
-    const galerryImages = this.props.galleryPhotos.toJSON().map((item, index) => (
-      <Col xs={6} md={4} lg={3}>
+    const indexOfLastElementOnThePage = currentPage * imagesPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
+    const splitedArray = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
+    const galerryImages = splitedArray.map((item, index) => (
+      <Col xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
         <GalleryImage
-          key={item.id}
-          obj={item.data}
           id={item.id}
+          obj={item.data}
           position={index}
           handleSliderAndPassImage={this.showSliderAndPassImage}
         />
       </Col>
     ));
+    const imageObj = this.state.arrayOfImages[positionOfSelectedImage];
+    if (isLoading) {
+      return <div>Loading</div>;
+    }
     return (
       <div>
+        <Subheader image={bmwImage} text={"GALERIA"} />
         {isSliderShow ? (
           <Slider
             isMoveLeftPossible={isMoveLeftPossible}
@@ -132,17 +165,20 @@ class GalleryPageForUser extends React.Component {
             closeSlider={this.closeSlider}
           />
         ) : null}
-
         <ImagesWrapper>
-          <Row className="show-grid">{galerryImages}</Row>
+          <PaginationComponent
+            arrayOfReviews={this.state.arrayOfImages}
+            setCurrentPage={this.handleSetCurrentPage}
+            todosPerPage={imagesPerPage}
+          >
+            {galerryImages}
+          </PaginationComponent>
+
         </ImagesWrapper>
+        <ToastContainer position="bottom-center" hideProgressBar />
       </div>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  galleryPhotos: selectMyPhotos(),
-});
-
-export default connect(mapStateToProps)(GalleryPageForUser);
+export default GalleryPageForAdmin;

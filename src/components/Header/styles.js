@@ -4,17 +4,19 @@ import { NavLink } from "react-router-dom";
 export const StyledHeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height:150px;
+  background: ${props => props.theme.color.bmwBlack};
 `;
 export const StyledInfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  background: ${props => props.theme.color.bmwBlack};
   color: white;
   justify-content: flex-start;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
-  box-shadow: 0 8px 17px 0 ${props => props.theme.color.bmwDarkBlue},
-    0 6px 20px 0 ${props => props.theme.color.bmwDarkBlue};
+  @media (max-width: 1000px) {
+    justify-content: center;
+  }
 `;
 export const StyledNumber = styled.div`
   display: flex;
@@ -29,27 +31,26 @@ export const StyledEmail = styled.div`
   align-items: center;
   margin: 10px;
 `;
-export const StyledLogoWrapper = styled.img`
-  display:block;
-  width:250px;
-  height:100px;
-  margin 0 auto;
-  margin-top:30px;
+export const StyledTime = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 10px;
 `;
+
+
 export const StyledLinkWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   background: grey;
   margin: 30px 0;
-  height: 70px;
+  height: 100px;
   align-items: center;
 `;
 export const StyledToogleButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px;
 `;
 
 export const StyledToogleButton = styled.p`
@@ -76,24 +77,19 @@ const closeAnimation = {
   opacity: "0",
   transition: "opacity 1s ease-out",
 };
-export const StyledMenuWrapper = styled.div`
+export const StyledMenu = styled.div`
   ${props => (props.isExpand === true ? showAnimation : closeAnimation)};
-  min-height: 100px;
   flex-direction: row;
-  justify-content: space-around;
-  background: ${props => props.theme.color.bmwBlack};
-  margin: 30px 0;
+  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 8px 17px 0 ${props => props.theme.color.bmwDarkBlue},
-    0 6px 20px 0 ${props => props.theme.color.bmwDarkBlue};
   @media (max-width: 840px) {
     flex-direction: column;
     justify-content: center;
   }
 `;
-export const StyledNavLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink) `
   font-weight: bold;
-  margin-top: 10px;
+  margin: 25px;
   color: white;
   font-size: 18px;
   &:hover {
@@ -103,4 +99,18 @@ export const StyledNavLink = styled(NavLink)`
   @media (max-width: 840px) {
     margin-top: 20px;
   }
+`;
+
+export const StyledLogoWrapper = styled.img`
+  width:150px;
+  height:150px;
+  margin-left: 30px;
+`;
+
+export const StyledMenuWrapper = styled.div`
+padding:25px 0;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content: space-between;
 `;

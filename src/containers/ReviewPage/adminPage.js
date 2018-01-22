@@ -1,11 +1,17 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import { Col } from "react-bootstrap";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import "../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import { returnAllReviewsPromise, returnPromiseDeleteReview } from "../../services/ReviewServices";
 import { infoNotification, errorNotification } from "../../services/toastServices";
 import PaginationComponent from "../../components/PaginationComponent";
 import { toastForReviewPage } from "../../const/toastMessages";
 import ReviewComponent from "../../components/ReviewComponent";
+import DecisionModal from "../../components/DecisionModal";
+import { StyledMessageCell, StyledDeleteCell, StyledWrapper } from "./styles";
+import "./styles.css";
+
 
 class ReviewPageForAdmin extends React.Component {
   constructor() {
@@ -15,9 +21,13 @@ class ReviewPageForAdmin extends React.Component {
       arrayOfElements: [],
       reviewsToShow: null,
       currentPage: 1,
+      isLoading: true,
+      showModal: false,
     };
     this.deleteReview = this.deleteReview.bind(this);
     this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
+    this.deleteCell = this.deleteCell.bind(this);
+
   }
   componentDidMount() {
     this.fetchAllReviews();
@@ -26,7 +36,10 @@ class ReviewPageForAdmin extends React.Component {
   async fetchAllReviews() {
     try {
       const response = await returnAllReviewsPromise();
-      this.setState({ allReviewsArray: response.data });
+      this.setState({
+        allReviewsArray: response.data,
+        isLoading: false
+      });
     } catch (err) {
       console.log(err);
     }
@@ -45,42 +58,56 @@ class ReviewPageForAdmin extends React.Component {
   handleSetCurrentPage(currentPage) {
     this.setState({ currentPage });
   }
+  deleteCell(cell, row) {
+    return (
+      <StyledDeleteCell onClick={() => { this.refs.modal.openModal(), this.refs.modal.passValue(row.id) }}><i className="fa fa-times fa-2x" aria-hidden="true" /></StyledDeleteCell>
+
+    )
+  }
+  messageCell(cell, row) {
+    return (
+      <StyledMessageCell>{row.message}</StyledMessageCell>
+    )
+  }
+  ratingCell(cell, row) {
+    return (
+      <div>{row.rating} / 5</div>
+    )
+  }
+
 
   render() {
-    const { currentPage, allReviewsArray } = this.state;
-    const todosPerPage = 3;
-    const indexOfLastElementOnThePage = currentPage * todosPerPage;
-    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - todosPerPage;
-    const splitedArray = allReviewsArray.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
-
-    const renderReviews = splitedArray.map(value => (
-      <Col xs={12} md={8} lg={4}>
-        <ReviewComponent
-          message={value.message}
-          nickName={value.nickName}
-          rating={value.rating}
-          date={value.date}
-          deleteReview={this.deleteReview}
-          id={value.id}
-          key={value.id}
-          role={"admin"}
-        />
-      </Col>
-    ));
+    const { currentPage, allReviewsArray, isLoading } = this.state;
+    const options = {
+      sizePerPageList: [{
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }]
+    };
+    if (isLoading) {
+      return <div>Loading</div>;
+    }
 
     return (
-      <div>
-        {allReviewsArray.lenght !== 0 ? (
-          <PaginationComponent
-            arrayOfReviews={allReviewsArray}
-            setCurrentPage={this.handleSetCurrentPage}
-            todosPerPage={todosPerPage}
-          >
-            {renderReviews}
-          </PaginationComponent>
-        ) : null}
+
+      <StyledWrapper>
+        <BootstrapTable
+          data={allReviewsArray}
+          striped
+          hover
+          pagination={true}
+          options={options}
+        >
+          <TableHeaderColumn isKey dataField='nickName' dataSort={true}>Meno</TableHeaderColumn>
+          <TableHeaderColumn dataField='date' dataSort={true}>Datum</TableHeaderColumn>
+          <TableHeaderColumn dataField='message' dataFormat={this.messageCell}>Sprava</TableHeaderColumn>
+          <TableHeaderColumn dataField='rating' dataFormat={this.ratingCell} dataSort={true}>Hodnotenie</TableHeaderColumn>
+          <TableHeaderColumn dataField='id' dataFormat={this.deleteCell}>delete</TableHeaderColumn>
+        </BootstrapTable>
+        <DecisionModal ref="modal" message="DELETE ROW?" acceptCall={this.deleteReview} />
         <ToastContainer position="bottom-center" hideProgressBar />
-      </div>
+      </StyledWrapper>
     );
   }
 }

@@ -13,7 +13,7 @@ const color = {
   bmwLightBlue: "#009ada",
   bmwDarkBlue: "#10369c;",
   bmwRed: "#e10707",
-  bmwBlack: "rgb(39, 37, 37)",
+  bmwBlack: "#161616",
 };
 const border = {
   primaryBorder: "4px",

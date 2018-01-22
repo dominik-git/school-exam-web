@@ -14,8 +14,10 @@ import {
   StyledNumber,
   StyledEmail,
   StyledIcon,
+  StyledTime,
+  StyledMenu
 } from "./styles";
-import bmwLogo from "./BMW_logo.png";
+import bmwLogo from "../../assets/bmwLogo.png";
 
 class Header extends React.Component {
   constructor() {
@@ -74,52 +76,62 @@ class Header extends React.Component {
     const activeStyle = { color: "#e10707" };
     const toggleIcon = <i className="fa fa-bars fa-2x" aria-hidden="true" />;
     const phoneIcon = <i className="fa fa-mobile fa-2x" aria-hidden="true" />;
-    const emailIcon = <i className="fa fa-envelope fa-2x" aria-hidden="true" />;
+    const timeIcon = <i className="fa fa-clock-o fa-2x" aria-hidden="true" />;
+    const number1 = this.props.contactDetails.get("number1");
+    const email = this.props.contactDetails.get("emailAddress");
+    const openTime = this.props.contactDetails.get("openTime");
+    const closeTime = this.props.contactDetails.get("closeTime");
+    const openDay = this.props.contactDetails.get("openDay");
+    const closeDay = this.props.contactDetails.get("closeDay");
+    const time = openDay + "-" + closeDay + " " + openTime + "-" + closeTime;
+
     return (
       <StyledHeaderWrapper>
         <StyledInfoWrapper>
           <StyledNumber>
             <StyledIcon>{phoneIcon}</StyledIcon>
-            {this.props.contactDetails.get("number1")}
+            {number1}
           </StyledNumber>
           <StyledEmail>
-            <StyledIcon>{emailIcon}</StyledIcon>
-            {this.props.contactDetails.get("emailAddress")}
+            <StyledIcon>{timeIcon}</StyledIcon>
+            {time}
           </StyledEmail>
         </StyledInfoWrapper>
-        <StyledLogoWrapper src={bmwLogo} alt={"logo"} />
         <StyledToogleButtonWrapper>
           <StyledToogleButton isShow={this.state.isShow} onClick={this.setNavExpanded}>
             {toggleIcon}
           </StyledToogleButton>
         </StyledToogleButtonWrapper>
 
-        <StyledMenuWrapper isExpand={this.state.isExpand}>
-          <StyledNavLink exact to="/" activeStyle={activeStyle}>
-            Domov
-          </StyledNavLink>
-          <StyledNavLink to="/autoservice" activeStyle={activeStyle}>
-            Autoservis
-          </StyledNavLink>
-          <StyledNavLink to="/sales" activeStyle={activeStyle}>
-            Zlavy
-          </StyledNavLink>
-          <StyledNavLink to="/galery" activeStyle={activeStyle}>
-            Galeria
-          </StyledNavLink>
-          <StyledNavLink to="/contact" activeStyle={activeStyle}>
-            Kontakt
-          </StyledNavLink>
-          <StyledNavLink to="/review" activeStyle={activeStyle}>
-            Recenzie
-          </StyledNavLink>
+        <StyledMenuWrapper>
+          <StyledLogoWrapper src={bmwLogo} alt="bmwLogo" />
+          <StyledMenu isExpand={this.state.isExpand}>
+            <StyledNavLink exact to="/" activeStyle={activeStyle}>
+              Domov
+        </StyledNavLink>
+            <StyledNavLink to="/autoservice" activeStyle={activeStyle}>
+              Autoservis
+        </StyledNavLink>
+            <StyledNavLink to="/sales" activeStyle={activeStyle}>
+              Zlavy
+        </StyledNavLink>
+            <StyledNavLink to="/galery" activeStyle={activeStyle}>
+              Galeria
+        </StyledNavLink>
+            <StyledNavLink to="/contact" activeStyle={activeStyle}>
+              Kontakt
+        </StyledNavLink>
+            <StyledNavLink to="/review" activeStyle={activeStyle}>
+              Recenzie
+        </StyledNavLink>
+          </StyledMenu>
         </StyledMenuWrapper>
-      </StyledHeaderWrapper>
-    );
+      </StyledHeaderWrapper>);
+
   }
 }
 const mapStateToProps = createStructuredSelector({
   contactDetails: selectContactDetails(),
 });
 
-export default connect(mapStateToProps,null)(Header);
+export default connect(mapStateToProps, null)(Header);

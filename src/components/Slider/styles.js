@@ -4,9 +4,10 @@ export const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 export const StyledOverlay = styled.div`
-  background-color: rgba(0, 0, 0, 0.88);
+  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +19,6 @@ export const StyledSlider = styled.div``;
 export const StyledContent = styled.div`
   height: 500px;
   width: 500px;
-  position: relative;
   z-index: 15;
 `;
 // export const StyledOverlay = styled.div`
@@ -40,7 +40,7 @@ export const LeftIconWrapper = styled.div`
   background: rgba(0, 0, 0, 0.78);
   ${props => (props.isMoveLeftPossible === true ? "opacity: 1" : "opacity: 0")};
   &: hover {
-    background: rgba(0, 0, 0, 0.51);
+    background: rgb(99, 99, 99);
     transition: 1s;
   }
 `;
@@ -56,7 +56,7 @@ export const RightIconWrapper = styled.div`
   background: rgba(0, 0, 0, 0.78);
   ${props => (props.isMoveRightPossible === true ? "opacity: 1" : "opacity: 0")};
   &: hover {
-    background: rgba(0, 0, 0, 0.51);
+    background: rgb(99, 99, 99);
     transition: 1s;
   }
 `;

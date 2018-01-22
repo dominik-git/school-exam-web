@@ -11,6 +11,8 @@ import { StyledContactPageWrapper, StyledTitle } from "./styles";
 import { sendContactFormular } from "../../services/axiosServices";
 import { returnContentDetailPromise } from "../../services/ContactPageServices";
 import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
+import Subheader from "../../components/SubHeader";
+import bmwImage from "../../assets/bmw7.jpg";
 
 // const nameOfFields = this.props.content.get("contactForm");
 /*eslint-disable */
@@ -67,6 +69,7 @@ class ContactPage extends React.Component {
 
     return (
       <StyledContactPageWrapper>
+        <Subheader image={bmwImage} text={"Kontakt"} />
         <Row className="show-grid">
           <Col xs={12} md={12} lg={12}>
             <GoogleMapComponent

@@ -10,6 +10,8 @@ import { returnApprovedReviewsPromise, returnPromiseUploadReview } from "../../s
 import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
 import PaginationComponent from "../../components/PaginationComponent";
 import Title from "../../components/Title";
+import Subheader from "../../components/SubHeader";
+import bmwImage from "../../assets/bmw7.jpg";
 
 
 class ReviewPageForUser extends React.Component {
@@ -25,11 +27,11 @@ class ReviewPageForUser extends React.Component {
     this.fetchApprovedReviews = this.fetchApprovedReviews.bind(this);
   }
   componentDidMount() {
-  this.fetchApprovedReviews();
+    this.fetchApprovedReviews();
   }
 
   ratingChanged(newRating) {
-  this.setState({ rating: newRating });
+    this.setState({ rating: newRating });
   }
   generateCurrentDate() {
     let today = new Date();
@@ -85,19 +87,21 @@ class ReviewPageForUser extends React.Component {
     const array = this.state.allReviewsArray;
     return (
       <div>
-        <ToastContainer position="bottom-center" hideProgressBar />
+        <Subheader image={bmwImage} text={"RECENZIE"} />
+
         <Row className="show-grid">
           <Col xs={12} md={6} lg={6}>
-          <Title>Ohodnotte nas</Title>
+            <Title>Ohodnotte nas</Title>
             <ReviewForm onSubmit={this.handleSubmitForm} ratingChanged={this.ratingChanged} />
           </Col>
         </Row>
         <Row className="show-grid">
           <Col xs={12} md={12} lg={12}>
-          <Title>Recenzie</Title>
+            <Title>Recenzie</Title>
             {array.lenght !== 0 ? <PaginationComponent arrayOfReviews={array} role={"user"} /> : null}
           </Col>
         </Row>
+        <ToastContainer position="bottom-center" hideProgressBar />
       </div>
     );
   }

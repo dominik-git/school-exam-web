@@ -30,7 +30,7 @@ export const StyledInput = styled.input`
   width: 100%;
   height: 50px;
   border: none;
-  background:#d5d5da;
+  border: solid 2px #d5d5da;
   border-radius: ${props => props.theme.rem(3)};
   padding-left: ${props => props.theme.rem(5)};
   box-sizing: border-box;
@@ -39,8 +39,8 @@ export const StyledInput = styled.input`
     border-color: #01b2b7;
   }
 `;
-export const StyledSelect = styled.div`
-  background:blue;
+export const StyledSelect = styled.select`
+ ${props => (props.disabled ? disabled : "background:white")};
 `;
 
 export const LabelWrapper = styled.div`

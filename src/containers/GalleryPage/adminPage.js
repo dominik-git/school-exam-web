@@ -4,15 +4,17 @@ import { Row, Col } from "react-bootstrap";
 import Slider from "../../components/Slider";
 import { ImagesWrapper, StyledUpload, StyledUploadWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
-import { 
+import {
   returnDeletePhotosPromise,
-  returnFetchPhotosPromise, 
-  returnUploadPhotoPromise } from "../../services/GalleryServices";
+  returnFetchPhotosPromise,
+  returnUploadPhotoPromise
+} from "../../services/GalleryServices";
 import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
 import { toastForGalleryPage } from "../../const/toastMessages";
+import PaginationComponent from "../../components/PaginationComponent";
 
 /*eslint-disable */
-
+const imagesPerPage = 8;
 class GalleryPageForAdmin extends React.Component {
   constructor() {
     super();
@@ -26,7 +28,7 @@ class GalleryPageForAdmin extends React.Component {
       selectedImage: "",
       uploadFile: null,
       isLoading: true,
-      elementFileInput:null,
+      elementFileInput: null,
       currentPage: 1,
     };
     this.handleMoveLeft = this.handleMoveLeft.bind(this);
@@ -36,6 +38,7 @@ class GalleryPageForAdmin extends React.Component {
     this.handleDeletePhotoById = this.handleDeletePhotoById.bind(this);
     this.handleSetFile = this.handleSetFile.bind(this);
     this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
+    this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
   }
 
   componentDidMount() {
@@ -59,15 +62,15 @@ class GalleryPageForAdmin extends React.Component {
 
     this.setState({ uploadFile: imageFile });
   }
-  async handleUploadPhoto(){
+  async handleUploadPhoto() {
     console.log("upload");
-    try{
+    try {
       const response = await returnUploadPhotoPromise(this.state.uploadFile);
       this.fetchPhotos();
       this.refs.file.value = "";
-      this.setState({uploadFile:null})
+      this.setState({ uploadFile: null })
       sucessfulNotification(toastForGalleryPage.succesfullAdded);
-    } catch(err){
+    } catch (err) {
       console.log(err);
       errorNotification(toastForGalleryPage.errorMeesage);
     }
@@ -136,16 +139,15 @@ class GalleryPageForAdmin extends React.Component {
       );
     }
   }
-  async handleDeletePhotoById(id, e) {
+  async handleDeletePhotoById(id) {
     try {
       const response = await returnDeletePhotosPromise(id);
       const newArray = this.state.arrayOfImages.filter(value => value.id !== id);
-      this.setState({ arrayOfImages: newArray },()=>{console.log(this.state.arrayOfImages)});
+      this.setState({ arrayOfImages: newArray });
       infoNotification(toastForGalleryPage.succesfullDeleted);
     } catch (err) {
       console.log(err);
     }
-    console.log("delete by id ", typeof id);
   }
   handleSetCurrentPage(currentPage) {
     this.setState({ currentPage });
@@ -160,12 +162,10 @@ class GalleryPageForAdmin extends React.Component {
       isLoading,
       currentPage, allReviewsArray
     } = this.state;
-    const todosPerPage = 3;
-    const indexOfLastElementOnThePage = currentPage * todosPerPage;
-    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - todosPerPage;
-    // const splitedArray = allReviewsArray.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
-    const imageObj = this.state.arrayOfImages[positionOfSelectedImage];
-    const galerryImages = this.state.arrayOfImages.map((item, index) => (
+    const indexOfLastElementOnThePage = currentPage * imagesPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
+    const splitedArray = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
+    const galerryImages = splitedArray.map((item, index) => (
       <Col xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
         <GalleryImage
           id={item.id}
@@ -176,6 +176,7 @@ class GalleryPageForAdmin extends React.Component {
         />
       </Col>
     ));
+    const imageObj = this.state.arrayOfImages[positionOfSelectedImage];
     if (isLoading) {
       return <div>Loading</div>;
     }
@@ -205,7 +206,14 @@ class GalleryPageForAdmin extends React.Component {
           />
         ) : null}
         <ImagesWrapper>
-          <Row className="show-grid">{galerryImages}</Row>
+          <PaginationComponent
+            arrayOfReviews={this.state.arrayOfImages}
+            setCurrentPage={this.handleSetCurrentPage}
+            todosPerPage={imagesPerPage}
+          >
+            {galerryImages}
+          </PaginationComponent>
+
         </ImagesWrapper>
         <ToastContainer position="bottom-center" hideProgressBar />
       </div>
