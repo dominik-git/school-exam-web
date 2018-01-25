@@ -15,7 +15,10 @@ import {
   StyledEmail,
   StyledIcon,
   StyledTime,
-  StyledMenu
+  StyledMenu,
+  StyledIconsWrapper,
+  StyledLogoText,
+  StyledLogo
 } from "./styles";
 import bmwLogo from "../../assets/bmwLogo.png";
 
@@ -73,12 +76,11 @@ class Header extends React.Component {
     console.log(window.innerWidth);
   }
   render() {
-    const activeStyle = { color: "#e10707" };
+    const activeStyle = { background: "#FF3B3F" };
     const toggleIcon = <i className="fa fa-bars fa-2x" aria-hidden="true" />;
     const phoneIcon = <i className="fa fa-mobile fa-2x" aria-hidden="true" />;
     const timeIcon = <i className="fa fa-clock-o fa-2x" aria-hidden="true" />;
     const number1 = this.props.contactDetails.get("number1");
-    const email = this.props.contactDetails.get("emailAddress");
     const openTime = this.props.contactDetails.get("openTime");
     const closeTime = this.props.contactDetails.get("closeTime");
     const openDay = this.props.contactDetails.get("openDay");
@@ -87,15 +89,22 @@ class Header extends React.Component {
 
     return (
       <StyledHeaderWrapper>
+
         <StyledInfoWrapper>
-          <StyledNumber>
-            <StyledIcon>{phoneIcon}</StyledIcon>
-            {number1}
-          </StyledNumber>
-          <StyledEmail>
-            <StyledIcon>{timeIcon}</StyledIcon>
-            {time}
-          </StyledEmail>
+          <StyledLogoWrapper>
+            <StyledLogo src={bmwLogo} alt="bmwLogo" />
+            <StyledLogoText>BAVARIA SERVIS</StyledLogoText>
+          </StyledLogoWrapper>
+          <StyledIconsWrapper>
+            <StyledNumber>
+              <StyledIcon>{phoneIcon}</StyledIcon>
+              {number1}
+            </StyledNumber>
+            <StyledEmail>
+              <StyledIcon>{timeIcon}</StyledIcon>
+              {time}
+            </StyledEmail>
+          </StyledIconsWrapper>
         </StyledInfoWrapper>
         <StyledToogleButtonWrapper>
           <StyledToogleButton isShow={this.state.isShow} onClick={this.setNavExpanded}>
@@ -104,20 +113,19 @@ class Header extends React.Component {
         </StyledToogleButtonWrapper>
 
         <StyledMenuWrapper>
-          <StyledLogoWrapper src={bmwLogo} alt="bmwLogo" />
           <StyledMenu isExpand={this.state.isExpand}>
             <StyledNavLink exact to="/" activeStyle={activeStyle}>
               Domov
-        </StyledNavLink>
+            </StyledNavLink>
             <StyledNavLink to="/autoservice" activeStyle={activeStyle}>
               Autoservis
-        </StyledNavLink>
+            </StyledNavLink>
             <StyledNavLink to="/sales" activeStyle={activeStyle}>
-              Zlavy
-        </StyledNavLink>
+              Cennik
+            </StyledNavLink>
             <StyledNavLink to="/galery" activeStyle={activeStyle}>
               Galeria
-        </StyledNavLink>
+            </StyledNavLink>
             <StyledNavLink to="/contact" activeStyle={activeStyle}>
               Kontakt
         </StyledNavLink>

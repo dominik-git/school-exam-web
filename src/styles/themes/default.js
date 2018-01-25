@@ -13,7 +13,13 @@ const color = {
   bmwLightBlue: "#009ada",
   bmwDarkBlue: "#10369c;",
   bmwRed: "#e10707",
-  bmwBlack: "#161616",
+  bmwBlue: "rgb(86, 115, 228)",
+  bmwBlack: "#181a1d",
+  snow: "#FBFBFB",
+  sky: "#CAEBF2",
+  carbon: "#545454",
+  watermelon: "#FF3B3F",
+  neutral: "#EFEFEF"
 };
 const border = {
   primaryBorder: "4px",

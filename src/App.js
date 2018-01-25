@@ -8,7 +8,7 @@ import HomePage from "./containers/HomePage";
 import ContactPageForUser from "./containers/ContactPage/userPage";
 import ContactPageForAdmin from "./containers/ContactPage/adminPage";
 import AutoservicePage from "./containers/AutoservicePage";
-import SalesPage from "./containers/SalesPage";
+import PriceListPage from "./containers/PriceListPage/adminPage";
 import GalleryPageForAdmin from "./containers/GalleryPage/adminPage";
 import GalleryPageForUser from "./containers/GalleryPage/userPage";
 import GalleryPage from "./containers/GalleryPage/index";
@@ -25,8 +25,6 @@ import Root from "./components/Root";
 class App extends React.Component {
   render() {
     const Wrapper = styled.div`
-      width: 90%;
-      margin: 0 auto;
       position: relative;
     `;
     return (
@@ -37,7 +35,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={HomePage} onEnter={this.handleFetchContantDetail} />
               <Route path="/autoservice" component={AutoservicePage} />
-              <Route path="/sales" component={SalesPage} />
+              <Route path="/sales" component={getComponents(PriceListPage, PriceListPage)} />
               <Route path="/galery" component={getComponents(GalleryPageForAdmin, GalleryPageForUser)} />
               <Route path="/contact" component={getComponents(ContactPageForAdmin, ContactPageForUser)} />
               <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />

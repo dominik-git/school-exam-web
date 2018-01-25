@@ -4,19 +4,26 @@ import { NavLink } from "react-router-dom";
 export const StyledHeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height:150px;
-  background: ${props => props.theme.color.bmwBlack};
 `;
 export const StyledInfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  color: white;
-  justify-content: flex-start;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
   font-size: 15px;
   font-weight: bold;
+  padding: 10px 0;
+  background: white;
+  color: ${props => props.theme.color.carbon};
   @media (max-width: 1000px) {
     justify-content: center;
   }
+`;
+export const StyledIconsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-right: 5%;
 `;
 export const StyledNumber = styled.div`
   display: flex;
@@ -24,6 +31,7 @@ export const StyledNumber = styled.div`
   margin: 10px;
 `;
 export const StyledIcon = styled.span`
+  color: ${props => props.theme.color.watermelon};
   margin-right: 10px;
 `;
 export const StyledEmail = styled.div`
@@ -88,29 +96,47 @@ export const StyledMenu = styled.div`
   }
 `;
 export const StyledNavLink = styled(NavLink) `
-  font-weight: bold;
-  margin: 25px;
-  color: white;
-  font-size: 18px;
+  display: flex;
+  font-weight:bold;
+  text-transform: uppercase;
+  padding: 16px 16px;
+  color: ${props => props.theme.color.neutral};
+  font-size: 20px;
+  align-items: center;
   &:hover {
-    color: ${props => props.theme.color.bmwRed};
+    color: ${props => props.theme.color.neutral};
+    background: ${props => props.theme.color.watermelon};
     border-radius: 4px;
+    text-decoration: none;
   }
   @media (max-width: 840px) {
     margin-top: 20px;
   }
 `;
 
-export const StyledLogoWrapper = styled.img`
-  width:150px;
-  height:150px;
-  margin-left: 30px;
+export const StyledLogo = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+export const StyledLogoText = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+`;
+export const StyledLogoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 60px;
+  height: 60px;
+  margin-left: 3%;
 `;
 
 export const StyledMenuWrapper = styled.div`
-padding:25px 0;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content: space-between;
+  background: ${props => props.theme.color.carbon};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;

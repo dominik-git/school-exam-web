@@ -59,10 +59,18 @@ class ReviewPageForAdmin extends React.Component {
     this.setState({ currentPage });
   }
   deleteCell(cell, row) {
+    console.log("row", row);
+    console.log("cell", cell);
     return (
-      <StyledDeleteCell onClick={() => { this.refs.modal.openModal(), this.refs.modal.passValue(row.id) }}><i className="fa fa-times fa-2x" aria-hidden="true" /></StyledDeleteCell>
-
-    )
+      <StyledDeleteCell
+        onClick={() => {
+          this.refs.modal.openModal(),
+            this.refs.modal.passValue(row.id)
+        }}
+      >
+        <i className="fa fa-times fa-2x" aria-hidden="true" />
+      </StyledDeleteCell>
+    );
   }
   messageCell(cell, row) {
     return (
@@ -77,20 +85,18 @@ class ReviewPageForAdmin extends React.Component {
 
 
   render() {
-    const { currentPage, allReviewsArray, isLoading } = this.state;
+    const { allReviewsArray, isLoading } = this.state;
     const options = {
-      sizePerPageList: [{
-        text: '5', value: 5
-      }, {
-        text: '10', value: 10
-      }]
+      sizePerPageList: [
+        { text: '5', value: 5 },
+        { text: '10', value: 10 }
+      ]
     };
     if (isLoading) {
       return <div>Loading</div>;
     }
 
     return (
-
       <StyledWrapper>
         <BootstrapTable
           data={allReviewsArray}
@@ -99,7 +105,7 @@ class ReviewPageForAdmin extends React.Component {
           pagination={true}
           options={options}
         >
-          <TableHeaderColumn isKey dataField='nickName' dataSort={true}>Meno</TableHeaderColumn>
+          <TableHeaderColumn isKey dataField='nickName' dataSort={true} filter={{ type: 'TextFilter', delay: 300 }} >Meno</TableHeaderColumn>
           <TableHeaderColumn dataField='date' dataSort={true}>Datum</TableHeaderColumn>
           <TableHeaderColumn dataField='message' dataFormat={this.messageCell}>Sprava</TableHeaderColumn>
           <TableHeaderColumn dataField='rating' dataFormat={this.ratingCell} dataSort={true}>Hodnotenie</TableHeaderColumn>

@@ -69,7 +69,6 @@ class ContactPage extends React.Component {
 
     return (
       <StyledContactPageWrapper>
-        <Subheader image={bmwImage} text={"Kontakt"} />
         <Row className="show-grid">
           <Col xs={12} md={12} lg={12}>
             <GoogleMapComponent

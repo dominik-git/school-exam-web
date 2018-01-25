@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { Row, Col } from "react-bootstrap";
 import ReviewForm from "./userComponents/form";
 import { isRequired } from "../../services/validation";
-import { returnApprovedReviewsPromise, returnPromiseUploadReview } from "../../services/ReviewServices";
+import { returnAllReviewsPromise, returnPromiseUploadReview } from "../../services/ReviewServices";
 import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
 import PaginationComponent from "../../components/PaginationComponent";
 import Title from "../../components/Title";
@@ -24,10 +24,9 @@ class ReviewPageForUser extends React.Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.uploadReview = this.uploadReview.bind(this);
     this.ratingChanged = this.ratingChanged.bind(this);
-    this.fetchApprovedReviews = this.fetchApprovedReviews.bind(this);
   }
   componentDidMount() {
-    this.fetchApprovedReviews();
+    this.fetchReviews();
   }
 
   ratingChanged(newRating) {
@@ -66,17 +65,18 @@ class ReviewPageForUser extends React.Component {
 
   async uploadReview(email, message, rating, date) {
     try {
-      const response = await returnPromiseUploadReview(email, message, rating, date);
+      await returnPromiseUploadReview(email, message, rating, date);
       sucessfulNotification("Recenzia uspesne odoslana");
+      this.fetchReviews();
     } catch (error) {
       console.log(error);
       errorNotification("Odoslanie recenzie nebolo uspesne");
     }
   }
 
-  async fetchApprovedReviews() {
+  async fetchReviews() {
     try {
-      const response = await returnApprovedReviewsPromise();
+      const response = await returnAllReviewsPromise();
       this.setState({ allReviewsArray: response.data });
     } catch (error) {
       console.log(error);
@@ -87,8 +87,6 @@ class ReviewPageForUser extends React.Component {
     const array = this.state.allReviewsArray;
     return (
       <div>
-        <Subheader image={bmwImage} text={"RECENZIE"} />
-
         <Row className="show-grid">
           <Col xs={12} md={6} lg={6}>
             <Title>Ohodnotte nas</Title>

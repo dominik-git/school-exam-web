@@ -32,18 +32,6 @@ export function returnSaveContentDetailPromise(contentData) {
 
 // update content
 export function returnUpdateContentDetailPromise(contentData) {
-  // const formData = {
-  //   serviceName: contentData.serviceName,
-  //   address: contentData.address,
-  //   emailAddress: contentData.emailAddress,
-  //   number1: contentData.number1,
-  //   number2: contentData.number2,
-  //   openDay: contentData.openDay,
-  //   closeDay: contentData.closeDay,
-  //   openTime,
-  //   closeTime,
-  // };
-  // const data = JSON.stringify({ nickName, message, rating, date });
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },

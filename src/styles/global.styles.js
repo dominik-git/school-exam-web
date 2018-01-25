@@ -1,26 +1,30 @@
 import { injectGlobal } from "styled-components";
-import img from "../assets/bmw6.jpg";
+import MyFont from "./fonts/Montserrat-Regular.ttf";
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: MyFont;
+  src: url('${MyFont}') format('opentype');
+}
   html {
-   box-sizing: border-box;
-   font-size: 16px;
-   height: 100%;
-   width:100%;
-   font-family:sans-serif,'Roboto', Arial, Helvetica;
+    margin:0;
+    padding:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
-  // @font-face {
-  //   font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  //   // src: url('https://fonts.googleapis.com/css?family=Roboto');
-  // }
   body {
-    font-family:sans-serif,'Roboto', Arial, Helvetica;
+    // font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     height: 100%;
-    max-width: 1800px;
     margin: 0 auto;
+    background-color: #FBFBFB;
    #root {
-      min-width: 53.6rem;
       width: 100%;
     }
   }

@@ -154,7 +154,6 @@ class GalleryPageForAdmin extends React.Component {
     }
     return (
       <div>
-        <Subheader image={bmwImage} text={"GALERIA"} />
         {isSliderShow ? (
           <Slider
             isMoveLeftPossible={isMoveLeftPossible}
