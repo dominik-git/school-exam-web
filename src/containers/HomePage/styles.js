@@ -16,19 +16,10 @@ export const StyledSlider = styled.div`
 const slide = keyframes`
    0%  { opacity: 0;transform: scale(1)}
    20%  { opacity: 1;}
-   80%  { opacity: 1; transform: scale(1.1);}
-  100% {  opacity: 0;transform: scale(1);}
+   80%  { opacity: 1; }
+  100% {  opacity: 0;transform: scale(1.1);}
 `;
-// @keyframes imagebulger {
-//   0%, 100% {
-//     background-size: 100% auto;
-//     -webkit-background-size: 100%;
-//   }
-//   50% {
-//     background-size: 50% auto;
-//     -webkit-background-size: 50%;
-//   }
-// }
+
 export const StyledImg = styled.div`
   background-repeat: no-repeat;
   background-image: url(${props => props.image});

@@ -29,7 +29,7 @@ class Root extends React.Component {
     }
   }
   render() {
-    if (this.state.isLoading) {
+    if (this.state.isLoading && this.props.contactDetails.size <= 0) {
       console.log("loeader");
       return <div>loader</div>;
     }
