@@ -1,4 +1,4 @@
-import { SET_IMAGE_FROM_IMAGE_PICKER } from "../const/const";
+import { SET_IMAGE_FROM_IMAGE_PICKER, RESET_IMAGE_PICKER } from "../const/const";
 
 export function setImageFromImagePicker(payload) {
   return {
@@ -6,3 +6,9 @@ export function setImageFromImagePicker(payload) {
     payload,
   };
 }
+
+export function resetImagePicker() {
+  return {
+    type: RESET_IMAGE_PICKER,
+  };
+};

@@ -34,3 +34,7 @@ justify-content:center;
 align-items:center;
 margin:10px;
 `;
+
+export const StyledHiddenField = styled.div`
+  display:none;
+`;

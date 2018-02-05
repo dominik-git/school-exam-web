@@ -1,4 +1,9 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+// const animation = keyframes`
+// from {top: 0px;}
+// to {top: 200px;}
+// `;
 
 export const StyledWrapper = styled.div`
   display:flex;
@@ -7,6 +12,8 @@ export const StyledWrapper = styled.div`
   flex-direction:row;
   flex-wrap: wrap;
   height:auto;
+  position: relative;
+
 `;
 
 export const StyledImagePickerSelect = styled.div`
@@ -29,8 +36,15 @@ export const StyledRightIcon = styled.span`
 
 export const StyledImage = styled.div`
 display:flex;
-flex-direction;
+flex-direction:column;
 justify-content:center;
 align-items:center;
+width:70px;
+height:70px;
 margin:10px;
+&:hover{
+  background:${props => props.theme.color.sky};
+}
 `;
+
+

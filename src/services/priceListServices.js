@@ -10,23 +10,23 @@ export function returnAllServicesPromise() {
 
 
 // create new service
-export function returnPromiseCreateNewService(service, description, price) {
+export function returnPromiseCreateNewService(serviceImage, service, description, price) {
   const options = {
     method: "POST",
     url: "/api/pricelist",
     headers: { "Content-Type": "application/json" },
-    data: JSON.stringify({ service, description, price }),
+    data: JSON.stringify({ serviceImage, service, description, price }),
   };
   return axios(options);
 }
 
 // delete service by id
-export function returnPromiseUpdateServiceById(id, service, description, price) {
+export function returnPromiseUpdateServiceById(id, serviceImage, service, description, price) {
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     url: `/api/pricelist/updateItem/${id}`,
-    data: JSON.stringify({ service, description, price }),
+    data: JSON.stringify({ serviceImage, service, description, price }),
   };
   return axios(options);
 }

@@ -17,7 +17,7 @@ class ContactPageForAdmin extends React.Component {
     };
     this.handleEditState = this.handleEditState.bind(this);
     this.handleSubmitFormUpdate = this.handleSubmitFormUpdate.bind(this);
-    this.handleSubmitFormCreate = this.handleSubmitFormCreate.bind(this); 
+    this.handleSubmitFormCreate = this.handleSubmitFormCreate.bind(this);
   }
 
   handleEditState() {
@@ -40,7 +40,7 @@ class ContactPageForAdmin extends React.Component {
 
 
   async handleSubmitFormCreate(values) {
-    const {serviceName,address,emailAddress,number1} =values.toJS()
+    const { serviceName, address, emailAddress, number1 } = values.toJS()
 
     const errors = {};
     if (isRequired(serviceName)) {
@@ -60,15 +60,15 @@ class ContactPageForAdmin extends React.Component {
     } else {
       try {
         const response = await returnSaveContentDetailPromise(values.toJS());
-        if (response.status === 200) {
-          console.log(response);
-          window.location.reload();
-        }
+        // if (response.status === 200) {
+        //   console.log(response);
+        //   window.location.reload();
+        // }
       } catch (error) {
         console.log("error", error);
       }
     }
-    
+
   }
 
 
@@ -86,14 +86,14 @@ class ContactPageForAdmin extends React.Component {
       openTime: contactDetails.get("openTime"),
       closeTime: contactDetails.get("closeTime"),
     };
-   
-    if (contactDetails.size == 0 ) {
+
+    if (contactDetails.size == 0) {
       return (
         <StyledContactPageWrapper>
           <AdminContactForm isEditable={this.state.edit} onSubmit={this.handleSubmitFormCreate} />
         </StyledContactPageWrapper>
       );
-    } 
+    }
 
     return (
       <StyledContactPageWrapper>

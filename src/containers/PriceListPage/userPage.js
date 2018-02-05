@@ -1,10 +1,10 @@
 import React from "react";
-import EditAbleRow from "./components/TableRow";
+
 import { ToastContainer } from "react-toastify";
 import { toastForGalleryPage } from "../../const/toastMessages";
 import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
 import { returnAllServicesPromise } from "../../services/priceListServices";
-import CreateNewService from "./components/CreateNewRow";
+
 import { StyledRow, StyledCell } from "./styles";
 
 
