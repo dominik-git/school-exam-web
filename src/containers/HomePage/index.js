@@ -1,14 +1,14 @@
 import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { fetchContactDetailsAction } from "../../actions/contactDetailActions";
-import { returnContentDetailPromise } from "../../services/ContactPageServices";
-import PropTypes from "prop-types";
+import DragAndDropList from "../../components/DragAndDropComponent";
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { fetchContactDetailsAction } from "../../actions/contactDetailActions";
+// import { returnContentDetailPromise } from "../../services/ContactPageServices";
+// import PropTypes from "prop-types";
 import { HomePageWrapper, StyledContent, StyledSlider, StyledImg } from "./styles";
 import slide1 from "./assets/bmw_mini.jpg";
 import slide2 from "./assets/bmw9.jpg";
 import slide3 from "./assets/mini.jpg";
-
 
 const timePerSlide = 5000;
 const defaultSlidePossition = 0;
@@ -46,11 +46,13 @@ class HomePage extends React.Component {
   render() {
     const { slides, possition } = this.state;
     const imageOnThePossition = slides[possition];
+
     return (
       <HomePageWrapper>
         <StyledSlider>
           <StyledImg image={imageOnThePossition} />
         </StyledSlider>
+        <DragAndDropList />
       </HomePageWrapper>
     );
   }
