@@ -2,19 +2,20 @@ import React from "react";
 import { Field, reduxForm } from "redux-form/immutable";
 import PropTypes from "prop-types";
 import { ReduxFormInputWithIcon } from "../../../components/FormElements/index";
-import { } from "./styles";
+import { StyledHiddenField } from "./styles";
 import ImagePickerWrapper from "../../../components/ImagePicker/ImagePickerWrapper";
 
-const CreateNewService = (props) => {
+const CreateNewService = props => {
   const { handleSubmit, images, selectImage } = props;
   const passwordIcon = <i className="fa fa-unlock" aria-hidden="true" />;
   const userIcon = <i className="fa fa-user fa-2x" aria-hidden="true" />;
   return (
     <form onSubmit={handleSubmit}>
+      <h3>Pridaj novu sluzbu</h3>
       <div>
         <ImagePickerWrapper job="create" form="createNewService" />
       </div>
-      <div>
+      <StyledHiddenField>
         <Field
           name="serviceImage"
           label="asdas"
@@ -23,7 +24,7 @@ const CreateNewService = (props) => {
           icon={userIcon}
           placeholder=""
         />
-      </div>
+      </StyledHiddenField>
       <div>
         <Field
           name="service"

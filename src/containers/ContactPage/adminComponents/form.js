@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form/immutable";
 import PropTypes from "prop-types";
-import { FormInput,FormSelect } from "../../../components/FormElements/index";
+import { FormInput, FormSelect } from "../../../components/FormElements/index";
 import { StyledFormWrapper, StyledSubmitButton, StyledSelect } from "../styles";
 
 const AdminContactForm = props => {
@@ -17,6 +17,7 @@ const AdminContactForm = props => {
     { value: "NE", label: "NE" }, 
   ];
   const optionsForOpenTime = [
+    { value: "", label: "" }, 
     { value: "6:00", label: "6:00" }, 
     { value: "6:30", label: "6:30" }, 
     { value: "7:00", label: "7:00" }, 
@@ -26,6 +27,7 @@ const AdminContactForm = props => {
     { value: "9:00", label: "9:00" }, 
   ];
   const optionsForCloseTime = [
+    { value: "", label: "" }, 
     { value: "15:00", label: "15:00" }, 
     { value: "15:30", label: "15:30" }, 
     { value: "16:00", label: "16:00" }, 
@@ -130,7 +132,7 @@ const AdminContactForm = props => {
               component={FormSelect}
               options={optionsForCloseTime}
               readOnly={readOnly}
-              />
+            />
           </div>
         </div>
         <div>
@@ -147,7 +149,7 @@ const AdminContactForm = props => {
 export default reduxForm({
   // a unique name for the form
   form: "adminContactForm",
-  enableReinitialize : true
+  enableReinitialize: true,
 })(AdminContactForm);
 
 AdminContactForm.propTypes = {

@@ -5,10 +5,9 @@ export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
-  border: 1px solid #aaa;
+  border: 3px solid #aaa;
   border-bottom: 3px solid #bbb;
-  box-shadow: 0 8px 17px 0 ${props => props.theme.color.bmwDarkBlue},
-    0 6px 20px 0 ${props => props.theme.color.bmwDarkBlue};
+  // box-shadow: 0 8px 17px 0 ${props => props.theme.color.sky}, 0 6px 20px 0 ${props => props.theme.color.sky};
   @media (max-width: 700px) {
   }
 `;
@@ -28,11 +27,10 @@ export const StyledHeader = styled.div`
   margin-bottom: 30px;
   justify-content: center;
   align-items: center;
-  background: ${props => props.theme.color.bmwBlack};
+  background: ${props => props.theme.color.carbon};
   color: #ffffff;
   border-bottom: 3px solid #bbb;
-  box-shadow: 0 8px 17px 0 ${props => props.theme.color.bmwDarkBlue},
-    0 6px 20px 0 ${props => props.theme.color.bmwDarkBlue};
+  box-shadow: 0 8px 17px 0 ${props => props.theme.color.sky}, 0 6px 20px 0 ${props => props.theme.color.sky};
 `;
 export const StyledIcon = styled.span``;
 export const StyledMessage = styled.span`

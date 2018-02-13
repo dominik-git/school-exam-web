@@ -19,9 +19,10 @@ class HomePage extends React.Component {
     super();
     this.state = {
       slides: [slide1, slide2, slide3],
-      possition: defaultSlidePossition,
+      possition: defaultSlidePossition
     };
     this.handlePossiiton = this.handlePossiiton.bind(this);
+    this.handleSetSlides = this.handleSetSlides.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,10 @@ class HomePage extends React.Component {
   }
   componentWillUnmount() {
     clearInterval(myInterval);
+  }
+
+  handleSetSlides(arrayOfSlides) {
+    this.setState({ slides: arrayOfSlides });
   }
 
   handlePossiiton() {
@@ -52,12 +57,9 @@ class HomePage extends React.Component {
         <StyledSlider>
           <StyledImg image={imageOnThePossition} />
         </StyledSlider>
-        <DragAndDropList />
+        <DragAndDropList photos={this.state.slides} handleSetSlides={this.handleSetSlides} />
       </HomePageWrapper>
     );
   }
 }
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ fetchContactDetailsAction }, dispatch);
-// }
 export default HomePage;

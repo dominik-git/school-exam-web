@@ -80,13 +80,22 @@ class Header extends React.Component {
     const toggleIcon = <i className="fa fa-bars fa-2x" aria-hidden="true" />;
     const phoneIcon = <i className="fa fa-mobile fa-2x" aria-hidden="true" />;
     const timeIcon = <i className="fa fa-clock-o fa-2x" aria-hidden="true" />;
-    const number1 = this.props.contactDetails.get("number1");
-    const openTime = this.props.contactDetails.get("openTime");
-    const closeTime = this.props.contactDetails.get("closeTime");
-    const openDay = this.props.contactDetails.get("openDay");
-    const closeDay = this.props.contactDetails.get("closeDay");
-    const time = openDay + "-" + closeDay + " " + openTime + "-" + closeTime;
+    let number1 = ""
+    let openTime = ""
+    let closeTime = ""
+    let openDay = ""
+    let closeDay = ""
+    let time = ""
 
+    if(this.props.contactDetails){
+       number1 = this.props.contactDetails.get("number1");
+       openTime = this.props.contactDetails.get("openTime");
+       closeTime = this.props.contactDetails.get("closeTime");
+       openDay = this.props.contactDetails.get("openDay");
+       closeDay = this.props.contactDetails.get("closeDay");
+       time = openDay + "-" + closeDay + " " + openTime + "-" + closeTime;
+    }
+   
     return (
       <StyledHeaderWrapper>
 
@@ -95,16 +104,20 @@ class Header extends React.Component {
             <StyledLogo src={bmwLogo} alt="bmwLogo" />
             <StyledLogoText>BAVARIA SERVIS</StyledLogoText>
           </StyledLogoWrapper>
-          <StyledIconsWrapper>
-            <StyledNumber>
-              <StyledIcon>{phoneIcon}</StyledIcon>
-              {number1}
-            </StyledNumber>
-            <StyledEmail>
-              <StyledIcon>{timeIcon}</StyledIcon>
-              {time}
-            </StyledEmail>
-          </StyledIconsWrapper>
+           
+           <StyledIconsWrapper>
+           <StyledNumber>
+             <StyledIcon>{phoneIcon}</StyledIcon>
+             {number1}
+           </StyledNumber>
+           <StyledEmail>
+             <StyledIcon>{timeIcon}</StyledIcon>
+             {time}
+           </StyledEmail>
+         </StyledIconsWrapper> 
+
+         
+         
         </StyledInfoWrapper>
         <StyledToogleButtonWrapper>
           <StyledToogleButton isShow={this.state.isShow} onClick={this.setNavExpanded}>
@@ -116,9 +129,6 @@ class Header extends React.Component {
           <StyledMenu isExpand={this.state.isExpand}>
             <StyledNavLink exact to="/" activeStyle={activeStyle}>
               Domov
-            </StyledNavLink>
-            <StyledNavLink to="/autoservice" activeStyle={activeStyle}>
-              Autoservis
             </StyledNavLink>
             <StyledNavLink to="/sales" activeStyle={activeStyle}>
               Cennik

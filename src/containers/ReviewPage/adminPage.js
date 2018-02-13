@@ -1,13 +1,10 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import { Col } from "react-bootstrap";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import { returnAllReviewsPromise, returnPromiseDeleteReview } from "../../services/ReviewServices";
 import { infoNotification, errorNotification } from "../../services/toastServices";
-import PaginationComponent from "../../components/PaginationComponent";
 import { toastForReviewPage } from "../../const/toastMessages";
-import ReviewComponent from "../../components/ReviewComponent";
 import DecisionModal from "../../components/DecisionModal";
 import { StyledMessageCell, StyledDeleteCell, StyledWrapper } from "./styles";
 import "./styles.css";
@@ -59,8 +56,6 @@ class ReviewPageForAdmin extends React.Component {
     this.setState({ currentPage });
   }
   deleteCell(cell, row) {
-    console.log("row", row);
-    console.log("cell", cell);
     return (
       <StyledDeleteCell
         onClick={() => {

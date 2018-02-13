@@ -73,7 +73,7 @@ class AdminPricePage extends React.Component {
   async updateService(id, serviceImage, service, description, price) {
     try {
       await returnPromiseUpdateServiceById(id, serviceImage, service, description, price);
-      sucessfulNotification("UPDATOVANe");
+      sucessfulNotification("UPDATED");
       this.fetchServices();
     } catch (err) {
       errorNotification("chyba");
@@ -94,17 +94,9 @@ class AdminPricePage extends React.Component {
               key={item.id}
               onSubmit={this.updateService}
             />
-            // <UpdateServiceForm
-            //   data={item}
-            //   key={item.id}
-            //   updateRow={this.updateService}
-            //   deleteRow={this.deleteService}
-            //   initialValues={initialValues}
-            //   form={item.service}
-            // />
           );
         })}
-
+        
         <CreateNewServiceForm
           onSubmit={this.createNewService}
           name="wheel"
@@ -116,9 +108,5 @@ class AdminPricePage extends React.Component {
     )
   }
 }
-
-// const mapStateToProps = createStructuredSelector({
-//   selectedImage: getStateSelectedImage(),
-// });
 
 export default AdminPricePage;

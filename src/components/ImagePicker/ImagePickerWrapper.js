@@ -75,10 +75,10 @@ class ImagePickerWrapper extends React.Component {
   handleSelectImage(value) {
     console.log(value);
     this.setState({ serviceImage: value });
+    this.handleEdit();
   }
   render() {
     const { job, form } = this.props;
-    console.log(form);
     if (job === "update") {
       return (
         <div>
@@ -99,13 +99,12 @@ class ImagePickerWrapper extends React.Component {
         <div>
           <StyledImagePickerSelect onClick={this.handleEdit}>
             {
-              this.state.selectImageState === undefined ? <span>Click and chose picture</span> : <span className={this.state.serviceImage} />
+              this.state.serviceImage === undefined ? <span>Click and chose picture</span> : <span className={this.state.serviceImage} />
             }
           </StyledImagePickerSelect>
           <ImagePicker
             mounted={this.state.isEdit}
             images={this.state.icons}
-            handleEdit={this.handleEdit}
             handleSelectImage={this.handleSelectImage}
             form={this.props.form}
           />

@@ -1,15 +1,13 @@
 import styled, { keyframes } from "styled-components";
 
-
-
 export const HomePageWrapper = styled.div`
-  min-height:800px;
+  min-height: 800px;
   text-align: center;
 `;
 export const StyledContent = styled.div``;
 export const StyledSlider = styled.div`
   height: 600px;
-  overflow:hidden;
+  overflow: hidden;
   background-color: black;
 `;
 
@@ -27,9 +25,6 @@ export const StyledImg = styled.div`
   background-position: center center;
   width: 100%;
   height: 100%;
-  opacity: 1;
   visibility: inherit;
-  z-index: 20;
-
-  -webkit-animation: ${slide} 5s linear infinite;
+  animation: ${slide} 5s ease-out infinite;
 `;

@@ -25,24 +25,6 @@ class PaginationComponent extends React.Component {
     this.setState({ currentPage: Number(event.target.id) });
   }
 
-  // moveLeft(position) {
-  //   if (position === 0) {
-  //     console.log("hide left icon");
-  //   }
-  //   console.log("move left");
-  //   this.setState({ currentPage: this.currentPage - 1 });
-  // }
-  // moveRight(position, lenght) {
-  //   if (position === lenght) {
-  //     console.log("hide right icon");
-  //   }
-  //   console.log("moveRight");
-  //   this.setState({ currentPage: this.currentPage + 1 });
-  // }
-  // handlePaginationNumber(firstIndex, LastIndex, ArrayOfNumbers) {
-  //   const currentNumbers = ArrayOfNumbers.slice(firstIndex, LastIndex);
-  //   return currentNumbers;
-  // }
 
   render() {
     const { arrayOfReviews, todosPerPage } = this.props;
@@ -52,21 +34,21 @@ class PaginationComponent extends React.Component {
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - todosPerPage;
     const splitedArray = arrayOfReviews.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
 
-    // const renderReviews = currentTodos.map(value => (
-    //   <Col xs={12} md={8} lg={4} mdOffset={2} lgOffset={0}>
-    //   <ReviewComponent
-    //     message={value.message}
-    //     nickName={value.nickName}
-    //     rating={value.rating}
-    //     date={value.date}
-    //     deleteReview={this.props.deleteReview}
-    //     approveReview={this.props.approveReview}
-    //     id={value.id}
-    //     key={value.id}
-    //     role={this.props.role}
-    //   />
-    //   </Col>
-    // ));
+    const renderReviews = splitedArray.map(value => (
+      <Col xs={12} md={8} lg={4} mdOffset={2} lgOffset={0}>
+      <ReviewComponent
+        message={value.message}
+        nickName={value.nickName}
+        rating={value.rating}
+        date={value.date}
+        deleteReview={this.props.deleteReview}
+        approveReview={this.props.approveReview}
+        id={value.id}
+        key={value.id}
+        role={this.props.role}
+      />
+      </Col>
+    ));
 
     // Logic for displaying page numbers
     const pageNumbers = [];
@@ -83,8 +65,8 @@ class PaginationComponent extends React.Component {
     return (
       <StyledPaginationWrapper>
         <Row className="show-grid">
-          {/* {renderReviews} */}
-          {PaginationComponent.renderActualElements(splitedArray, this.props.children)}
+          {renderReviews}
+          {/* {PaginationComponent.renderActualElements(splitedArray, this.props.children)} */}
         </Row>
         <StyledNumberWrapper>{renderPageNumbers}</StyledNumberWrapper>
       </StyledPaginationWrapper>

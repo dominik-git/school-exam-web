@@ -7,6 +7,7 @@ import { selectContactDetails } from "../../selectors/contactDetailDataSelector"
 import AdminContactForm from "./adminComponents/form";
 import { isRequired } from "../../services/validation";
 import { returnUpdateContentDetailPromise, returnSaveContentDetailPromise } from "../../services/ContactPageServices";
+import fetchContactDetailDataAction from "../../actions/contactDetailActions";
 
 class ContactPageForAdmin extends React.Component {
   constructor(props) {
@@ -31,8 +32,7 @@ class ContactPageForAdmin extends React.Component {
   async handleSubmitFormUpdate(values) {
     try {
       const response = await returnUpdateContentDetailPromise(values.toJS());
-      console.log(response);
-      window.location.reload();
+      this.props.fetchContactDetailDataAction();
     } catch (error) {
       console.log("error", error);
     }
@@ -59,11 +59,8 @@ class ContactPageForAdmin extends React.Component {
       throw new SubmissionError(errors);
     } else {
       try {
-        const response = await returnSaveContentDetailPromise(values.toJS());
-        // if (response.status === 200) {
-        //   console.log(response);
-        //   window.location.reload();
-        // }
+         await returnSaveContentDetailPromise(values.toJS());
+        this.props.fetchContactDetailDataAction();
       } catch (error) {
         console.log("error", error);
       }
@@ -74,36 +71,34 @@ class ContactPageForAdmin extends React.Component {
 
   render() {
     const { contactDetails } = this.props;
-    const initialValues = {
-      id: contactDetails.get("id"),
-      address: contactDetails.get("address"),
-      emailAddress: contactDetails.get("emailAddress"),
-      serviceName: contactDetails.get("serviceName"),
-      number1: contactDetails.get("number1"),
-      number2: contactDetails.get("number2"),
-      openDay: contactDetails.get("openDay"),
-      closeDay: contactDetails.get("closeDay"),
-      openTime: contactDetails.get("openTime"),
-      closeTime: contactDetails.get("closeTime"),
-    };
-
-    if (contactDetails.size == 0) {
+    if (contactDetails) {
+      const initialValues = {
+        id: contactDetails.get("id"),
+        address: contactDetails.get("address"),
+        emailAddress: contactDetails.get("emailAddress"),
+        serviceName: contactDetails.get("serviceName"),
+        number1: contactDetails.get("number1"),
+        number2: contactDetails.get("number2"),
+        openDay: contactDetails.get("openDay"),
+        closeDay: contactDetails.get("closeDay"),
+        openTime: contactDetails.get("openTime"),
+        closeTime: contactDetails.get("closeTime"),
+      };
       return (
         <StyledContactPageWrapper>
-          <AdminContactForm isEditable={this.state.edit} onSubmit={this.handleSubmitFormCreate} />
+          <button onClick={this.handleEditState}>EDIT</button>
+          <AdminContactForm
+            readOnly={this.state.readOnly}
+            changeSubmitButtonText
+            onSubmit={this.handleSubmitFormUpdate}
+            initialValues={initialValues}
+          />
         </StyledContactPageWrapper>
       );
     }
-
     return (
       <StyledContactPageWrapper>
-        <button onClick={this.handleEditState}>EDIT</button>
-        <AdminContactForm
-          readOnly={this.state.readOnly}
-          changeSubmitButtonText
-          onSubmit={this.handleSubmitFormUpdate}
-          initialValues={initialValues}
-        />
+        <AdminContactForm isEditable={this.state.edit} onSubmit={this.handleSubmitFormCreate} />
       </StyledContactPageWrapper>
     );
   }
@@ -112,5 +107,8 @@ class ContactPageForAdmin extends React.Component {
 const mapStateToProps = createStructuredSelector({
   contactDetails: selectContactDetails(),
 });
+const mapDispatchToProps = {
+  fetchContactDetailDataAction,
+};
 
-export default connect(mapStateToProps)(ContactPageForAdmin);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactPageForAdmin);
