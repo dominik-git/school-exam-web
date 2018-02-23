@@ -18,8 +18,10 @@ const color = {
   snow: "#FBFBFB",
   sky: "#CAEBF2",
   carbon: "#545454",
-  watermelon: "#FF3B3F",
-  neutral: "#EFEFEF"
+  watermelon: "#253993",
+  //blue #253993
+  // watermelon: "#FF3B3F",
+  neutral: "white",
 };
 const border = {
   primaryBorder: "4px",

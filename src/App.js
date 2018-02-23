@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import theme from "./styles/themes/default";
 import HomePageForAdmin from "./containers/HomePage/adminPage";
@@ -10,6 +10,8 @@ import PriceListPageForAdmin from "./containers/PriceListPage/adminPage";
 import PriceListPageForUser from "./containers/PriceListPage/userPage";
 import GalleryPageForAdmin from "./containers/GalleryPage/adminPage";
 import GalleryPageForUser from "./containers/GalleryPage/userPage";
+import OrderPageForUser from "./containers/Order/userPage";
+import OrderPageForAdmin from "./containers/Order/adminPage";
 import ReviewPageForAdmin from "./containers/ReviewPage/adminPage";
 import ReviewPageForUser from "./containers/ReviewPage/userPage";
 import Header from "./components/Header";
@@ -17,6 +19,7 @@ import Footer from "./components/Footer";
 import getComponents from "./containers/ReturnAdminOrUserPage";
 import LoginPage from "./containers/LoginPage";
 
+// eslint-disable-next-line
 class App extends React.Component {
   render() {
     const Wrapper = styled.div`
@@ -28,7 +31,8 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/" component={getComponents(HomePageForAdmin, HomePageForUser)} />
-            <Route path="/sales" component={getComponents(PriceListPageForAdmin, PriceListPageForUser)} />
+            <Route path="/services" component={getComponents(PriceListPageForAdmin, PriceListPageForUser)} />
+            <Route path="/orders" component={getComponents(OrderPageForAdmin, OrderPageForUser)} />
             <Route path="/galery" component={getComponents(GalleryPageForAdmin, GalleryPageForUser)} />
             <Route path="/contact" component={getComponents(ContactPageForAdmin, ContactPageForUser)} />
             <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />
@@ -41,4 +45,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);

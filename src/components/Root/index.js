@@ -7,6 +7,7 @@ import {
   selectContactDetailLoading,
 } from "../../selectors/contactDetailDataSelector";
 import fetchContactDetailDataAction from "../../actions/contactDetailActions";
+import Loader from "../Loader";
 
 class Root extends React.Component {
   constructor() {
@@ -22,7 +23,7 @@ class Root extends React.Component {
   render() {
     console.log("render");
     if (this.props.isLoading) {
-      return <div>loader</div>;
+      return <Loader />;
     }
     if (this.props.error) {
       return <div>chyba</div>;

@@ -4,10 +4,10 @@ import { Row, Col } from "react-bootstrap";
 import { StyledContactInfo, StyledRow, StyledIconWrapper, StyledDetailInfo } from "../styles";
 import Text from "../../../components/Text";
 
-const emailIcon = <i className="fa fa-envelope fa-2x" aria-hidden="true" />;
-const phoneIcon = <i className="fa fa-phone fa-2x" aria-hidden="true" />;
-const addressIcon = <i className="fa fa-map-marker fa-2x" aria-hidden="true" />;
-const timeIcon = <i className="fa fa-clock-o fa-2x" aria-hidden="true" />;
+const emailIcon = <i className="far fa-envelope fa-2x" aria-hidden="true" />;
+const phoneIcon = <i className="fas fa-mobile-alt  fa-2x" aria-hidden="true" />;
+const addressIcon = <i className="fas fa-map-marker-alt fa-2x" aria-hidden="true" />;
+const timeIcon = <i className="far fa-clock fa-2x" aria-hidden="true" />;
 
 const Contactinfo = props => (
   <StyledContactInfo>

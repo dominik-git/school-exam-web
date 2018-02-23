@@ -1,5 +1,4 @@
 import React from "react";
-import { Row } from "react-bootstrap";
 import { StyledPaginationWrapper, StyledNumberWrapper, StyledNumber } from "./styles";
 
 class PaginationComponent extends React.Component {
@@ -28,8 +27,7 @@ class PaginationComponent extends React.Component {
 
     return (
       <StyledPaginationWrapper>
-        <Row className="show-grid">{this.props.children}</Row>
-        <StyledNumberWrapper>{renderPageNumbers}</StyledNumberWrapper>
+        <StyledNumberWrapper>{pageNumbers.length <= 1 ? null : renderPageNumbers}</StyledNumberWrapper>
       </StyledPaginationWrapper>
     );
   }

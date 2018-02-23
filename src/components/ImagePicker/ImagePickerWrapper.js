@@ -35,40 +35,77 @@ class ImagePickerWrapper extends React.Component {
     this.setState({
       icons: [
         {
-          name: "wheel1",
+          name: "inspection",
+          className: "flaticon-inspection",
+        },
+        {
+          name: "oil",
           className: "flaticon-oil",
         },
         {
-          name: "air-condition2",
+          name: "electrical-service",
+          className: "flaticon-electrical-service",
+        },
+        {
+          name: "air-conditioning",
           className: "flaticon-air-conditioning",
         },
         {
-          name: "air-condition3",
-          className: "flaticon-air-conditioning",
+          name: "painting",
+          className: "flaticon-painting",
         },
         {
-          name: "wheel4",
-          className: "flaticon-oil",
+          name: "exhaust-pipe",
+          className: "flaticon-exhaust-pipe",
+        }, 
+        {
+          name: "alloy-wheel",
+          className: "flaticon-alloy-wheel",
         },
         {
-          name: "air-condition5",
-          className: "flaticon-air-conditioning",
+          name: "diagnostic",
+          className: "flaticon-diagnostic",
         },
         {
-          name: "air-condition6",
-          className: "flaticon-air-conditioning",
-        }, {
-          name: "wheel7",
-          className: "flaticon-oil",
+          name: "suspension",
+          className: "flaticon-suspension",
         },
         {
-          name: "air-condition8",
-          className: "flaticon-air-conditioning",
+          name: "inspection",
+          className: "flaticon-inspection",
         },
         {
-          name: "air-condition9",
-          className: "flaticon-air-conditioning",
-        }
+          name: "engine",
+          className: "flaticon-engine",
+        },
+        {
+          name: "maintenance",
+          className: "flaticon-maintenance",
+        },
+        {
+          name: "speedometer",
+          className: "flaticon-speedometer",
+        },
+        {
+          name: "reparation",
+          className: "flaticon-reparation",
+        },
+        {
+          name: "wheel-alignment",
+          className: "flaticon-wheel-alignment",
+        },
+        {
+          name: "battery",
+          className: "flaticon-battery",
+        },
+        {
+          name: "disc-brake",
+          className: "flaticon-disc-brake",
+        },
+        {
+          name: "mechanic",
+          className: "flaticon-mechanic",
+        },
       ]
     })
   }

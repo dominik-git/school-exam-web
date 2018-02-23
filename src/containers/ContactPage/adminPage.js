@@ -20,6 +20,7 @@ class ContactPageForAdmin extends React.Component {
     this.handleSubmitFormUpdate = this.handleSubmitFormUpdate.bind(this);
     this.handleSubmitFormCreate = this.handleSubmitFormCreate.bind(this);
   }
+ 
 
   handleEditState() {
     if (this.state.readOnly) {
@@ -84,6 +85,7 @@ class ContactPageForAdmin extends React.Component {
         openTime: contactDetails.get("openTime"),
         closeTime: contactDetails.get("closeTime"),
       };
+      console.log(contactDetails);
       return (
         <StyledContactPageWrapper>
           <button onClick={this.handleEditState}>EDIT</button>

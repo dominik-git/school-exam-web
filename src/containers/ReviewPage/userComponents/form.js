@@ -4,6 +4,7 @@ import ReactStars from "react-stars";
 import PropTypes from "prop-types";
 import { ReduxFormInputWithIcon, FormTextAreaWithIcon } from "../../../components/FormElements/index";
 import { StyledFormWrapper } from "../styles";
+import Button from "../../../components/Button";
 
 const ReviewForm = props => {
   const { handleSubmit, ratingChanged } = props;
@@ -37,7 +38,7 @@ const ReviewForm = props => {
         <div>
           <ReactStars count={5} onChange={ratingChanged} size={35} color2={"#ffd700"} />
         </div>
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </StyledFormWrapper>
   );

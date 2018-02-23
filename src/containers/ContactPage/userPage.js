@@ -4,15 +4,13 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { SubmissionError } from "redux-form/immutable";
 import GoogleMapComponent from "../../components/GoogleMap";
-import ContactForm from "./userComponents/form";
+
 import ContactInfo from "./userComponents/contactInfo";
 import { isRequired } from "../../services/validation";
-import { StyledContactPageWrapper, StyledTitle } from "./styles";
+import { StyledContactPageWrapper, StyledTitle, StyledRow } from "./styles";
 import { sendContactFormular } from "../../services/axiosServices";
 import { returnContentDetailPromise } from "../../services/ContactPageServices";
 import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
-import Subheader from "../../components/SubHeader";
-import bmwImage from "../../assets/bmw7.jpg";
 
 // const nameOfFields = this.props.content.get("contactForm");
 /*eslint-disable */
@@ -79,16 +77,14 @@ class ContactPage extends React.Component {
           </Col>
         </Row>
 
-        <Row className="show-grid">
-          <Col xs={12} md={5} lg={6}>
-            <StyledTitle>Kontaktne informacie</StyledTitle>
-            {this.state.content == null ? <div>Empty</div> : <ContactInfo content={this.props.contactDetails} />}
-          </Col>
-          <Col xs={12} md={7} lg={6}>
+        <StyledRow>
+          <StyledTitle>Kontaktne informacie</StyledTitle>
+          {this.state.content == null ? <div>Empty</div> : <ContactInfo content={this.props.contactDetails} />}
+        </StyledRow>
+        {/* <Col xs={12} md={7} lg={6}>
             <StyledTitle>Kontaktujte nas</StyledTitle>
             <ContactForm onSubmit={this.handleSubmitForm} />
-          </Col>
-        </Row>
+          </Col> */}
       </StyledContactPageWrapper>
     );
   }

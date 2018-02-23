@@ -8,12 +8,13 @@ export const StyledFormContent = styled.div``;
 export const StyledContactInfo = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
-  color: black;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 `;
 export const StyledRow = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 `;
 export const StyledDetailInfo = styled.div`
@@ -28,13 +29,20 @@ export const StyledIconWrapper = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: grey;
+  // background: ${props => props.theme.color.carbon};
+  color: ${props => props.theme.color.watermelon};
 `;
 
 export const StyledSubmitButton = styled.button`
-  width: 100%;
-  height: 36px;
-  background: rgb(202, 202, 202);
+  width: 100px;
+  text-transform: uppercase;
+  height: 40px;
+  font-weight: bold;
+  background: rgb(255, 59, 63);
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 5px;
 `;
 
 export const StyledText = styled.span`
@@ -45,7 +53,6 @@ export const StyledContactPageWrapper = styled.div`
   // flex-direction: row;
 `;
 export const StyledTitle = styled.h1`
-  font-family: "Arial";
   font-size: 30px;
   font-weight: bold;
   margin-top: 20px;

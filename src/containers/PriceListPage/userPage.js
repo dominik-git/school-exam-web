@@ -1,19 +1,17 @@
 import React from "react";
-
-import { ToastContainer } from "react-toastify";
-import { toastForGalleryPage } from "../../const/toastMessages";
-import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
+import { Row, Col, Grid } from "react-bootstrap";
 import { returnAllServicesPromise } from "../../services/priceListServices";
-
-import { StyledRow, StyledCell } from "./styles";
-
+import ServiceItem from "../../components/ServiceItem";
+import { StyledTitle, StyledWrapper, StyledRow } from "./styles";
+import Loader from "../../components/Loader";
+import "./flatIconForUser/flaticon.css";
 
 class AdminPricePage extends React.Component {
   constructor() {
     super();
     this.state = {
       isLoading: true,
-      services: []
+      services: [],
     };
   }
   componentDidMount() {
@@ -22,53 +20,35 @@ class AdminPricePage extends React.Component {
   async fetchServices() {
     try {
       const response = await returnAllServicesPromise();
-      console.log(response.data);
       this.setState({
         isLoading: false,
-        services: response.data
+        services: response.data,
       });
     } catch (err) {
       console.log(err);
     }
   }
 
-
   render() {
-    const tableRows = this.state.services.map(item => (
-      <StyledRow key={item.id}>
-        <StyledCell>{item.service}</StyledCell>
-        <StyledCell>{item.description}</StyledCell>
-        <StyledCell>{item.price}</StyledCell>
-      </StyledRow>
+    const serviceItems = this.state.services.map(item => (
+      // <Col xs={12} sm={6} md={4} lg={4} xl={4} key={item.id}>
+      <ServiceItem key={item.id} item={item} key={item.id} />
+      // </Col>
     ));
     if (this.state.isLoading) {
-      return (<div>Loading</div>);
-    }
-    if (this.state.services === undefined) {
       return (
-        <div>
-          Ziadne sluzby add neww
-      </div>);
+        <StyledWrapper>
+          {" "}
+          <Loader />
+        </StyledWrapper>
+      );
     }
     return (
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <td>Sluzba</td>
-              <td>Popis</td>
-              <td>cena</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {tableRows}
-          </tbody>
-        </table>
-        <ToastContainer position="bottom-center" hideProgressBar />
-
-      </div>
-    )
+      <StyledWrapper>
+        <StyledTitle>Nase Sluzby</StyledTitle>
+        <StyledRow>{serviceItems}</StyledRow>
+      </StyledWrapper>
+    );
   }
 }
 export default AdminPricePage;

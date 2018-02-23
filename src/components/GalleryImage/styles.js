@@ -4,8 +4,9 @@ export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #c1c1c1;
+  background: ${props => props.theme.color.carbon};
   margin: 10px;
+  max-width: 350px;
 `;
 
 export const StyledContent = styled.div``;

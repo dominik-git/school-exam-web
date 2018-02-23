@@ -17,7 +17,8 @@ export const StyledInputWrapper = styled.div`
 `;
 export const StyledInputIconWrapper = styled.div`
   width: 55px;
-  background: #cacaca;
+  background: ${props => props.theme.color.white};
+  color: ${props => props.theme.color.watermelon};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +31,7 @@ export const StyledInput = styled.input`
   width: 100%;
   height: 50px;
   border: none;
-  border: solid 2px #d5d5da;
+  outline:none;
   border-radius: ${props => props.theme.rem(3)};
   padding-left: ${props => props.theme.rem(5)};
   box-sizing: border-box;

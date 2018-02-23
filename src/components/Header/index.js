@@ -76,10 +76,10 @@ class Header extends React.Component {
     console.log(window.innerWidth);
   }
   render() {
-    const activeStyle = { background: "#FF3B3F" };
+    const activeStyle = { background: "#253993" }; // #FF3B3F
     const toggleIcon = <i className="fa fa-bars fa-2x" aria-hidden="true" />;
-    const phoneIcon = <i className="fa fa-mobile fa-2x" aria-hidden="true" />;
-    const timeIcon = <i className="fa fa-clock-o fa-2x" aria-hidden="true" />;
+    const phoneIcon = <i className="fas fa-mobile-alt fa-2x" aria-hidden="true" />;
+    const timeIcon = <i className="far fa-clock fa-2x" aria-hidden="true" />;
     let number1 = ""
     let openTime = ""
     let closeTime = ""
@@ -130,8 +130,11 @@ class Header extends React.Component {
             <StyledNavLink exact to="/" activeStyle={activeStyle}>
               Domov
             </StyledNavLink>
-            <StyledNavLink to="/sales" activeStyle={activeStyle}>
-              Cennik
+            <StyledNavLink to="/services" activeStyle={activeStyle}>
+              Sluzby
+            </StyledNavLink>
+            <StyledNavLink to="/orders" activeStyle={activeStyle}>
+              Objednat sa
             </StyledNavLink>
             <StyledNavLink to="/galery" activeStyle={activeStyle}>
               Galeria

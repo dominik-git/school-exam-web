@@ -1,8 +1,8 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Grid } from "react-bootstrap";
 import Slider from "../../components/Slider";
-import { ImagesWrapper, StyledUpload, StyledUploadWrapper } from "./styles";
+import { StyledTitle, StyledUpload, StyledUploadWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
 import {
   returnDeletePhotosPromise,
@@ -109,7 +109,8 @@ class GalleryPageForAdmin extends React.Component {
   }
 
   // move left
-  handleMoveLeft() {
+  handleMoveLeft(e) {
+    e.stopPropagation();
     const { positionOfSelectedImage } = this.state;
     if (positionOfSelectedImage > 0) {
       this.setState(
@@ -123,7 +124,8 @@ class GalleryPageForAdmin extends React.Component {
     }
   }
   // move right
-  handleMoveRight() {
+  handleMoveRight(e) {
+    e.stopPropagation();
     const { positionOfSelectedImage, arrayOfImages } = this.state;
     console.log(arrayOfImages.length);
     const length = arrayOfImages.length - 1;
@@ -176,7 +178,7 @@ class GalleryPageForAdmin extends React.Component {
         />
       </Col>
     ));
-    const imageObj = this.state.arrayOfImages[positionOfSelectedImage];
+    const imageObj = splitedArray[positionOfSelectedImage];
     if (isLoading) {
       return <div>Loading</div>;
     }
@@ -205,16 +207,15 @@ class GalleryPageForAdmin extends React.Component {
             closeSlider={this.closeSlider}
           />
         ) : null}
-        <ImagesWrapper>
-          <PaginationComponent
-            arrayOfReviews={this.state.arrayOfImages}
-            setCurrentPage={this.handleSetCurrentPage}
-            todosPerPage={imagesPerPage}
-          >
-            {galerryImages}
-          </PaginationComponent>
-
-        </ImagesWrapper>
+        <StyledTitle>Galeria</StyledTitle>
+        <Grid>
+          <Row className="show-grid">{galerryImages}</Row>
+        </Grid>
+        <PaginationComponent
+          arrayOfReviews={this.state.arrayOfImages}
+          setCurrentPage={this.handleSetCurrentPage}
+          todosPerPage={imagesPerPage}
+        />
         <ToastContainer position="bottom-center" hideProgressBar />
       </div>
     );

@@ -1,4 +1,4 @@
-.react-bs-table .table-bordered>tbody>tr>td{
+.react-bs-table .table-bordered > tbody > tr > td {
   display: table-cell;
   vertical-align: middle;
   text-align: center !important;

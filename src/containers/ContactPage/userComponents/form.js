@@ -2,14 +2,15 @@ import React from "react";
 import { Field, reduxForm } from "redux-form/immutable";
 import PropTypes from "prop-types";
 import { ReduxFormInputWithIcon, FormTextAreaWithIcon, FormInput } from "../../../components/FormElements/index";
-import { StyledFormWrapper, StyledSubmitButton } from "../styles";
+import { StyledFormWrapper } from "../styles";
+import Button from "../../../components/Button";
 
 const ContactForm = props => {
   const { handleSubmit } = props;
-  const addressIcon = <i className="fa fa-envelope fa-2x" aria-hidden="true" />;
-  const userIcon = <i className="fa fa-user fa-2x" aria-hidden="true" />;
-  const messageIcon = <i className="fa fa-commenting fa-2x" aria-hidden="true" />;
-  const phoneIcon = <i className="fa fa-phone fa-2x" aria-hidden="true" />;
+  const addressIcon = <i className="far fa-envelope fa-2x" aria-hidden="true" />;
+  const userIcon = <i className="far fa-user fa-2x" aria-hidden="true" />;
+  const messageIcon = <i className="far fa-comment-alt fa-2x" aria-hidden="true" />;
+  const phoneIcon = <i className="fas fa-mobile-alt fa-2x" aria-hidden="true" />;
   return (
     <StyledFormWrapper>
       <form onSubmit={handleSubmit}>
@@ -53,7 +54,8 @@ const ContactForm = props => {
           />
         </div>
         <div>
-          <StyledSubmitButton type="submit">Odoslat</StyledSubmitButton>
+          
+          <Button type="submit">Odoslat</Button>
         </div>
       </form>
     </StyledFormWrapper>

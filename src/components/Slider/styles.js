@@ -1,10 +1,17 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
 `;
 export const StyledOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
@@ -17,8 +24,12 @@ export const StyledOverlay = styled.div`
 `;
 export const StyledSlider = styled.div``;
 export const StyledContent = styled.div`
-  height: 500px;
-  width: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 100px;
   z-index: 15;
 `;
 // export const StyledOverlay = styled.div`
@@ -62,6 +73,6 @@ export const RightIconWrapper = styled.div`
 `;
 
 export const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
+  height: 500px;
+  width: 500px;
 `;

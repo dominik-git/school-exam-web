@@ -1,5 +1,4 @@
 import { injectGlobal } from "styled-components";
-import MyFont from "./fonts/Montserrat-Regular.ttf";
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -8,9 +7,14 @@ injectGlobal`
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+// @font-face {
+//   font-family: 'Marlboro';
+//   src: url('./fonts/Marlboro.ttf');
+// }
 @font-face {
-  font-family: MyFont;
-  src: url('${MyFont}') format('opentype');
+  font-family: 'OpenSans';
+  src: url('../fonts/OpenSans-Regular.ttf')  format('truetype');
+ 
 }
   html {
     margin:0;
@@ -20,16 +24,21 @@ injectGlobal`
     box-sizing: border-box;
   }
   body {
-    // font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+   font-family:"OpenSans";
     height: 100%;
     margin: 0 auto;
-    background-color: #FBFBFB;
+    background-color: white;
    #root {
       width: 100%;
     }
   }
+ 
   #root {
    height: inherit;
    height:100%;
+  }
+  .row{
+    margin:0;
+    padding:0;
   }
 `;

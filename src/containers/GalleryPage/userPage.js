@@ -1,23 +1,18 @@
 import React from "react";
-import { ToastContainer } from "react-toastify";
-import { Row, Col } from "react-bootstrap";
+import { Col, Row, Grid } from "react-bootstrap";
 import Slider from "../../components/Slider";
-import { ImagesWrapper, StyledUpload, StyledUploadWrapper } from "./styles";
+import { ImagesWrapper, StyledTitle, StyledWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
-import {
-  returnDeletePhotosPromise,
-  returnFetchPhotosPromise,
-  returnUploadPhotoPromise
-} from "../../services/GalleryServices";
-import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
+import { returnFetchPhotosPromise } from "../../services/GalleryServices";
+import { errorNotification } from "../../services/toastServices";
 import { toastForGalleryPage } from "../../const/toastMessages";
 import PaginationComponent from "../../components/PaginationComponent";
-import Subheader from "../../components/SubHeader";
-import bmwImage from "../../assets/bmw7.jpg";
+import Loader from "../../components/Loader";
+import "./styles.css";
 
 /*eslint-disable */
-const imagesPerPage = 8;
-class GalleryPageForAdmin extends React.Component {
+const imagesPerPage = 9;
+class GalleryPageForUser extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -57,7 +52,6 @@ class GalleryPageForAdmin extends React.Component {
     }
   }
 
-
   // show slider (set state isSliderShow to "true") and show appropriate image, function
   // is called in "GalleryImage" component where it's passed image
   showSliderAndPassImage(position) {
@@ -82,8 +76,14 @@ class GalleryPageForAdmin extends React.Component {
 
   // if image is the last we cant move right and set state "isMoveRightPossible" to false
   isMoveRightPossibleFunc() {
-    const length = this.state.arrayOfImages.length - 1;
-    if (this.state.positionOfSelectedImage === length) {
+    const { positionOfSelectedImage, arrayOfImages } = this.state;
+    const indexOfLastElementOnThePage = this.state.currentPage * imagesPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
+    // this.state.arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
+    // const length = this.state.arrayOfImages.length - 1;
+    const length = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
+    console.log();
+    if (positionOfSelectedImage === length) {
       this.setState({ isMoveRightPossible: false });
     } else {
       this.setState({ isMoveRightPossible: true });
@@ -91,7 +91,8 @@ class GalleryPageForAdmin extends React.Component {
   }
 
   // move left
-  handleMoveLeft() {
+  handleMoveLeft(e) {
+    e.stopPropagation();
     const { positionOfSelectedImage } = this.state;
     if (positionOfSelectedImage > 0) {
       this.setState(
@@ -105,11 +106,13 @@ class GalleryPageForAdmin extends React.Component {
     }
   }
   // move right
-  handleMoveRight() {
+  handleMoveRight(e) {
+    e.stopPropagation();
     const { positionOfSelectedImage, arrayOfImages } = this.state;
-    console.log(arrayOfImages.length);
-    const length = arrayOfImages.length - 1;
-
+    // const length = arrayOfImages.length - 1;
+    const indexOfLastElementOnThePage = this.state.currentPage * imagesPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
+    const length = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
     if (positionOfSelectedImage < length) {
       this.setState(
         {
@@ -133,13 +136,14 @@ class GalleryPageForAdmin extends React.Component {
       arrayOfImages,
       positionOfSelectedImage,
       isLoading,
-      currentPage, allReviewsArray
+      currentPage,
+      allReviewsArray,
     } = this.state;
     const indexOfLastElementOnThePage = currentPage * imagesPerPage;
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
     const splitedArray = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
     const galerryImages = splitedArray.map((item, index) => (
-      <Col xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
+      <Col xs={12} sm={6} md={4} lg={4} xl={4} key={item.id}>
         <GalleryImage
           id={item.id}
           obj={item.data}
@@ -148,12 +152,16 @@ class GalleryPageForAdmin extends React.Component {
         />
       </Col>
     ));
-    const imageObj = this.state.arrayOfImages[positionOfSelectedImage];
+    const imageObj = splitedArray[positionOfSelectedImage];
     if (isLoading) {
-      return <div>Loading</div>;
+      return (
+        <StyledWrapper>
+          <Loader />
+        </StyledWrapper>
+      );
     }
     return (
-      <div>
+      <StyledWrapper>
         {isSliderShow ? (
           <Slider
             isMoveLeftPossible={isMoveLeftPossible}
@@ -164,20 +172,18 @@ class GalleryPageForAdmin extends React.Component {
             closeSlider={this.closeSlider}
           />
         ) : null}
-        <ImagesWrapper>
-          <PaginationComponent
-            arrayOfReviews={this.state.arrayOfImages}
-            setCurrentPage={this.handleSetCurrentPage}
-            todosPerPage={imagesPerPage}
-          >
-            {galerryImages}
-          </PaginationComponent>
-
-        </ImagesWrapper>
-        <ToastContainer position="bottom-center" hideProgressBar />
-      </div>
+        <StyledTitle>Galeria</StyledTitle>
+        <Grid>
+          <Row className="show-grid">{galerryImages}</Row>
+        </Grid>
+        <PaginationComponent
+          arrayOfReviews={this.state.arrayOfImages}
+          setCurrentPage={this.handleSetCurrentPage}
+          todosPerPage={imagesPerPage}
+        />
+      </StyledWrapper>
     );
   }
 }
 
-export default GalleryPageForAdmin;
+export default GalleryPageForUser;

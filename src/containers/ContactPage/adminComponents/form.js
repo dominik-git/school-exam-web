@@ -3,6 +3,7 @@ import { Field, reduxForm } from "redux-form/immutable";
 import PropTypes from "prop-types";
 import { FormInput, FormSelect } from "../../../components/FormElements/index";
 import { StyledFormWrapper, StyledSubmitButton, StyledSelect } from "../styles";
+import Button from "../../../components/Button";
 
 const AdminContactForm = props => {
   const { handleSubmit, readOnly, changeSubmitButtonText } = props;
@@ -137,7 +138,7 @@ const AdminContactForm = props => {
         </div>
         <div>
           {!readOnly ? (
-            <StyledSubmitButton type="submit">{changeSubmitButtonText ? "Zmenit" : "Odoslat"}</StyledSubmitButton>
+            <Button type="submit">{changeSubmitButtonText ? "Zmenit" : "Odoslat"}</Button>
           ) : null}
         </div>
       </form>
@@ -149,7 +150,7 @@ const AdminContactForm = props => {
 export default reduxForm({
   // a unique name for the form
   form: "adminContactForm",
-  enableReinitialize: true,
+  destroyOnUnmount: false
 })(AdminContactForm);
 
 AdminContactForm.propTypes = {
