@@ -6,7 +6,23 @@ import {
   StyledItemFooter,
   StyledItemBody,
   StyledTitle,
-} from "./styles.js";
+} from "./styles";
+import Button from "../Button";
+import ButtonGroup from "../ButtonGroup";
+
+// const Buttons = props => (
+//   <ButtonGroup>
+//     <Button
+//       blue
+//       onClick={() => {
+//         props.executeFunction[0]();
+//       }}
+//     >
+//       Edit
+//     </Button>
+//     <Button grey>delete</Button>
+//   </ButtonGroup>
+// );
 
 const ServiceItem = props => (
   <StyledWrapper>
@@ -18,6 +34,21 @@ const ServiceItem = props => (
     </StyledItemHeader>
     <StyledItemBody>{props.item.description}</StyledItemBody>
     <StyledItemFooter>cena od: {props.item.price}€</StyledItemFooter>
+    {props.isAdmin ? (
+      <ButtonGroup>
+        <Button blue onClick={props.edit}>
+          Edit
+        </Button>
+        <Button
+          grey
+          onClick={() => {
+            props.onDelete(props.item.id);
+          }}
+        >
+          delete
+        </Button>
+      </ButtonGroup>
+    ) : null}
   </StyledWrapper>
 );
 export default ServiceItem;

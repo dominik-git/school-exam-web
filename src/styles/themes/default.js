@@ -16,10 +16,10 @@ const color = {
   bmwBlue: "rgb(86, 115, 228)",
   bmwBlack: "#181a1d",
   snow: "#FBFBFB",
-  sky: "#CAEBF2",
+  sky: "#f0f8ff",
   carbon: "#545454",
   watermelon: "#253993",
-  //blue #253993
+  // blue #253993
   // watermelon: "#FF3B3F",
   neutral: "white",
 };

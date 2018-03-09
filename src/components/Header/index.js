@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { withRouter } from 'react-router'
 import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
 // import PropTypes from "prop-types";
 import {
@@ -133,7 +134,7 @@ class Header extends React.Component {
             <StyledNavLink to="/services" activeStyle={activeStyle}>
               Sluzby
             </StyledNavLink>
-            <StyledNavLink to="/orders" activeStyle={activeStyle}>
+            <StyledNavLink to="/orders/newOrders" activeStyle={activeStyle}>
               Objednat sa
             </StyledNavLink>
             <StyledNavLink to="/galery" activeStyle={activeStyle}>
@@ -147,7 +148,7 @@ class Header extends React.Component {
         </StyledNavLink>
           </StyledMenu>
         </StyledMenuWrapper>
-      </StyledHeaderWrapper>);
+      </StyledHeaderWrapper>)
 
   }
 }
@@ -155,4 +156,4 @@ const mapStateToProps = createStructuredSelector({
   contactDetails: selectContactDetails(),
 });
 
-export default connect(mapStateToProps, null)(Header);
+export default withRouter(connect(mapStateToProps, null)(Header));

@@ -26,18 +26,22 @@ export const StyledInputIconWrapper = styled.div`
 
 export const StyledIcon = styled.span``;
 
+const border = {
+  border:`1px solid ${props => props.theme.color.watermelon}`
+};
+
 export const StyledInput = styled.input`
   height: ${props => props.theme.rem(25)};
   width: 100%;
   height: 50px;
-  border: none;
+  border: ${ props => props.border === true ? `1px solid ${props.theme.color.carbon}` : "none"};
   outline:none;
   border-radius: ${props => props.theme.rem(3)};
   padding-left: ${props => props.theme.rem(5)};
   box-sizing: border-box;
   ${props => (props.readOnly ? disabled : null)};
   &:focus {
-    border-color: #01b2b7;
+    border-color: ${props => props.theme.color.watermelon};
   }
 `;
 export const StyledSelect = styled.select`
@@ -91,8 +95,10 @@ export const CapsLockMessage = styled.span`
   font-size: ${props => props.theme.rem(13)};
   color: ${props => props.theme.color.warning};
 `;
-export const StyledFormLabel = styled.div`
+export const StyledFormLabel = styled.span`
   padding-bottom: ${props => props.theme.rem(3)};
+  font-weight: bold;
+  font-size: 16px;
 `;
 export const StyledTextArea = styled.textarea`
   width: 100%;

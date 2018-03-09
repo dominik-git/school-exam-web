@@ -17,6 +17,7 @@ injectGlobal`
  
 }
   html {
+    height:100%;
     margin:0;
     padding:0;
     -webkit-box-sizing: border-box;
@@ -24,18 +25,16 @@ injectGlobal`
     box-sizing: border-box;
   }
   body {
+    height:100%;
    font-family:"OpenSans";
-    height: 100%;
+    // min-height: 100%;
     margin: 0 auto;
     background-color: white;
-   #root {
-      width: 100%;
-    }
   }
  
   #root {
-   height: inherit;
    height:100%;
+   min-height:100%;
   }
   .row{
     margin:0;

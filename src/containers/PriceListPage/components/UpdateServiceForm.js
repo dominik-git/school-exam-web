@@ -3,18 +3,20 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form/immutable";
 import PropTypes from "prop-types";
 import { ReduxFormInputWithIcon } from "../../../components/FormElements/index";
-import {} from "./styles";
+import ButtonGroup from "../../../components/ButtonGroup";
+import Button from "../../../components/Button";
 import ImagePickerWrapper from "../../../components/ImagePicker/ImagePickerWrapper";
-import { StyledHiddenField } from "./styles";
+import { StyledHiddenField, StyledForm } from "./styles";
 
 const UpdateService = props => {
-  const { handleSubmit, form, serviceImage } = props;
+  const { handleSubmit, form, serviceImage, cancel } = props;
   const passwordIcon = <i className="fa fa-unlock" aria-hidden="true" />;
   const userIcon = <i className="fa fa-user fa-2x" aria-hidden="true" />;
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <h3>Edituj sluzbu</h3>
       <div>
+        <span>Obrazok sluzby</span>
         <ImagePickerWrapper job="update" form={form} serviceImage={serviceImage} />
       </div>
       <StyledHiddenField>
@@ -58,9 +60,16 @@ const UpdateService = props => {
         />
       </div>
       <div>
-        <button type="submit">Odoslat</button>
+        <ButtonGroup>
+          <Button type="submit" blue>
+            Odoslat
+          </Button>
+          <Button grey onClick={props.cancel}>
+            Cancel
+          </Button>
+        </ButtonGroup>
       </div>
-    </form>
+    </StyledForm>
   );
 };
 

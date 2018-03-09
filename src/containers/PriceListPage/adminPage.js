@@ -1,8 +1,4 @@
 import React from "react";
-import { createStructuredSelector } from "reselect";
-import { connect } from "react-redux";
-import { ToastContainer } from "react-toastify";
-import { getStateSelectedImage } from "../../selectors/priceListSelector";
 import UpdateServiceForm from "./components/UpdateServiceForm";
 import CreateNewServiceForm from "./components/CreateNewServiceForm";
 import EditAbleServiceComponent from "./components/EditAbleServiceComponent";
@@ -13,6 +9,7 @@ import {
   returnPromiseUpdateServiceById,
   returnPromiseDeleteServiceById
 } from "../../services/priceListServices";
+import { StyledWrapper,StyledServicesWrapper,StyledIcon, StyledFormOverlay,StyledIconWrapper } from "./styles";
 
 
 class AdminPricePage extends React.Component {
@@ -22,19 +19,27 @@ class AdminPricePage extends React.Component {
       isLoading: true,
       services: [],
       selectedImage: "",
+      edit:false,
     };
     this.createNewService = this.createNewService.bind(this);
     this.deleteService = this.deleteService.bind(this);
     this.updateService = this.updateService.bind(this);
+    this.turnOnEdit = this.turnOnEdit.bind(this);
+    this.turnOffEdit = this.turnOffEdit.bind(this);
   }
   componentDidMount() {
     this.fetchServices();
   }
 
+  turnOnEdit() {
+    this.setState({ edit: true });
+  }
+  turnOffEdit() {
+    this.setState({ edit: false });
+  }
   async fetchServices() {
     try {
       const response = await returnAllServicesPromise();
-      console.log(response.data);
       this.setState({
         isLoading: false,
         services: response.data
@@ -46,11 +51,11 @@ class AdminPricePage extends React.Component {
   // TO ADD add const message to notification
   async createNewService(values) {
     const { serviceImage, service, description, price } = values.toJS();
-    // const serviceImage = this.props.selectedImage;
     try {
       await returnPromiseCreateNewService(serviceImage, service, description, price);
       this.fetchServices();
-      sucessfulNotification("PRIDANE");
+      sucessfulNotification("Nova sluzba bola pridana");
+      this.turnOffEdit();
     } catch (err) {
       errorNotification("chyba");
       console.log(err);
@@ -84,28 +89,34 @@ class AdminPricePage extends React.Component {
     if (this.state.isLoading) {
       return (<div>Loading</div>);
     }
-
+    if (this.state.edit) {
+      return (
+        <StyledFormOverlay>
+          <CreateNewServiceForm onSubmit={this.createNewService} onCancel={this.turnOffEdit}/>
+        </StyledFormOverlay>
+      );
+    }
     return (
-      <div>
-        {this.state.services.map(item => {
-          return (
-            <EditAbleServiceComponent
-              data={item}
-              key={item.id}
-              onSubmit={this.updateService}
-            />
-          );
-        })}
+      <StyledWrapper>
+        <StyledIconWrapper>
+          <StyledIcon className ="fas fa-plus-circle fa-3x" onClick={this.turnOnEdit}/>
+          <div>Pridat novu sluzbu</div>
+        </StyledIconWrapper>
         
-        <CreateNewServiceForm
-          onSubmit={this.createNewService}
-          name="wheel"
-          className="flaticon-oil"
-        />
-
-        <ToastContainer position="bottom-center" hideProgressBar />
-      </div>
-    )
+        <StyledServicesWrapper>
+          {this.state.services.map(item => {
+            return (
+              <EditAbleServiceComponent
+                data={item}
+                key={item.id}
+                onSubmit={this.updateService}
+                onDelete={this.deleteService}
+              />
+            );
+          })}
+        </StyledServicesWrapper>
+      </StyledWrapper>
+    );
   }
 }
 

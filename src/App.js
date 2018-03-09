@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import { Switch, Route, withRouter } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import theme from "./styles/themes/default";
@@ -23,23 +24,27 @@ import LoginPage from "./containers/LoginPage";
 class App extends React.Component {
   render() {
     const Wrapper = styled.div`
-      position: relative;
+      // position: relative;
+      min-height: 100%;
     `;
     return (
       <ThemeProvider theme={theme}>
-        <Wrapper>
+        <React.Fragment>
           <Header />
-          <Switch>
-            <Route exact path="/" component={getComponents(HomePageForAdmin, HomePageForUser)} />
-            <Route path="/services" component={getComponents(PriceListPageForAdmin, PriceListPageForUser)} />
-            <Route path="/orders" component={getComponents(OrderPageForAdmin, OrderPageForUser)} />
-            <Route path="/galery" component={getComponents(GalleryPageForAdmin, GalleryPageForUser)} />
-            <Route path="/contact" component={getComponents(ContactPageForAdmin, ContactPageForUser)} />
-            <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />
-            <Route path="/admin" component={LoginPage} />
-          </Switch>
+          <Wrapper>
+            <Switch>
+              <Route exact path="/" component={getComponents(HomePageForAdmin, HomePageForUser)} />
+              <Route path="/services" component={getComponents(PriceListPageForAdmin, PriceListPageForUser)} />
+              <Route path="/orders" component={getComponents(OrderPageForAdmin, OrderPageForUser)} />
+              <Route path="/galery" component={getComponents(GalleryPageForAdmin, GalleryPageForUser)} />
+              <Route path="/contact" component={getComponents(ContactPageForAdmin, ContactPageForUser)} />
+              <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />
+              <Route path="/admin" component={LoginPage} />
+            </Switch>
+          </Wrapper>
           <Footer />
-        </Wrapper>
+          <ToastContainer position="bottom-center" hideProgressBar />
+        </React.Fragment>
       </ThemeProvider>
     );
   }

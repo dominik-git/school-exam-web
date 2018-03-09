@@ -3,9 +3,8 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import Loader from "../../../components/Loader";
 import { returnGetPromise, returnPostPathVariablePromise } from "../../../services/orderServices";
 import ExpanedRow from "../../../components/ExpandedRow/index";
+import { sucessfulNotification, infoNotification, errorNotification } from "../../../services/toastServices";
 
-const loadNewordersUrl = "/api/order/getAllNewOrders";
-const approveOrderUrl = "api/order/approveOrder/{id}";
 class NewOrders extends React.Component {
   constructor() {
     super();
@@ -13,6 +12,10 @@ class NewOrders extends React.Component {
       data: [],
       isLoading: true,
     };
+    this.expandComponent = this.expandComponent.bind(this);
+    this.approveOrder = this.approveOrder.bind(this);
+    this.deleteOrder = this.deleteOrder.bind(this);
+    
   }
   componentDidMount() {
     this.loadNewOrders();
@@ -20,11 +23,29 @@ class NewOrders extends React.Component {
 
   async loadNewOrders() {
     try {
-      const response = await returnGetPromise(loadNewordersUrl);
+      const response = await returnGetPromise("/api/order/getAllNewOrders");
       this.setState({
         data: response.data,
         isLoading: false,
       });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async approveOrder(id) {
+    try {
+      await returnPostPathVariablePromise(`/api/order/approveOrder/${id}`);
+      this.setState({data: this.state.data.filter(value => value.id !== id)});
+      sucessfulNotification("Objednavka bola schvalena");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async deleteOrder(id) {
+    try {
+      await returnPostPathVariablePromise(`/api/order/deleteOrder/${id}`);
+      this.setState({data: this.state.data.filter(value => value.id !== id)});
     } catch (err) {
       console.log(err);
     }
@@ -35,14 +56,18 @@ class NewOrders extends React.Component {
   }
   expandComponent(row) {
     return (
-      <ExpanedRow 
-      carBrand={row.carBrand} 
-      carModel={row.carModel}
-      problemDescription={row.problemDescription}
-      serviceName={row.serviceName}
-       time={row.time} 
-       yearOfMade={row.yearOfMade}
-       />
+      <ExpanedRow
+        carBrand={row.carBrand}
+        carModel={row.carModel}
+        problemDescription={row.problemDescription}
+        serviceName={row.serviceName}
+        time={row.time}
+        yearOfMade={row.yearOfMade}
+        orderId={row.id}
+        executionFunction={this.approveOrder}
+        deleteOrder={this.deleteOrder}
+        executionText="Potvrdit objednavku"
+      />
     );
   }
 
@@ -62,7 +87,6 @@ class NewOrders extends React.Component {
       <div>
         <BootstrapTable
           data={this.state.data}
-          striped
           pagination
           options={options}
           expandableRow={this.isExpandableRow}
@@ -75,14 +99,6 @@ class NewOrders extends React.Component {
           <TableHeaderColumn dataField="surname">Priezvisko</TableHeaderColumn>
           <TableHeaderColumn dataField="emailAddress">E-mailova Adresa</TableHeaderColumn>
           <TableHeaderColumn dataField="phoneNumber">Tel. cislo</TableHeaderColumn>
-          {/* <TableHeaderColumn dataField="carBrand">Znacka auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="carModel">Model auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="yearOfMade">Model auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="problemDescription">Zavada</TableHeaderColumn>
-          <TableHeaderColumn dataField="serviceName">Pozadovana sluzba</TableHeaderColumn>
-          <TableHeaderColumn dataField="time" dataSort>
-            Orientacny cas
-          </TableHeaderColumn> */}
         </BootstrapTable>
       </div>
     );

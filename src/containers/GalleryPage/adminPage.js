@@ -216,7 +216,6 @@ class GalleryPageForAdmin extends React.Component {
           setCurrentPage={this.handleSetCurrentPage}
           todosPerPage={imagesPerPage}
         />
-        <ToastContainer position="bottom-center" hideProgressBar />
       </div>
     );
   }

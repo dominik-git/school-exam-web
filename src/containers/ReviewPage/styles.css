@@ -2,4 +2,35 @@
   display: table-cell;
   vertical-align: middle;
   text-align: center !important;
+  height: 100px;
+}
+
+/* .react-bs-table .table-bordered > tbody > tr > td:hover {
+  cursor: default;
+} */
+.as :hover {
+  cursor: default;
+}
+.effect {
+  position: relative;
+}
+
+.effect:before,
+.effect:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  background: #777;
+  box-shadow: 0 15px 10px #777;
+  transform: rotate(-3deg);
+}
+.effect:after {
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
 }

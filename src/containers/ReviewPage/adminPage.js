@@ -96,7 +96,7 @@ class ReviewPageForAdmin extends React.Component {
         <BootstrapTable
           data={allReviewsArray}
           striped
-          hover
+        className="as"
           pagination={true}
           options={options}
         >

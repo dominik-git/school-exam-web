@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { change } from "redux-form";
 import { connect } from "react-redux";
-import { compose } from 'redux';
 import { StyledImage } from "./styles";
 
 class Image extends React.Component {

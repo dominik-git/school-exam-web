@@ -1,5 +1,7 @@
 import React from "react";
 import UpdateServiceForm from "./UpdateServiceForm";
+import { StyledWrapper, StyledLabel } from "./styles";
+import ServiceItem from "../../../components/ServiceItem";
 // import { StyledWrapper, StyledServiceIcon, StyledServiceName, StyledServiceDesciption, StyledServicePrice, StyledButtonGroup } from "./styles";
 
 class EditAbleServiceComponent extends React.Component {
@@ -7,59 +9,71 @@ class EditAbleServiceComponent extends React.Component {
     super(props);
     this.state = {
       isEdit: false,
-    }
-    this.handleEditState = this.handleEditState.bind(this);
+    };
+    this.turnOnEdit = this.turnOnEdit.bind(this);
+    this.turnOffEdit = this.turnOffEdit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleEditState() {
-    const { isEdit } = this.state;
-    if (isEdit) {
-      this.setState({ isEdit: false });
-    } else {
-      this.setState({ isEdit: true });
-    }
+  turnOnEdit() {
+    this.setState({ isEdit: true });
+  }
+  turnOffEdit() {
+    this.setState({ isEdit: false });
   }
   handleSubmit(values) {
     const { serviceImage, service, description, price } = values.toJS();
     this.props.onSubmit(this.props.data.id, serviceImage, service, description, price);
+    this.setState({ isEdit: false });
   }
 
   render() {
-    const { data } = this.props;
+    const { data, onDelete } = this.props;
     const initialValues = {
       serviceImage: data.serviceImage,
       service: data.service,
       description: data.description,
-      price: data.price
+      price: data.price,
     };
     if (this.state.isEdit) {
       return (
-        <div>
+        <StyledWrapper>
           <UpdateServiceForm
             serviceImage={data.serviceImage}
             initialValues={initialValues}
             form={`${data.id}`}
             handleDeleteRow
             onSubmit={this.handleSubmit}
+            cancel={this.turnOffEdit}
           />
-          {/* <input value="save" onClick={this.handleSubmit} type="button" /> */}
-          <input value="cancel" onClick={this.handleEditState} type="button" />
-        </div>
+        </StyledWrapper>
       );
     }
     return (
-      <div>
-        <div> {data.serviceImage}</div>
-        <div> {data.serviceName}</div>
-        <div> {data.description}</div>
-        <div> {data.price}</div>
-        <div>{data.id}</div>
-        <div>
-          <input value="edit" type="button" onClick={this.handleEditState} />
-          {/* <input value="delete" type="button" onClick={this.handleDeleteRow} /> */}
-        </div>
-      </div>
+      // <StyledWrapper>
+      //   <div>
+      //     <StyledLabel>Obrazok sluzby:</StyledLabel>
+      //     <div className={data.serviceImage} />
+      //   </div>
+      //   <div>
+      //     <StyledLabel>Nazov sluzby:</StyledLabel>
+      //     <div>{data.service}</div>
+      //   </div>
+      //   <div>
+      //     <StyledLabel>Popis sluzby:</StyledLabel>
+      //     <div>{data.description} </div>
+      //   </div>
+      //   <div>
+      //     <StyledLabel>Cena sluzby:</StyledLabel>
+      //     <div>{data.price} </div>
+      //   </div>
+      //   <div>
+      //     <input value="edit" type="button" onClick={this.handleEditState} />
+      //     {/* <input value="delete" type="button" onClick={this.handleDeleteRow} /> */}
+      //   </div>
+      // </StyledWrapper>
+
+      <ServiceItem item={data} isAdmin edit={this.turnOnEdit} onDelete={onDelete} />
     );
   }
 }

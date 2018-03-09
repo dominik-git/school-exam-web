@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
+const colorSetter = (colorTheme, ghost) => `
+background: ${ghost ? "transparent" : colorTheme};
+`;
 const StyledButton = styled.button`
-  width: 100px;
+  margin: 10px;
+  min-width: 100px;
   text-transform: uppercase;
   height: 40px;
   font-weight: bold;
-  background: ${props => props.theme.color.watermelon};
+  ${props => props.blue && colorSetter(props.theme.color.watermelon)};
+  ${props => props.grey && colorSetter(props.theme.color.carbon)};
   outline: none;
   border: none;
   color: white;

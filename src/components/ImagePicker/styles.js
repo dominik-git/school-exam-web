@@ -6,23 +6,22 @@ import styled, { keyframes } from "styled-components";
 // `;
 
 export const StyledWrapper = styled.div`
-  display:flex;
-  justify-content:space-between;
-  text-align:center;
-  flex-direction:row;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+  flex-direction: row;
   flex-wrap: wrap;
-  height:auto;
+  height: auto;
   position: relative;
-
 `;
 
 export const StyledImagePickerSelect = styled.div`
   position: relative;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   border: 2px solid ${props => props.theme.color.watermelon};
   &:hover {
     background: ${props => props.theme.color.sky};
@@ -35,16 +34,14 @@ export const StyledRightIcon = styled.span`
 `;
 
 export const StyledImage = styled.div`
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-width:70px;
-height:70px;
-margin:10px;
-&:hover{
-  background:${props => props.theme.color.sky};
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  margin: 25px;
+  &:hover {
+    background: ${props => props.theme.color.sky};
+  }
 `;
-
-

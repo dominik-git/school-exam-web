@@ -16,7 +16,7 @@ export async function sendContactFormular(emailAddress, message, subject) {
   }
 }
 
-export  function UploadPhoto(photoFile) {
+export function UploadPhoto(photoFile) {
   const photoData = new FormData();
   photoData.append("photo", photoFile);
   const options = {
@@ -24,7 +24,7 @@ export  function UploadPhoto(photoFile) {
     url: "/api/gallery",
     headers: { "Content-Type": "multipart/form-data" },
     data: photoData,
-  }
+  };
 }
 
 export function returnFetchPhotosPromise() {

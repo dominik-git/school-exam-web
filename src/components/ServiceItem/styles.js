@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  height: 250px;
-  width: 30%;
+  min-height: 250px;
+  border-radius: 3px;
+  padding: 10px;
+  background: ${props => props.theme.color.sky};
+  margin: 20px;
+  width: 28%;
   max-width: 400px;
   color: black;
   display: inline-flex;
@@ -30,16 +34,17 @@ export const StyledItemFooter = styled.div`
   font-size: 20px;
 `;
 export const StyledItemBody = styled.div`
-  font-size: 18px;
+  font-size: 15px;
+  height: 150px;
   color: ${props => props.theme.color.carbon};
   word-wrap: break-word;
-  width: 80%;
-  text-transform: capitalize;
+  width: 100%;
 `;
 
 export const StyledTitle = styled.h2`
   font-weight: 600;
   font-size: 21px;
+  margin-left: 40px;
 `;
 
 export const StyledIconWrapper = styled.div`

@@ -16,7 +16,9 @@ export const StyledRow = styled.div`
 `;
 
 export const StyledWrapper = styled.div`
-  min-height: 500px;
+  height: 100%;
+  width: 70%;
+  margin: 0 auto;
 `;
 
 export const StyledTitle = styled.h2`
@@ -26,6 +28,7 @@ export const StyledTitle = styled.h2`
   color: ${props => props.theme.color.watermelon};
   border-bottom: 1px solid ${props => props.theme.color.watermelon};
 `;
+
 export const LeftIconWrapper = styled.div``;
 export const ImagesWrapper = styled.div``;
 export const StyledUpload = styled.span`

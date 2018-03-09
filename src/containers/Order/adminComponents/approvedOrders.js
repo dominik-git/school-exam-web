@@ -4,10 +4,6 @@ import Loader from "../../../components/Loader";
 import { returnGetPromise, returnPostPathVariablePromise } from "../../../services/orderServices";
 import ExpanedRow from "../../../components/ExpandedRow/index";
 
-
-const loadApprovedordersUrl = "/api/order/getAllApprovedOrder";
-const archiveOrderUrl = "api/order/archiveOrder/{id}";
-
 class ApprovedOrders extends React.Component {
   constructor() {
     super();
@@ -15,6 +11,8 @@ class ApprovedOrders extends React.Component {
       data: [],
       isLoading: true,
     };
+    this.expandComponent = this.expandComponent.bind(this);
+    this.archiveOrder = this.archiveOrder.bind(this);
   }
   componentDidMount() {
     this.loadNewOrders();
@@ -22,11 +20,20 @@ class ApprovedOrders extends React.Component {
 
   async loadNewOrders() {
     try {
-      const response = await returnGetPromise(loadApprovedordersUrl);
+      const response = await returnGetPromise("/api/order/getAllApprovedOrder");
       this.setState({
         data: response.data,
         isLoading: false,
       });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async archiveOrder(id) {
+    console.log("id",id);
+    try {
+      await returnPostPathVariablePromise(`/api/order/archiveOrder/${id}`);
+      this.setState({data: this.state.data.filter(value => value.id !== id)});
     } catch (err) {
       console.log(err);
     }
@@ -38,13 +45,16 @@ class ApprovedOrders extends React.Component {
   expandComponent(row) {
     return (
       <ExpanedRow 
-      carBrand={row.carBrand} 
-      carModel={row.carModel}
-      problemDescription={row.problemDescription}
-      serviceName={row.serviceName}
+       carBrand={row.carBrand} 
+       carModel={row.carModel}
+       problemDescription={row.problemDescription}
+       serviceName={row.serviceName}
        time={row.time} 
        yearOfMade={row.yearOfMade}
-       />
+       orderId={row.id}
+       executionFunction={this.archiveOrder}
+       executionText="Archivovat objednavku"
+     />
     );
   }
 
@@ -77,14 +87,6 @@ class ApprovedOrders extends React.Component {
           <TableHeaderColumn dataField="surname">Priezvisko</TableHeaderColumn>
           <TableHeaderColumn dataField="emailAddress">E-mailova Adresa</TableHeaderColumn>
           <TableHeaderColumn dataField="phoneNumber">Tel. cislo</TableHeaderColumn>
-          {/* <TableHeaderColumn dataField="carBrand">Znacka auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="carModel">Model auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="yearOfMade">Model auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="problemDescription">Zavada</TableHeaderColumn>
-          <TableHeaderColumn dataField="serviceName">Pozadovana sluzba</TableHeaderColumn>
-          <TableHeaderColumn dataField="time" dataSort>
-            Orientacny cas
-          </TableHeaderColumn> */}
         </BootstrapTable>
       </div>
     );

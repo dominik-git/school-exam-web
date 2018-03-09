@@ -1,12 +1,25 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  display:flex;
-  justify-content:space-between;
-  text-align:center;
-  flex-direction:row;
-  flex-wrap: wrap;
-  height:auto;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const StyledForm = styled.form`
+  width: 50%;
+`;
+
+export const StyledLabel = styled.span`
+  font-weight: bold;
+  margin-right: 30px;
 `;
 
 export const StyledImagePickerSelect = styled.div`
@@ -36,5 +49,5 @@ margin:10px;
 `;
 
 export const StyledHiddenField = styled.div`
-  display:none;
+  display: none;
 `;

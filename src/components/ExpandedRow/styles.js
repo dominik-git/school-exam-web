@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   min-height: 200px;
+  &:hover {
+    cursor: auto;
+  }
 `;
 
 export const StyledTableWrapper = styled.div`
@@ -13,8 +16,8 @@ export const StyledTableWrapper = styled.div`
 `;
 export const StyledDetailTitle = styled.h3`
   color: ${props => props.theme.color.carbon};
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 2px solid ${props => props.theme.color.carbon};
 `;

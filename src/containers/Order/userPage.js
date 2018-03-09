@@ -1,8 +1,12 @@
+/*eslint-disable */
 import React from "react";
+import { SubmissionError, change } from "redux-form/immutable";
+import { connect } from "react-redux";
 import { isRequired } from "../../services/validation";
-import { SubmissionError } from "redux-form/immutable";
-import {} from "./styles";
+import { returnPostObjectPromise } from "../../services/orderServices";
+import { StyledTitle, StyledText, StyledWrapper } from "./styles";
 import OrderForm from "./userComponents/form";
+import moment from "moment";
 // import "./styles.css";
 
 class OrderPageForUser extends React.Component {
@@ -11,34 +15,41 @@ class OrderPageForUser extends React.Component {
     this.state = {
       isLoading: true,
       showModal: false,
+      date: moment(),
     };
-    // this.deleteReview = this.deleteReview.bind(this);
-    // this.deleteCell = this.deleteCell.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
   }
-  componentDidMount() {
-    // this.fetchAllReviews();
-  }
+
   handleChange(date) {
-    this.setState({
-      startDate: date,
-    });
+    // console.log(date);
+    this.setState({ date });
+    // this.props.seTimeField(date.format("DD.MM.YYYY"));
   }
-  async handleSubmitOrder(values) {
+  async handlePostOrder(orderObject) {
+    try {
+      console.log(orderObject);
+      await returnPostObjectPromise("/api/order", orderObject);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
+  handleSubmitOrder(values) {
+    const time = moment(values.get("time")).format("MM.DD.YYYY");
     const {
-       name, 
-       surname, 
-       emailAddress, 
-       phone,
-       service,
-       problem,
-       brandOfCar,
-       modelOfCar,
-       yearOfMade,
-       timeForOrder
-      } = values.toJS();
-console.log(values.toJS());
+      name,
+      surname,
+      emailAddress,
+      phoneNumber,
+      serviceName,
+      problemDescription,
+      carBrand,
+      carModel,
+      yearOfMade,
+    } = values.toJS();
     const errors = {};
+
     if (isRequired(surname)) {
       errors.surname = "fieldIsRequired";
     }
@@ -46,33 +57,45 @@ console.log(values.toJS());
     if (isRequired(emailAddress)) {
       errors.emailAddress = "fieldIsRequired";
     }
-    if (isRequired(phone)) {
+    if (isRequired(phoneNumber)) {
       errors.phone = "fieldIsRequired";
     }
     if (Object.keys(errors).length > 0) {
+      console.log("asdasd", errors);
       throw new SubmissionError(errors);
     } else {
-      try {
-        //  await returnSaveContentDetailPromise(values.toJS());
-        // this.props.fetchContactDetailDataAction();
-      } catch (error) {
-        console.log("error", error);
-      }
+      const orderObject = JSON.stringify({
+        name,
+        surname,
+        emailAddress,
+        phoneNumber,
+        serviceName,
+        problemDescription,
+        carBrand,
+        carModel,
+        yearOfMade,
+        time,
+      });
+      this.handlePostOrder(orderObject);
     }
-
   }
 
- 
-
   render() {
-   
-  
     return (
-      <div>
+      <StyledWrapper>
+        <StyledTitle>Online rezervacia</StyledTitle>
+        <StyledText>
+          Sme radi, že ste sa rozhodli využiť naše služby. Objednajte si prosím termín na Vami vyžadovaný servisný úkon.
+          Po uzatvorení formuláru, Vás bude jeden z naších technikov kontaktovať a dohodne presný termín i čas potrebný
+          pre úkon.
+        </StyledText>
         <OrderForm onSubmit={this.handleSubmitOrder} />
-      </div>
+      </StyledWrapper>
     );
   }
 }
-
+// export default connect(null, {
+//   change("orderForm", "time", value)
+// })(OrderPageForUser);
+// export default OrderPageForUser;
 export default OrderPageForUser;

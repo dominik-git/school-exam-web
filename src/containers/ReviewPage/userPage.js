@@ -9,7 +9,9 @@ import { sucessfulNotification, infoNotification, errorNotification } from "../.
 import Title from "../../components/Title";
 import PaginationComponent from "../../components/PaginationComponent";
 import ReviewComponent from "../../components/ReviewComponent";
-import { StyledWrapper, StyledBackground, StyledRow,StyledTitle } from "./styles";
+import { StyledWrapper, StyledBackground, StyledRow,StyledTitle,StyledFormOverlay,StyledIconWrapper,StyledIcon } from "./styles";
+import "./styles.css";
+import ScrollTop from "../../components/ScrollTop";
 
 
 const itemsPerPage = 3;
@@ -20,11 +22,14 @@ class ReviewPageForUser extends React.Component {
       allReviewsArray: [],
       rating: 0,
       currentPage: 1,
+      addReview:false
     };
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.uploadReview = this.uploadReview.bind(this);
     this.ratingChanged = this.ratingChanged.bind(this);
     this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
+    this.handleAddReviewOn = this.handleAddReviewOn.bind(this);
+    this.handleAddReviewOff = this.handleAddReviewOff.bind(this);
   }
   componentDidMount() {
     this.fetchReviews();
@@ -85,44 +90,57 @@ class ReviewPageForUser extends React.Component {
   handleSetCurrentPage(currentPage) {
     this.setState({ currentPage });
   }
+  handleAddReviewOn() {
+    console.log("on");
+    this.setState({ addReview: true });
+  }
+  handleAddReviewOff() {
+    this.setState({ addReview: false });
+  }
 
   render() {
     const { currentPage, allReviewsArray } = this.state;
     const indexOfLastElementOnThePage = currentPage * itemsPerPage;
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - itemsPerPage;
     const splitedArray = allReviewsArray.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
-    const reviews = splitedArray.map((item, index) => (
-        <ReviewComponent
+    const reviews = splitedArray.map(item => (
+      <ReviewComponent
         key={item.id}
-         message={item.message}
+        message={item.message}
         nickName={item.nickName}
         rating={item.rating}
         date={item.date}
         role="user"
-        />
+      />
     ));
+    if (this.state.addReview) {
+      return (
+        <StyledFormOverlay>
+          <ReviewForm
+            onSubmit={this.handleSubmitForm}
+            ratingChanged={this.ratingChanged}
+            onCancel={this.handleAddReviewOff}
+          />
+        </StyledFormOverlay>
+      );
+    }
     return (
       <StyledWrapper>
         <StyledTitle>Recenzie</StyledTitle>
+        <StyledIconWrapper>
+          <StyledIcon className="fas fa-plus-circle fa-3x" onClick={this.handleAddReviewOn} />
+          <div>Pridat novu sluzbu</div>
+        </StyledIconWrapper>
         <StyledBackground>
-          <StyledRow>
-          {reviews}
-          </StyledRow>
-    
-        
+          <StyledRow> {reviews} </StyledRow>
+
           <PaginationComponent
-          arrayOfReviews={allReviewsArray}
-          setCurrentPage={this.handleSetCurrentPage}
-          todosPerPage={itemsPerPage}
-        />
+            arrayOfReviews={allReviewsArray}
+            setCurrentPage={this.handleSetCurrentPage}
+            todosPerPage={itemsPerPage}
+          />
         </StyledBackground>
-        <Row className="show-grid">
-          <Col xs={12} md={6} lg={6}>
-            <Title>Napiste hodnotenie</Title>
-            <ReviewForm onSubmit={this.handleSubmitForm} ratingChanged={this.ratingChanged} />
-          </Col>
-        </Row>
-        <ToastContainer position="bottom-center" hideProgressBar />
+        <ScrollTop />
       </StyledWrapper>
     );
   }

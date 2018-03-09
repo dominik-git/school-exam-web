@@ -15,6 +15,8 @@ class ArchivedOrders extends React.Component {
       data: [],
       isLoading: true,
     };
+    this.deleteOrder = this.deleteOrder.bind(this);
+    this.expandComponent = this.expandComponent.bind(this);
   }
   componentDidMount() {
     this.loadNewOrders();
@@ -31,6 +33,14 @@ class ArchivedOrders extends React.Component {
       console.log(err);
     }
   }
+  async deleteOrder(id) {
+    try {
+      await returnPostPathVariablePromise(`/api/order/deleteOrder/${id}`);
+      this.setState({data: this.state.data.filter(value => value.id !== id)});
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   isExpandableRow(row) {
     return true;
@@ -38,13 +48,15 @@ class ArchivedOrders extends React.Component {
   expandComponent(row) {
     return (
       <ExpanedRow 
-      carBrand={row.carBrand} 
-      carModel={row.carModel}
-      problemDescription={row.problemDescription}
-      serviceName={row.serviceName}
+       carBrand={row.carBrand} 
+       carModel={row.carModel}
+       problemDescription={row.problemDescription}
+       serviceName={row.serviceName}
        time={row.time} 
        yearOfMade={row.yearOfMade}
-       />
+       orderId={row.id}
+       deleteOrder={this.deleteOrder}
+      />
     );
   }
 
@@ -69,6 +81,7 @@ class ArchivedOrders extends React.Component {
           options={options}
           expandableRow={this.isExpandableRow}
           expandComponent={this.expandComponent}
+          
         >
           <TableHeaderColumn isKey dataField="id">
             Id objednavky
@@ -77,14 +90,6 @@ class ArchivedOrders extends React.Component {
           <TableHeaderColumn dataField="surname">Priezvisko</TableHeaderColumn>
           <TableHeaderColumn dataField="emailAddress">E-mailova Adresa</TableHeaderColumn>
           <TableHeaderColumn dataField="phoneNumber">Tel. cislo</TableHeaderColumn>
-          {/* <TableHeaderColumn dataField="carBrand">Znacka auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="carModel">Model auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="yearOfMade">Model auta</TableHeaderColumn>
-          <TableHeaderColumn dataField="problemDescription">Zavada</TableHeaderColumn>
-          <TableHeaderColumn dataField="serviceName">Pozadovana sluzba</TableHeaderColumn>
-          <TableHeaderColumn dataField="time" dataSort>
-            Orientacny cas
-          </TableHeaderColumn> */}
         </BootstrapTable>
       </div>
     );

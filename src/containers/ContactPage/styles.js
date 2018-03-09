@@ -6,7 +6,9 @@ export const StyledFormWrapper = styled.div`
 `;
 export const StyledFormContent = styled.div``;
 export const StyledContactInfo = styled.div`
-  width: 100%;
+  width: 70%;
+  height: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -49,6 +51,7 @@ export const StyledText = styled.span`
   color: black;
 `;
 export const StyledContactPageWrapper = styled.div`
+  height: 100%;
   // display: flex;
   // flex-direction: row;
 `;

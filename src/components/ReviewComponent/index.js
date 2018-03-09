@@ -19,7 +19,7 @@ const ReviewComponent = props => {
   const { nickName, message, rating, date } = props;
   const userIcon = <i className="fas fa-user-circle fa-4x" aria-hidden="true" />;
   return (
-    <StyledWrapper>
+    <StyledWrapper className="effect">
       <StyledIcon>{userIcon}</StyledIcon>
       {/* <StyledDate>{date}</StyledDate> */}
       <StyledMessage>{message}</StyledMessage>
