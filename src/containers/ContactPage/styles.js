@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
 export const StyledFormWrapper = styled.div`
-  display: inline-block;
+  width: 70%;
+  margin: 0 auto;
+`;
+export const StyledForm = styled.form`
+  // display: flex;
   width: 100%;
+  // justify-content: center;
 `;
 export const StyledFormContent = styled.div``;
 export const StyledContactInfo = styled.div`
@@ -45,6 +50,18 @@ export const StyledSubmitButton = styled.button`
   border: none;
   color: white;
   border-radius: 5px;
+`;
+
+export const StyledField = styled.div`
+  display: inline-block;
+  width: 30%;
+  margin: 20px;
+`;
+
+export const StyledFieldRow = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
 `;
 
 export const StyledText = styled.span`

@@ -19,6 +19,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import getComponents from "./containers/ReturnAdminOrUserPage";
 import LoginPage from "./containers/LoginPage";
+import ScrollTop from "./components/ScrollTop";
 
 // eslint-disable-next-line
 class App extends React.Component {
@@ -41,6 +42,7 @@ class App extends React.Component {
               <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />
               <Route path="/admin" component={LoginPage} />
             </Switch>
+            <ScrollTop />
           </Wrapper>
           <Footer />
           <ToastContainer position="bottom-center" hideProgressBar />
