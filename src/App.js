@@ -25,28 +25,28 @@ import ScrollTop from "./components/ScrollTop";
 class App extends React.Component {
   render() {
     const Wrapper = styled.div`
-      // position: relative;
       min-height: 100%;
+      background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
     `;
     return (
       <ThemeProvider theme={theme}>
-        <React.Fragment>
+        <Wrapper>
           <Header />
-          <Wrapper>
-            <Switch>
-              <Route exact path="/" component={getComponents(HomePageForAdmin, HomePageForUser)} />
-              <Route path="/services" component={getComponents(PriceListPageForAdmin, PriceListPageForUser)} />
-              <Route path="/orders" component={getComponents(OrderPageForAdmin, OrderPageForUser)} />
-              <Route path="/galery" component={getComponents(GalleryPageForAdmin, GalleryPageForUser)} />
-              <Route path="/contact" component={getComponents(ContactPageForAdmin, ContactPageForUser)} />
-              <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />
-              <Route path="/admin" component={LoginPage} />
-            </Switch>
-            <ScrollTop />
-          </Wrapper>
+
+          <Switch>
+            <Route exact path="/" component={getComponents(HomePageForAdmin, HomePageForUser)} />
+            <Route path="/services" component={getComponents(PriceListPageForAdmin, PriceListPageForUser)} />
+            <Route path="/orders" component={getComponents(OrderPageForAdmin, OrderPageForUser)} />
+            <Route path="/galery" component={getComponents(GalleryPageForAdmin, GalleryPageForUser)} />
+            <Route path="/contact" component={getComponents(ContactPageForAdmin, ContactPageForUser)} />
+            <Route path="/review" component={getComponents(ReviewPageForAdmin, ReviewPageForUser)} />
+            <Route path="/admin" component={LoginPage} />
+          </Switch>
+          <ScrollTop />
+
           <Footer />
           <ToastContainer position="bottom-center" hideProgressBar />
-        </React.Fragment>
+        </Wrapper>
       </ThemeProvider>
     );
   }

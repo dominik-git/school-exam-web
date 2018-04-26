@@ -17,7 +17,7 @@ injectGlobal`
  
 }
   html {
-    height:100%;
+    height: 100%;
     margin:0;
     padding:0;
     -webkit-box-sizing: border-box;
@@ -25,19 +25,19 @@ injectGlobal`
     box-sizing: border-box;
   }
   body {
-    height:100%;
+    height: 100%;
    font-family:"OpenSans";
-    // min-height: 100%;
     margin: 0 auto;
     background-color: white;
+  
   }
  
   #root {
-   height:100%;
-   min-height:100%;
+    height:100%;
   }
   .row{
     margin:0;
     padding:0;
   }
+  
 `;

@@ -153,7 +153,7 @@ const AdminContactForm = props => {
           </StyledField>
         </StyledFieldRow>
 
-        <div>{!readOnly ? <Button type="submit">{changeSubmitButtonText ? "Zmenit" : "Odoslat"}</Button> : null}</div>
+        <div>{!readOnly ? <Button blue type="submit">{changeSubmitButtonText ? "Zmenit" : "Odoslat"}</Button> : null}</div>
       </StyledForm>
     </StyledFormWrapper>
   );

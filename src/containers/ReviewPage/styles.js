@@ -43,26 +43,7 @@ export const StyledFormOverlay = styled.div`
   }
 `;
 export const StyledWrapper = styled.div`
-  // position: relative;
-  // &:after {
-  //   content: "";
-  //   display: block;
-  //   position: fixed;
-  //   background-image: url(${bmwImage});
-  //   background-repeat: no-repeat;
-  //   width: 100%;
-  //   height: 100%;
-  //   opacity: 0.2;
-  //   z-index: -1;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translateX(-25%) translateY(-50%);
-  // }
-  // @media (max-width: 1300px) {
-  //   &:after {
-  //     transform: translateX(-50%) translateY(-50%);
-  //   }
-  // }
+  height: 100vh;
 `;
 export const StyledRow = styled.div`
   margin-top: 100px;

@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import { Row, Col, Grid } from "react-bootstrap";
 import Slider from "../../components/Slider";
-import { StyledTitle, StyledUpload, StyledUploadWrapper } from "./styles";
+import { StyledTitle, StyledUpload, StyledUploadWrapper,StyledWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
 import {
   returnDeletePhotosPromise,
@@ -100,8 +100,11 @@ class GalleryPageForAdmin extends React.Component {
 
   // if image is the last we cant move right and set state "isMoveRightPossible" to false
   isMoveRightPossibleFunc() {
-    const length = this.state.arrayOfImages.length - 1;
-    if (this.state.positionOfSelectedImage === length) {
+    const { positionOfSelectedImage, arrayOfImages } = this.state;
+    const indexOfLastElementOnThePage = this.state.currentPage * imagesPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
+    const length = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
+    if (positionOfSelectedImage === length) {
       this.setState({ isMoveRightPossible: false });
     } else {
       this.setState({ isMoveRightPossible: true });
@@ -127,9 +130,9 @@ class GalleryPageForAdmin extends React.Component {
   handleMoveRight(e) {
     e.stopPropagation();
     const { positionOfSelectedImage, arrayOfImages } = this.state;
-    console.log(arrayOfImages.length);
-    const length = arrayOfImages.length - 1;
-
+    const indexOfLastElementOnThePage = this.state.currentPage * imagesPerPage;
+    const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
+    const length = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
     if (positionOfSelectedImage < length) {
       this.setState(
         {
@@ -175,6 +178,7 @@ class GalleryPageForAdmin extends React.Component {
           position={index}
           handleSliderAndPassImage={this.showSliderAndPassImage}
           deletePhoto={this.handleDeletePhotoById}
+          role="admin"
         />
       </Col>
     ));
@@ -183,7 +187,7 @@ class GalleryPageForAdmin extends React.Component {
       return <div>Loading</div>;
     }
     return (
-      <div>
+      <StyledWrapper>
         <StyledUploadWrapper>
           <input
             type="file"
@@ -216,7 +220,7 @@ class GalleryPageForAdmin extends React.Component {
           setCurrentPage={this.handleSetCurrentPage}
           todosPerPage={imagesPerPage}
         />
-      </div>
+      </StyledWrapper>
     );
   }
 }

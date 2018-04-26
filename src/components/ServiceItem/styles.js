@@ -4,7 +4,8 @@ export const StyledWrapper = styled.div`
   min-height: 250px;
   border-radius: 3px;
   padding: 10px;
-  background: ${props => props.theme.color.sky};
+  background: ${props => props.theme.color.neutral};
+  ${props => props.theme.tools.shadowBox};
   margin: 20px;
   width: 28%;
   max-width: 400px;

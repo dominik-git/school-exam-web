@@ -11,17 +11,24 @@ export const StyledWrapper = styled.div`
   text-align: center;
   flex-direction: row;
   flex-wrap: wrap;
-  height: auto;
-  position: relative;
 `;
 
 export const StyledImagePickerSelect = styled.div`
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100px;
   height: 100px;
+  border: 2px solid ${props => props.theme.color.watermelon};
+  &:hover {
+    background: ${props => props.theme.color.sky};
+  }
+`;
+
+export const StyledCreateIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 2px solid ${props => props.theme.color.watermelon};
   &:hover {
     background: ${props => props.theme.color.sky};

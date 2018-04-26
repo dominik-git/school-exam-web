@@ -1,88 +1,110 @@
 import React from "react";
-import { Field, reduxForm, reset } from "redux-form/immutable";
-// import DatePicker from "react-datepicker";
-// import PropTypes from "prop-types";
-import { FormInput } from "../../../components/FormElements/index";
+import { Field, reduxForm, reset, FormSection } from "redux-form/immutable";
+import { FormInput, FormTextarea } from "../../../components/FormElements/index";
 import Button from "../../../components/Button";
-import { StyledOrderField, StyledFormWrapper,StyledRow,StyledHidenInput } from "../styles";
-// import "react-datepicker/dist/react-datepicker.css";
+import { StyledOrderField, StyledFormWrapper, StyledRow, StyledInformLabel, StyledOrderTitle } from "../styles";
 import MyDatePicker from "../../../components/DatePicker";
+import ServiceOrderItem from "../../../components/ServiceOrderItem";
 
 const OrderForm = props => {
-  const { handleSubmit, handleChange,date } = props;
+  const { handleSubmit, handleChange, date, error, serviceItems, theme } = props;
 
   return (
     <StyledFormWrapper>
       <form onSubmit={handleSubmit}>
-        <h2>Osobne informacie</h2>
+        <StyledOrderTitle>Osobne informacie</StyledOrderTitle>
         <StyledRow>
           <StyledOrderField>
-            <Field name="name" label="Meno" component={FormInput} type="text" border />
+            <Field
+              name="name"
+              label="Meno"
+              component={FormInput}
+              type="text"
+              border
+              placeholder="Peter"
+              labelColor="#545454"
+            />
+            <StyledInformLabel>* Pole je povine</StyledInformLabel>
           </StyledOrderField>
           <StyledOrderField>
-            <Field name="surname" label="Priezvisko" component={FormInput} type="text" border />
+            <Field name="surname" label="Priezvisko" component={FormInput} type="text" border placeholder="Novy"  labelColor="#545454" />
+            <StyledInformLabel>* Pole je povine</StyledInformLabel>
           </StyledOrderField>
         </StyledRow>
 
         <StyledRow>
           <StyledOrderField>
-            <Field name="emailAddress" label="E-mailova adresa" component={FormInput} type="email" border />
+            <Field
+              name="emailAddress"
+              label="E-mailova adresa"
+              component={FormInput}
+              type="email"
+              border
+              placeholder="email@email.com"
+              labelColor="#545454"
+            />
+            <StyledInformLabel>* Pole je povine</StyledInformLabel>
           </StyledOrderField>
           <StyledOrderField>
-            <Field name="phoneNumber" label="Telefonne cislo" component={FormInput} type="text" border />
+            <Field
+              name="phoneNumber"
+              label="Telefonne cislo"
+              component={FormInput}
+              type="text"
+              border
+              placeholder="0955 111 222"
+              labelColor="#545454"
+            />
+            <StyledInformLabel>* Pole je povine</StyledInformLabel>
           </StyledOrderField>
         </StyledRow>
-        
-        <h2>Udaje o vozidle</h2>
+
+        {serviceItems.length > 0 ? (
+          <div>
+            <StyledOrderTitle>Pozadovany servisny ukon</StyledOrderTitle>
+            <FormSection name="serviceItems">
+              {serviceItems.map(option => <ServiceOrderItem item={option} key={option.id} />)}
+            </FormSection>
+          </div>
+        ) : null}
+
+        <StyledOrderTitle>Popis zavady</StyledOrderTitle>
+        <Field
+          name="problemDescription"
+          label=""
+          component={FormTextarea}
+          type="text"
+          placeholder="Popis zavady"
+          border
+          labelColor="#545454"
+        />
+
+        <StyledOrderTitle>Udaje o vozidle</StyledOrderTitle>
         <StyledRow>
           <StyledOrderField>
-            <Field name="serviceName" label="Pozadovany servisny ukon" component={FormInput} type="text" border />
+            <Field name="carBrand" label="Znacka auta" component={FormInput} type="text" border placeholder="BMW"  labelColor="#545454" />
           </StyledOrderField>
           <StyledOrderField>
-            <Field name="problemDescription" label="Popis zavady" component={FormInput} type="text" border />
+            <Field name="carModel" label="Model auta" component={FormInput} type="text" border placeholder="X6"  labelColor="#545454" />
           </StyledOrderField>
         </StyledRow>
 
         <StyledRow>
           <StyledOrderField>
-            <Field name="carBrand" label="Znacka auta" component={FormInput} type="text" border />
-          </StyledOrderField>
-          <StyledOrderField>
-            <Field name="carModel" label="Model auta" component={FormInput} type="text" border />
-          </StyledOrderField>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledOrderField>
-            <Field name="yearOfMade" label="Rok vyroby" component={FormInput} type="text" border />
+            <Field name="yearOfMade" label="Rok vyroby" component={FormInput} type="text" border placeholder="2014"  labelColor="#545454" />
           </StyledOrderField>
           <Field name="time" label="Orientacny cas" component={MyDatePicker} />
-          
-          {/* <StyledHidenInput>
-           
-          </StyledHidenInput> */}
-          {/* <StyledOrderField>
-            <span>Orientacny cas</span>
-            <DatePicker
-              onChange={handleChange}
-              selected={date}
-              dateFormat="DD-MMM HH:mm"
-              showTimeSelect
-              locale="cz"
-            />
-          </StyledOrderField> */}
         </StyledRow>
 
-      
-        <h2>Ďakujeme</h2>
+        <StyledOrderTitle>ĎAKUJEME</StyledOrderTitle>
         <span>
-          Veľmi pekne ďakujeme, že ste si vybrali nás, budeme sa snažiť maximálne vyhovieť. Čoskoro nás kontaktuje náš
+          Veľmi pekne ďakujeme, že ste si vybrali nás, budeme sa snažiť maximálne vyhovieť. Čoskoro Vás kontaktuje náš
           technik.
         </span>
         <hr />
 
         <Button type="submit" blue>
-          Submit
+          OBJEDNAT
         </Button>
       </form>
     </StyledFormWrapper>
@@ -93,7 +115,7 @@ const afterSubmit = (result, dispatch) => dispatch(reset("orderForm"));
 export default reduxForm({
   // a unique name for the form
   form: "orderForm",
-  onSubmitSuccess: afterSubmit,
+  onSubmitSuccess: afterSubmit
 })(OrderForm);
 
 // OrderForm.propTypes = {

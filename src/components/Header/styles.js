@@ -14,8 +14,8 @@ export const StyledInfoWrapper = styled.div`
   font-size: 15px;
   font-weight: bold;
   padding: 10px 0;
-  background: white;
-  color: ${props => props.theme.color.carbon};
+  background: ${props => props.theme.color.watermelon};
+  color: ${props => props.theme.color.neutral};
   @media (max-width: 1000px) {
     justify-content: center;
   }
@@ -31,7 +31,7 @@ export const StyledNumber = styled.div`
   margin: 10px;
 `;
 export const StyledIcon = styled.span`
-  color: ${props => props.theme.color.watermelon};
+  // color: ${props => props.theme.color.watermelon};
   margin-right: 10px;
 `;
 export const StyledEmail = styled.div`
@@ -44,7 +44,6 @@ export const StyledTime = styled.div`
   align-items: center;
   margin: 10px;
 `;
-
 
 export const StyledLinkWrapper = styled.div`
   display: flex;
@@ -78,12 +77,12 @@ export const StyledToogleButton = styled.p`
 
 const showAnimation = {
   display: "flex",
-  opacity: "1",
+  opacity: "1"
 };
 const closeAnimation = {
   display: "none",
   opacity: "0",
-  transition: "opacity 1s ease-out",
+  transition: "opacity 1s ease-out"
 };
 export const StyledMenu = styled.div`
   ${props => (props.isExpand === true ? showAnimation : closeAnimation)};
@@ -95,11 +94,11 @@ export const StyledMenu = styled.div`
     justify-content: center;
   }
 `;
-export const StyledNavLink = styled(NavLink) `
+export const StyledNavLink = styled(NavLink)`
   display: flex;
-  font-weight:bold;
+  font-weight: bold;
   text-transform: uppercase;
-  padding: 16px 16px;
+  padding: 9px 16px;
   color: ${props => props.theme.color.neutral};
   font-size: 20px;
   align-items: center;

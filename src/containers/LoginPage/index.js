@@ -4,8 +4,8 @@ import base64 from "base-64";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { logIn } from "../../actions/roleActions";
-
 import LoginForm from "./form";
+import {StyledWrapper} from "./styles";
 
 class LoginPage extends React.Component {
   constructor() {
@@ -45,12 +45,9 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      // <form onSubmit={this.handleSubmit}>
-      //   <input type="text" onChange={this.handleSetPassword} />
-      //   <input type="text" onChange={this.handleSetUsername} />
-      //   <input type="submit" value="submit" />
-      // </form>
+      <StyledWrapper>
       <LoginForm onSubmit={this.handleSubmit} />
+      </StyledWrapper>
     );
   }
 }

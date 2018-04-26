@@ -26,7 +26,7 @@ class Root extends React.Component {
       return <Loader />;
     }
     if (this.props.error) {
-      return <div>chyba</div>;
+      return <div>Data zo servera niesu dostupne</div>;
     }
 
     return this.props.children;

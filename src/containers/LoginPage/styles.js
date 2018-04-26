@@ -1,8 +1,14 @@
 import styled from "styled-components";
 
 export const StyledFormWrapper = styled.div`
-  display: inline-block;
-  width: 100%;
+  margin: 30px;
+  width: 400px;
+`;
+export const StyledWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 export const StyledSubmitButton = styled.button`
   width: 80%;

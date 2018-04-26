@@ -14,7 +14,8 @@ export const StyledWrapper = styled.div`
   align-items: center;
 `;
 export const StyledForm = styled.form`
-  width: 50%;
+  margin: 30px;
+  width: 500px;
 `;
 
 export const StyledLabel = styled.span`

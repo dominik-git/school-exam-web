@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { isRequired } from "../../services/validation";
 import { returnPostObjectPromise } from "../../services/orderServices";
 import { StyledTitle, StyledText, StyledWrapper } from "./styles";
-import OrderForm from "./userComponents/form";
+import Form from "./userComponents/form";
 import moment from "moment";
+import Axios from "axios";
 // import "./styles.css";
 
 class OrderPageForUser extends React.Component {
@@ -16,16 +17,30 @@ class OrderPageForUser extends React.Component {
       isLoading: true,
       showModal: false,
       date: moment(),
+      serviceItems: [],
     };
     // this.handleChange = this.handleChange.bind(this);
     this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchServices();
+  }
   handleChange(date) {
     // console.log(date);
     this.setState({ date });
     // this.props.seTimeField(date.format("DD.MM.YYYY"));
   }
+  async fetchServices() {
+    try {
+      const response = await Axios.get("/api/pricelist");
+      this.setState({ serviceItems: response.data });
+      console.log(response.data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
   async handlePostOrder(orderObject) {
     try {
       console.log(orderObject);
@@ -35,14 +50,20 @@ class OrderPageForUser extends React.Component {
     }
   }
 
+  parseObjectValues(obj) {
+    const serviceItems = [...objOfCheckboxes.keys()].map(id => ({ id }));
+
+    return serviceItems;
+  }
+
   handleSubmitOrder(values) {
     const time = moment(values.get("time")).format("MM.DD.YYYY");
+
     const {
       name,
       surname,
       emailAddress,
       phoneNumber,
-      serviceName,
       problemDescription,
       carBrand,
       carModel,
@@ -51,25 +72,31 @@ class OrderPageForUser extends React.Component {
     const errors = {};
 
     if (isRequired(surname)) {
-      errors.surname = "fieldIsRequired";
+      errors.surname = "Pole je povinne!";
     }
 
     if (isRequired(emailAddress)) {
-      errors.emailAddress = "fieldIsRequired";
+      errors.emailAddress = "Pole je povinne!";
     }
     if (isRequired(phoneNumber)) {
-      errors.phone = "fieldIsRequired";
+      errors.phoneNumber = "Pole je povinne!";
     }
     if (Object.keys(errors).length > 0) {
       console.log("asdasd", errors);
       throw new SubmissionError(errors);
     } else {
+      let objOfCheckboxes = {};
+      let serviceItems = [];
+      if (values.get("serviceItems") !== undefined) {
+        objOfCheckboxes = values.get("serviceItems");
+        serviceItems = [...objOfCheckboxes.keys()].map(id => ({ id: parseInt(id) }));
+      }
       const orderObject = JSON.stringify({
         name,
         surname,
         emailAddress,
         phoneNumber,
-        serviceName,
+        serviceItems,
         problemDescription,
         carBrand,
         carModel,
@@ -83,13 +110,13 @@ class OrderPageForUser extends React.Component {
   render() {
     return (
       <StyledWrapper>
-        <StyledTitle>Online rezervacia</StyledTitle>
+        <StyledTitle>ONLINE REZERVACIA</StyledTitle>
         <StyledText>
           Sme radi, že ste sa rozhodli využiť naše služby. Objednajte si prosím termín na Vami vyžadovaný servisný úkon.
           Po uzatvorení formuláru, Vás bude jeden z naších technikov kontaktovať a dohodne presný termín i čas potrebný
           pre úkon.
         </StyledText>
-        <OrderForm onSubmit={this.handleSubmitOrder} />
+        <Form onSubmit={this.handleSubmitOrder} serviceItems={this.state.serviceItems} />
       </StyledWrapper>
     );
   }

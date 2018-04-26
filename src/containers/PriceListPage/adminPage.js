@@ -19,7 +19,7 @@ class AdminPricePage extends React.Component {
       isLoading: true,
       services: [],
       selectedImage: "",
-      edit:false,
+      createNew:false,
     };
     this.createNewService = this.createNewService.bind(this);
     this.deleteService = this.deleteService.bind(this);
@@ -32,10 +32,10 @@ class AdminPricePage extends React.Component {
   }
 
   turnOnEdit() {
-    this.setState({ edit: true });
+    this.setState({ createNew: true });
   }
   turnOffEdit() {
-    this.setState({ edit: false });
+    this.setState({ createNew: false });
   }
   async fetchServices() {
     try {
@@ -89,10 +89,10 @@ class AdminPricePage extends React.Component {
     if (this.state.isLoading) {
       return (<div>Loading</div>);
     }
-    if (this.state.edit) {
+    if (this.state.createNew) {
       return (
         <StyledFormOverlay>
-          <CreateNewServiceForm onSubmit={this.createNewService} onCancel={this.turnOffEdit}/>
+          <CreateNewServiceForm onSubmit={this.createNewService} onCancel={this.turnOffEdit} />
         </StyledFormOverlay>
       );
     }
@@ -102,7 +102,6 @@ class AdminPricePage extends React.Component {
           <StyledIcon className ="fas fa-plus-circle fa-3x" onClick={this.turnOnEdit}/>
           <div>Pridat novu sluzbu</div>
         </StyledIconWrapper>
-        
         <StyledServicesWrapper>
           {this.state.services.map(item => {
             return (

@@ -10,19 +10,6 @@ import {
 import Button from "../Button";
 import ButtonGroup from "../ButtonGroup";
 
-// const Buttons = props => (
-//   <ButtonGroup>
-//     <Button
-//       blue
-//       onClick={() => {
-//         props.executeFunction[0]();
-//       }}
-//     >
-//       Edit
-//     </Button>
-//     <Button grey>delete</Button>
-//   </ButtonGroup>
-// );
 
 const ServiceItem = props => (
   <StyledWrapper>

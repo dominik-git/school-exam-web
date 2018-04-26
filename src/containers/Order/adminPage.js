@@ -10,14 +10,14 @@ class AdminOrderPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      isRendered: true,
+      isRendered: true
     };
   }
 
   render() {
     const { match } = this.props;
     return (
-      <div>
+      <StyledWrapper>
         <StyledMenuWrapper>
           <StyledNavLink to={`${match.url}/newOrders`}>Nove Objednavky</StyledNavLink>
           <StyledNavLink to={`${match.url}/approvedOrders`}>Potvrdene objednavky</StyledNavLink>
@@ -28,7 +28,7 @@ class AdminOrderPage extends React.Component {
           <Route path={`${match.url}/approvedOrders`} component={ApprovedOrders} />
           <Route path={`${match.url}/archiveOfOrders`} component={ArchivedOrders} />
         </Switch>
-      </div>
+      </StyledWrapper>
     );
   }
 }

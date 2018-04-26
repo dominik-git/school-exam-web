@@ -6,6 +6,17 @@ export const StyledWrapper = styled.div`
     cursor: auto;
   }
 `;
+export const StyledFormOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const StyledTableWrapper = styled.div`
   display: flex;

@@ -8,28 +8,9 @@ export const StyledFormWrapper = styled.div`
 `;
 export const StyledWrapper = styled.div`
   position: relative;
-  height: 100%;
+  min-height: 100vh;
   width: 70%;
   margin: 0 auto;
-  // &:after {
-  //   content: "";
-  //   display: block;
-  //   position: fixed;
-  //   background-image: url(${bmwImage});
-  //   background-repeat: no-repeat;
-  //   width: 100%;
-  //   height: 100%;
-  //   opacity: 0.2;
-  //   z-index: -1;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translateX(-25%) translateY(-50%);
-  // }
-  // @media (max-width: 1300px) {
-  //   &:after {
-  //     transform: translateX(-50%) translateY(-50%);
-  //   }
-  }
 `;
 
 export const StyledRow = styled.div`
@@ -39,24 +20,40 @@ export const StyledRow = styled.div`
   justify-content: space-between;
 `;
 
+export const StyledInformLabel = styled.span`
+  font-size: 13px;
+  color: #636363;
+`;
+
 export const StyledHidenInput = styled.div`
   display: none;
 `;
 export const StyledOrderField = styled.div`
   width: 45%;
+  margin-bottom: 15px;
 `;
 export const StyledMenuWrapper = styled.div`
   margin: 25px 0;
   display: flex;
   flex-direction: row;
 `;
-export const StyledTitle = styled.h2`
+export const StyledTitle = styled.h3`
   margin: 20px 0;
+  padding-left: 20px;
   padding-bottom: 10px;
+  font-size: 23px;
+  padding-top: 10px;
+  font-weight: bold;
+  color: ${props => props.theme.color.neutral};
+  background: ${props => props.theme.color.watermelon};
+`;
+export const StyledOrderTitle = styled.h5`
+  margin: 20px 0;
+  font-size: 23px;
   font-weight: bold;
   color: ${props => props.theme.color.watermelon};
-  border-bottom: 1px solid ${props => props.theme.color.watermelon};
 `;
+
 export const StyledText = styled.span`
   padding-bottom: 10px;
   display: block;

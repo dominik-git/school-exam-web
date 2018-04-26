@@ -10,15 +10,11 @@ class Image extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
   handleSelect() {
-    // this.props.setImageFromImagePicker(this.props.className);
-    // this.props.handleEdit();
     this.props.setServiceImageField(this.props.form, this.props.className);
     this.props.handleSelectImage(this.props.className);
-
   }
 
   render() {
-    console.log("form", this.props.form);
     const { name, className, selectImage, closeImagePicker } = this.props;
     return (
       <StyledImage onClick={this.handleSelect}>
@@ -27,11 +23,10 @@ class Image extends React.Component {
       </StyledImage>
     );
   }
-};
+}
 
 Image.propTypes = {
   // className: PropTypes.string
-
 };
 
 export default connect(null, {

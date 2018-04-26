@@ -11,6 +11,7 @@ import {
   TableBodyCell,
   StyledDetailTitle,
   StyledTableWrapper,
+  StyledFormOverlay
 } from "./styles";
 import Button from "../../components/Button";
 
@@ -28,6 +29,7 @@ const ExpanedRow = props => {
     deleteOrder,
   } = props;
   return (
+    <StyledFormOverlay>
     <StyledWrapper >
       <StyledDetailTitle>Detail objednavky</StyledDetailTitle>
       <StyledTableWrapper>
@@ -69,6 +71,7 @@ const ExpanedRow = props => {
 
       {/* <div onClick={() => executionFunction(orderId)}>{executionText}</div> */}
     </StyledWrapper>
+    </StyledFormOverlay>
   );
 };
 export default ExpanedRow;

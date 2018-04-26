@@ -8,6 +8,7 @@ import AdminContactForm from "./adminComponents/form";
 import { isRequired } from "../../services/validation";
 import { returnUpdateContentDetailPromise, returnSaveContentDetailPromise } from "../../services/ContactPageServices";
 import fetchContactDetailDataAction from "../../actions/contactDetailActions";
+import Button from "../../components/Button";
 
 class ContactPageForAdmin extends React.Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class ContactPageForAdmin extends React.Component {
       console.log(contactDetails);
       return (
         <StyledContactPageWrapper>
-          <button onClick={this.handleEditState}>EDIT</button>
+          <Button grey onClick={this.handleEditState}>EDIT</Button>
           <AdminContactForm
             readOnly={this.state.readOnly}
             changeSubmitButtonText

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  // height: 100%;
+  min-height: 100vh;
   width: 70%;
   margin: 0 auto;
 `;
@@ -51,13 +51,9 @@ export const StyledForm = styled.form`
 export const StyledFormOverlay = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  background: aliceblue;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 50px;
 `;

@@ -35,10 +35,10 @@ export const StyledInput = styled.input`
   width: 100%;
   height: 50px;
   border: ${ props => props.border === true ? `1px solid ${props.theme.color.carbon}` : "none"};
-  outline:none;
   border-radius: ${props => props.theme.rem(3)};
   padding-left: ${props => props.theme.rem(5)};
   box-sizing: border-box;
+  background: ${props => props.color};
   ${props => (props.readOnly ? disabled : null)};
   &:focus {
     border-color: ${props => props.theme.color.watermelon};
@@ -55,7 +55,7 @@ export const StyledFormGroupWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-bottom: ${props => props.theme.rem(20)};
+  // padding-bottom: ${props => props.theme.rem(20)};
 `;
 export const CheckBoxWrapper = styled.div`
   cursor: pointer;
@@ -98,12 +98,15 @@ export const CapsLockMessage = styled.span`
 export const StyledFormLabel = styled.span`
   padding-bottom: ${props => props.theme.rem(3)};
   font-weight: bold;
+  color: ${props => props.labelColor};
   font-size: 16px;
 `;
 export const StyledTextArea = styled.textarea`
   width: 100%;
+  border: ${ props => props.border === true ? `1px solid ${props.theme.color.carbon}` : "none"};
   height: 100px;
-  border: none;
+  border-radius: 5px;
+  background: ${props => props.color};
   &:focus {
     border-color: #01b2b7;
   }

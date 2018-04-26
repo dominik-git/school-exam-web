@@ -5,7 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { getStateSelectedImage } from "../../selectors/priceListSelector";
 import ImagePicker from "./ImagePicker";
-import { StyledImagePickerSelect, StyledRightIcon } from "./styles";
+import { StyledImagePickerSelect, StyledRightIcon, StyledCreateIcon } from "./styles";
 import "./flaticonForAdmin/flaticon.css";
 
 class ImagePickerWrapper extends React.Component {
@@ -24,7 +24,6 @@ class ImagePickerWrapper extends React.Component {
     this.initIcons();
   }
   handleEdit() {
-    console.log("edit");
     if (this.state.isEdit) {
       this.setState({ isEdit: false });
     } else if (!this.state.isEdit) {
@@ -57,7 +56,7 @@ class ImagePickerWrapper extends React.Component {
         {
           name: "exhaust-pipe",
           className: "flaticon-exhaust-pipe",
-        }, 
+        },
         {
           name: "alloy-wheel",
           className: "flaticon-alloy-wheel",
@@ -69,10 +68,6 @@ class ImagePickerWrapper extends React.Component {
         {
           name: "suspension",
           className: "flaticon-suspension",
-        },
-        {
-          name: "inspection",
-          className: "flaticon-inspection",
         },
         {
           name: "engine",
@@ -110,7 +105,6 @@ class ImagePickerWrapper extends React.Component {
     })
   }
   handleSelectImage(value) {
-    console.log(value);
     this.setState({ serviceImage: value });
     this.handleEdit();
   }
@@ -131,26 +125,22 @@ class ImagePickerWrapper extends React.Component {
           />
         </div>
       );
-    } else if (job === "create") {
-      return (
-        <div>
-          <StyledImagePickerSelect onClick={this.handleEdit}>
-            {
-              this.state.serviceImage === undefined ? <span>Click and chose picture</span> : <span className={this.state.serviceImage} />
-            }
-          </StyledImagePickerSelect>
-          <ImagePicker
-            mounted={this.state.isEdit}
-            images={this.state.icons}
-            handleSelectImage={this.handleSelectImage}
-            form={this.props.form}
-          />
-        </div>
-      );
     }
-
-    return <div>Image Picker</div>;
-
+    return (
+      <div>
+        <StyledCreateIcon onClick={this.handleEdit}>
+          {
+          this.state.serviceImage === undefined ? <span>Klikni a vyber obrazok servisneho ukonu</span> : <span className={this.state.serviceImage} />
+          }
+        </StyledCreateIcon>
+        <ImagePicker
+          mounted={this.state.isEdit}
+          images={this.state.icons}
+          handleSelectImage={this.handleSelectImage}
+          form={this.props.form}
+        />
+      </div>
+    );
   }
 
 }
@@ -158,7 +148,9 @@ class ImagePickerWrapper extends React.Component {
 export default ImagePickerWrapper;
 
 ImagePickerWrapper.propTypes = {
-  // name: PropTypes.string.isRequired,
-  // className: PropTypes.string.isRequired,
-  // images: PropTypes.array.isRequired
+  job: PropTypes.string,
+  form: PropTypes.string.isRequired
+};
+ImagePickerWrapper.defaultProps = {
+  job: "create"
 };

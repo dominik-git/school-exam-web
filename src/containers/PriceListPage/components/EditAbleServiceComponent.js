@@ -50,29 +50,6 @@ class EditAbleServiceComponent extends React.Component {
       );
     }
     return (
-      // <StyledWrapper>
-      //   <div>
-      //     <StyledLabel>Obrazok sluzby:</StyledLabel>
-      //     <div className={data.serviceImage} />
-      //   </div>
-      //   <div>
-      //     <StyledLabel>Nazov sluzby:</StyledLabel>
-      //     <div>{data.service}</div>
-      //   </div>
-      //   <div>
-      //     <StyledLabel>Popis sluzby:</StyledLabel>
-      //     <div>{data.description} </div>
-      //   </div>
-      //   <div>
-      //     <StyledLabel>Cena sluzby:</StyledLabel>
-      //     <div>{data.price} </div>
-      //   </div>
-      //   <div>
-      //     <input value="edit" type="button" onClick={this.handleEditState} />
-      //     {/* <input value="delete" type="button" onClick={this.handleDeleteRow} /> */}
-      //   </div>
-      // </StyledWrapper>
-
       <ServiceItem item={data} isAdmin edit={this.turnOnEdit} onDelete={onDelete} />
     );
   }

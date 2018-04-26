@@ -79,10 +79,7 @@ class GalleryPageForUser extends React.Component {
     const { positionOfSelectedImage, arrayOfImages } = this.state;
     const indexOfLastElementOnThePage = this.state.currentPage * imagesPerPage;
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
-    // this.state.arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
-    // const length = this.state.arrayOfImages.length - 1;
     const length = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;
-    console.log();
     if (positionOfSelectedImage === length) {
       this.setState({ isMoveRightPossible: false });
     } else {
@@ -109,7 +106,6 @@ class GalleryPageForUser extends React.Component {
   handleMoveRight(e) {
     e.stopPropagation();
     const { positionOfSelectedImage, arrayOfImages } = this.state;
-    // const length = arrayOfImages.length - 1;
     const indexOfLastElementOnThePage = this.state.currentPage * imagesPerPage;
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
     const length = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage).length - 1;

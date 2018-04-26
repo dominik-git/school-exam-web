@@ -68,7 +68,7 @@ export const StyledText = styled.span`
   color: black;
 `;
 export const StyledContactPageWrapper = styled.div`
-  height: 100%;
+  height: 100vh;
   // display: flex;
   // flex-direction: row;
 `;

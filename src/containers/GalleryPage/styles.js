@@ -16,7 +16,7 @@ export const StyledRow = styled.div`
 `;
 
 export const StyledWrapper = styled.div`
-  height: 100%;
+  min-height: 100vh;
   width: 70%;
   margin: 0 auto;
 `;

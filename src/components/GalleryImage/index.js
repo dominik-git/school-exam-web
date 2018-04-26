@@ -15,12 +15,19 @@ class GalleryImage extends React.Component {
     this.props.deletePhoto(this.props.id);
   }
   render() {
+    if (this.props.role === "admin") {
+      return (
+        <StyledWrapper>
+          <StyledImage src={`data:image;base64,${this.props.obj}`} onClick={this.showSliderAndPassImage} />
+          <StyledDeleteIcon onClick={this.passImageId}>
+            <i className="fas fa-trash fa-2x" aria-hidden="true" />
+          </StyledDeleteIcon>
+        </StyledWrapper>
+      );
+    }
     return (
       <StyledWrapper>
         <StyledImage src={`data:image;base64,${this.props.obj}`} onClick={this.showSliderAndPassImage} />
-        <StyledDeleteIcon onClick={this.passImageId}>
-          <i className="fa fa-trash-o fa-2x" aria-hidden="true" />
-        </StyledDeleteIcon>
       </StyledWrapper>
     );
   }
