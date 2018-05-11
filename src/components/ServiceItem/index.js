@@ -3,25 +3,27 @@ import {
   StyledIconWrapper,
   StyledWrapper,
   StyledItemHeader,
-  StyledItemFooter,
+  StyledCost,
   StyledItemBody,
   StyledTitle,
+  StyledContent,
+  StyleTitleWrapper
 } from "./styles";
 import Button from "../Button";
 import ButtonGroup from "../ButtonGroup";
 
-
 const ServiceItem = props => (
   <StyledWrapper>
-    <StyledItemHeader>
-      <StyledIconWrapper>
-        <span className={props.item.serviceImage} />
-      </StyledIconWrapper>
-      <StyledTitle>{props.item.service}</StyledTitle>
-    </StyledItemHeader>
-    <StyledItemBody>{props.item.description}</StyledItemBody>
-    <StyledItemFooter>cena od: {props.item.price}€</StyledItemFooter>
-    {props.isAdmin ? (
+    <StyledIconWrapper>
+      <span className={props.item.serviceImage} />
+    </StyledIconWrapper>
+    <StyledContent>
+      <StyleTitleWrapper>
+        <StyledTitle>{props.item.service}</StyledTitle>
+        <StyledCost>cena od: {props.item.price}€</StyledCost>
+      </StyleTitleWrapper>
+      <StyledItemBody>{props.item.description}</StyledItemBody>
+      {props.isAdmin ? (
       <ButtonGroup>
         <Button blue onClick={props.edit}>
           Edit
@@ -36,6 +38,9 @@ const ServiceItem = props => (
         </Button>
       </ButtonGroup>
     ) : null}
+    </StyledContent>
+
+    
   </StyledWrapper>
 );
 export default ServiceItem;

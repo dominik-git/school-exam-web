@@ -26,7 +26,6 @@ class App extends React.Component {
   render() {
     const Wrapper = styled.div`
       min-height: 100%;
-      background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
     `;
     return (
       <ThemeProvider theme={theme}>

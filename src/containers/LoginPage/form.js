@@ -12,29 +12,27 @@ const LoginForm = props => {
   const userIcon = <i className="fa fa-user fa-2x" aria-hidden="true" />;
 
   return (
-    <FormWrapper>
-      <StyledFormWrapper>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <Field
-              name="username"
-              label="Prihlasovacie meno:"
-              component={FormInput}
-              type="text"
-              placeholder="Prihlasovacie meno"
-            />
-          </div>
-          <div>
-            <Field name="password" label="Heslo:" component={FormInput} type="password" placeholder="Heslo" />
-          </div>
-          <div>
-            <Button type="submit" blue>
-              Prihlasit sa
-            </Button>
-          </div>
-        </form>
-      </StyledFormWrapper>
-    </FormWrapper>
+    <StyledFormWrapper>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <Field
+            name="username"
+            label="Prihlasovacie meno:"
+            component={FormInput}
+            type="text"
+            placeholder="Prihlasovacie meno"
+          />
+        </div>
+        <div>
+          <Field name="password" label="Heslo:" component={FormInput} type="password" placeholder="Heslo" />
+        </div>
+        <div>
+          <Button type="submit" blue>
+            Prihlasit sa
+          </Button>
+        </div>
+      </form>
+    </StyledFormWrapper>
   );
 };
 

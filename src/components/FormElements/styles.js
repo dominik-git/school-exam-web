@@ -108,6 +108,6 @@ export const StyledTextArea = styled.textarea`
   border-radius: 5px;
   background: ${props => props.color};
   &:focus {
-    border-color: #01b2b7;
+    border-color: ${props => props.theme.color.watermelon};
   }
 `;

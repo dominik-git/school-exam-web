@@ -1,9 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
-// const animation = keyframes`
-// from {top: 0px;}
-// to {top: 200px;}
-// `;
+import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   display: flex;

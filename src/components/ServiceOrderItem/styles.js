@@ -22,6 +22,7 @@ export const StyledWrapper = styled.div`
 export const StyledLabel = styled.label`
   display: flex;
   flex-direction: column;
+  color: ${props => props.theme.color.carbon};
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -32,8 +33,12 @@ export const StyledLabel = styled.label`
 `;
 
 export const StyledText = styled.span`
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
+  background: ${props => props.theme.color.carbon};
+  text-align: center;
+  display: block;
+  color: ${props => props.theme.color.neutral};
 `;
 export const StyledCheckBox = styled.input`
   -webkit-appearance: none;
@@ -62,6 +67,6 @@ export const StyledCheckBox = styled.input`
     position: absolute;
     top: -2px;
     left: 4px;
-    color: #33ca47;
+    color: ${props => props.theme.color.carbon};
   }
 `;

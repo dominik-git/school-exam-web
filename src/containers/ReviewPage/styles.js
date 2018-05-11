@@ -43,7 +43,9 @@ export const StyledFormOverlay = styled.div`
   }
 `;
 export const StyledWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  width: 70%;
+  margin: 20px auto;
 `;
 export const StyledRow = styled.div`
   margin-top: 100px;

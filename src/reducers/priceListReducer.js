@@ -2,7 +2,7 @@ import { fromJS } from "immutable";
 import { SET_IMAGE_FROM_IMAGE_PICKER, RESET_IMAGE_PICKER } from "../const/const";
 
 const initialState = fromJS({
-  selectedImage: "",
+  selectedImage: ""
 });
 
 export function priceListReducer(state = initialState, action = {}) {
@@ -15,4 +15,3 @@ export function priceListReducer(state = initialState, action = {}) {
       return state;
   }
 }
-

@@ -9,6 +9,7 @@ export const StyledWrapper = styled.div`
   right: 100px;
   bottom: 50px;
   width: 50px;
+  z-index: 10;
   &:hover {
     background: (37, 57, 147, 0.83);
   }

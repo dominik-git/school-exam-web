@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { withRouter } from 'react-router'
+import { withRouter } from "react-router";
 import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
 // import PropTypes from "prop-types";
 import {
@@ -21,7 +21,7 @@ import {
   StyledLogoText,
   StyledLogo
 } from "./styles";
-import bmwLogo from "../../assets/bmwLogo.png";
+import bmwLogo from "../../assets/servis.png";
 
 class Header extends React.Component {
   constructor() {
@@ -103,7 +103,7 @@ class Header extends React.Component {
         <StyledInfoWrapper>
           <StyledLogoWrapper>
             <StyledLogo src={bmwLogo} alt="bmwLogo" />
-            <StyledLogoText>BAVARIA SERVIS</StyledLogoText>
+            {/* <StyledLogoText>BAVARIA SERVIS</StyledLogoText> */}
           </StyledLogoWrapper>
            
            <StyledIconsWrapper>

@@ -100,7 +100,7 @@ export const StyledNavLink = styled(NavLink)`
   text-transform: uppercase;
   padding: 9px 16px;
   color: ${props => props.theme.color.neutral};
-  font-size: 20px;
+  font-size: 16px;
   align-items: center;
   &:hover {
     color: ${props => props.theme.color.neutral};
@@ -114,8 +114,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const StyledLogo = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 100%;
 `;
 export const StyledLogoText = styled.span`
   font-size: 20px;
@@ -123,13 +122,7 @@ export const StyledLogoText = styled.span`
   margin-left: 10px;
 `;
 export const StyledLogoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  width: 60px;
-  height: 60px;
-  margin-left: 3%;
+  width: 250px;
 `;
 
 export const StyledMenuWrapper = styled.div`

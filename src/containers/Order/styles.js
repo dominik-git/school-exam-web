@@ -3,16 +3,17 @@ import { NavLink } from "react-router-dom";
 import bmwImage from "../../assets/bmw_order.png";
 
 export const StyledFormWrapper = styled.div`
-  // width: 600px;
-  // margin: 0 auto;
+  padding-right: 10px;
 `;
 export const StyledWrapper = styled.div`
   position: relative;
   min-height: 100vh;
   width: 70%;
-  margin: 0 auto;
+  margin: 40px auto;
 `;
-
+export const StyledContent = styled.div`
+  box-shadow: 5px 5px 5px grey;
+`;
 export const StyledRow = styled.div`
   width: 100%;
   display: flex;
@@ -38,7 +39,7 @@ export const StyledMenuWrapper = styled.div`
   flex-direction: row;
 `;
 export const StyledTitle = styled.h3`
-  margin: 20px 0;
+  margin-bottom: 20px;
   padding-left: 20px;
   padding-bottom: 10px;
   font-size: 23px;
@@ -83,4 +84,10 @@ export const StyledNavLink = styled(NavLink)`
   // @media (max-width: 840px) {
   //   margin-top: 20px;
   // }
+`;
+export const StyledOrderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 `;

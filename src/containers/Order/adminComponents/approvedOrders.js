@@ -45,13 +45,7 @@ class ApprovedOrders extends React.Component {
   expandComponent(row) {
     return (
       <ExpanedRow 
-       carBrand={row.carBrand} 
-       carModel={row.carModel}
-       problemDescription={row.problemDescription}
-       serviceName={row.serviceName}
-       time={row.time} 
-       yearOfMade={row.yearOfMade}
-       orderId={row.id}
+       row={row}
        executionFunction={this.archiveOrder}
        executionText="Archivovat objednavku"
      />

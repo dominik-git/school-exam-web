@@ -3,8 +3,6 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import Loader from "../../../components/Loader";
 import { returnGetPromise, returnPostPathVariablePromise } from "../../../services/orderServices";
 import ExpanedRow from "../../../components/ExpandedRow/index";
-
-
 const loadArchivedOrdersUrl = "/api/order/getAllArchivedOrder";
 const approveOrderUrl = "api/order/approveOrder/{id}";
 
@@ -48,13 +46,7 @@ class ArchivedOrders extends React.Component {
   expandComponent(row) {
     return (
       <ExpanedRow 
-       carBrand={row.carBrand} 
-       carModel={row.carModel}
-       problemDescription={row.problemDescription}
-       serviceName={row.serviceName}
-       time={row.time} 
-       yearOfMade={row.yearOfMade}
-       orderId={row.id}
+       row={row}
        deleteOrder={this.deleteOrder}
       />
     );

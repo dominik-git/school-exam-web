@@ -4,11 +4,11 @@ import { SubmissionError, change } from "redux-form/immutable";
 import { connect } from "react-redux";
 import { isRequired } from "../../services/validation";
 import { returnPostObjectPromise } from "../../services/orderServices";
-import { StyledTitle, StyledText, StyledWrapper } from "./styles";
+import { StyledTitle, StyledText, StyledWrapper, StyledContent } from "./styles";
 import Form from "./userComponents/form";
 import moment from "moment";
 import Axios from "axios";
-// import "./styles.css";
+import "../../assets/flaticons/flaticon.css";
 
 class OrderPageForUser extends React.Component {
   constructor() {
@@ -110,13 +110,15 @@ class OrderPageForUser extends React.Component {
   render() {
     return (
       <StyledWrapper>
-        <StyledTitle>ONLINE REZERVACIA</StyledTitle>
-        <StyledText>
-          Sme radi, že ste sa rozhodli využiť naše služby. Objednajte si prosím termín na Vami vyžadovaný servisný úkon.
-          Po uzatvorení formuláru, Vás bude jeden z naších technikov kontaktovať a dohodne presný termín i čas potrebný
-          pre úkon.
-        </StyledText>
-        <Form onSubmit={this.handleSubmitOrder} serviceItems={this.state.serviceItems} />
+        <StyledContent>
+          <StyledTitle>ONLINE REZERVACIA</StyledTitle>
+          <StyledText>
+            Sme radi, že ste sa rozhodli využiť naše služby. Objednajte si prosím termín na Vami vyžadovaný servisný
+            úkon. Po uzatvorení formuláru, Vás bude jeden z naších technikov kontaktovať a dohodne presný termín i čas
+            potrebný pre úkon.
+          </StyledText>
+          <Form onSubmit={this.handleSubmitOrder} serviceItems={this.state.serviceItems} />
+        </StyledContent>
       </StyledWrapper>
     );
   }

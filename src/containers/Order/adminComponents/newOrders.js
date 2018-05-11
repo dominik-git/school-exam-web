@@ -11,8 +11,8 @@ class NewOrders extends React.Component {
     this.state = {
       data: [],
       isLoading: true,
+      isExpand:true
     };
-    this.expandComponent = this.expandComponent.bind(this);
     this.approveOrder = this.approveOrder.bind(this);
     this.deleteOrder = this.deleteOrder.bind(this);
     
@@ -51,22 +51,30 @@ class NewOrders extends React.Component {
     }
   }
 
-  isExpandableRow(row) {
-    return true;
-  }
-  expandComponent(row) {
+  isExpandableRow = () => {
+    return this.state.isExpand;
+  };
+
+  closeExpand = () => {
+    this.setState({ isExpand: false });
+ 
+    console.log("click");
+  };
+  showExpand = () => {
+    this.setState({ isExpand: true });
+ 
+    console.log("click");
+  };
+  expandComponent=(row)=> {
     return (
       <ExpanedRow
-        carBrand={row.carBrand}
-        carModel={row.carModel}
-        problemDescription={row.problemDescription}
-        serviceName={row.serviceName}
-        time={row.time}
-        yearOfMade={row.yearOfMade}
-        orderId={row.id}
+   
+        row={row}
         executionFunction={this.approveOrder}
         deleteOrder={this.deleteOrder}
         executionText="Potvrdit objednavku"
+        closeExpand={this.closeExpand}
+       
       />
     );
   }
@@ -86,6 +94,7 @@ class NewOrders extends React.Component {
     return (
       <div>
         <BootstrapTable
+         
           data={this.state.data}
           pagination
           options={options}

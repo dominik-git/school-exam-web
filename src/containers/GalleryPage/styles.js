@@ -18,15 +18,18 @@ export const StyledRow = styled.div`
 export const StyledWrapper = styled.div`
   min-height: 100vh;
   width: 70%;
-  margin: 0 auto;
+  margin: 40px auto;
+`;
+export const StyledContent = styled.div`
+  box-shadow: 5px 5px 5px grey;
 `;
 
 export const StyledTitle = styled.h2`
-  margin: 20px 20px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   font-weight: bold;
-  color: ${props => props.theme.color.watermelon};
-  border-bottom: 1px solid ${props => props.theme.color.watermelon};
+  font-size: 15px;
+  color: ${props => props.theme.color.neutral};
+  background: ${props => props.theme.color.watermelon};
 `;
 
 export const LeftIconWrapper = styled.div``;
@@ -46,3 +49,5 @@ export const StyledUploadWrapper = styled.div`
   margin-bottom: 20px;
   background: #c1c1c1;
 `;
+
+export const StyledImagesWrapper = styled.div``;

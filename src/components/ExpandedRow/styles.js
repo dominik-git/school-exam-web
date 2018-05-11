@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  min-height: 200px;
-  &:hover {
-    cursor: auto;
-  }
+  position: relative;
+`;
+export const StyledClose = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 export const StyledFormOverlay = styled.div`
   position: absolute;
@@ -12,10 +14,31 @@ export const StyledFormOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background: white;
+  z-index: 5;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+`;
+export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+`;
+export const StyledRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
+`;
+export const StyledOrderHeader = styled.span`
+  font-weight: bold;
+  margin-right: 30px;
+`;
+
+export const StyledOrderContext = styled.span`
+  margin: 0 20px;
 `;
 
 export const StyledTableWrapper = styled.div`

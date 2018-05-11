@@ -4,8 +4,9 @@ import { StyledWrapper, StyledLabel, StyledText, StyledCheckBox } from "./styles
 
 const Checkbox = ({ orderItem, input, name, hadndleClick, isChecked }) => (
   <StyledWrapper isChecked={isChecked}>
+   <StyledText>{orderItem.service}</StyledText>
     <StyledLabel htmlFor={name} className={orderItem.serviceImage}>
-      <StyledText>{orderItem.service}</StyledText>
+     
       <StyledCheckBox type="checkbox" {...input} onChange={hadndleClick} checked={isChecked} />
     </StyledLabel>
   </StyledWrapper>

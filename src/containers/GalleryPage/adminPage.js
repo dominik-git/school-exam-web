@@ -1,8 +1,7 @@
 import React from "react";
-import { ToastContainer } from "react-toastify";
 import { Row, Col, Grid } from "react-bootstrap";
 import Slider from "../../components/Slider";
-import { StyledTitle, StyledUpload, StyledUploadWrapper,StyledWrapper } from "./styles";
+import { StyledUpload, StyledUploadWrapper, StyledWrapper, StyledImagesWrapper } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
 import {
   returnDeletePhotosPromise,
@@ -12,6 +11,7 @@ import {
 import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
 import { toastForGalleryPage } from "../../const/toastMessages";
 import PaginationComponent from "../../components/PaginationComponent";
+import StyledTitle from "../../components/Title";
 
 /*eslint-disable */
 const imagesPerPage = 8;
@@ -171,8 +171,9 @@ class GalleryPageForAdmin extends React.Component {
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
     const splitedArray = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
     const galerryImages = splitedArray.map((item, index) => (
-      <Col xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
+      
         <GalleryImage
+          key={item.id}
           id={item.id}
           obj={item.data}
           position={index}
@@ -180,7 +181,7 @@ class GalleryPageForAdmin extends React.Component {
           deletePhoto={this.handleDeletePhotoById}
           role="admin"
         />
-      </Col>
+     
     ));
     const imageObj = splitedArray[positionOfSelectedImage];
     if (isLoading) {
@@ -212,9 +213,8 @@ class GalleryPageForAdmin extends React.Component {
           />
         ) : null}
         <StyledTitle>Galeria</StyledTitle>
-        <Grid>
-          <Row className="show-grid">{galerryImages}</Row>
-        </Grid>
+        <StyledImagesWrapper>{galerryImages}</StyledImagesWrapper>
+       
         <PaginationComponent
           arrayOfReviews={this.state.arrayOfImages}
           setCurrentPage={this.handleSetCurrentPage}

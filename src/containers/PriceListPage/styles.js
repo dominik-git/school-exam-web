@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   min-height: 100vh;
+  margin-top: 20px;
   width: 70%;
-  margin: 0 auto;
+  margin: 40px auto;
+  border-radius: 5px;
 `;
-export const StyledServicesWrapper = styled.div`
-  // display: flex;
-  // flex-direction: column;
+export const StyledServicesWrapper = styled.div``;
+export const StyledContent = styled.div`
+  // box-shadow: 5px 5px 5px grey;
 `;
 
 export const StyledTitle = styled.h2`
@@ -18,13 +20,9 @@ export const StyledTitle = styled.h2`
   border-bottom: 1px solid ${props => props.theme.color.watermelon};
 `;
 export const StyledRow = styled.div`
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // justify-content: space-between;
-  width: 90%;
-  margin: 0 auto;
-  // justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @media (max-width: 850px) {
     display: flex;
     -ms-flex-direction: column;

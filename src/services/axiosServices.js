@@ -1,12 +1,11 @@
 import axios from "axios";
-import { fetchPhotos } from "../containers/GalleryPage/ducks";
 
 export async function sendContactFormular(emailAddress, message, subject) {
   const options = {
     method: "POST",
     url: "/api/sendEmail",
     headers: { "Content-Type": "application/json" },
-    data: JSON.stringify({ emailAddress, message, subject }),
+    data: JSON.stringify({ emailAddress, message, subject })
   };
   try {
     const response = await axios(options);
@@ -23,14 +22,14 @@ export function UploadPhoto(photoFile) {
     method: "POST",
     url: "/api/gallery",
     headers: { "Content-Type": "multipart/form-data" },
-    data: photoData,
+    data: photoData
   };
 }
 
 export function returnFetchPhotosPromise() {
   const options = {
     method: "GET",
-    url: "/api/gallery",
+    url: "/api/gallery"
   };
   console.log("promise", axios(options));
   return axios(options);

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const StyledFormWrapper = styled.div`
+  min-height: 100vh;
   width: 70%;
-  margin: 0 auto;
 `;
 export const StyledForm = styled.form`
   // display: flex;
@@ -11,17 +11,19 @@ export const StyledForm = styled.form`
 `;
 export const StyledFormContent = styled.div``;
 export const StyledContactInfo = styled.div`
-  width: 70%;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
-export const StyledRow = styled.div`
   display: flex;
   flex-direction: column;
+`;
+export const StyledContact = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background: ${props => props.theme.color.neutral};
+`;
+export const StyledContactRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
 `;
 export const StyledDetailInfo = styled.div`
@@ -67,16 +69,30 @@ export const StyledFieldRow = styled.div`
 export const StyledText = styled.span`
   color: black;
 `;
-export const StyledContactPageWrapper = styled.div`
-  height: 100vh;
-  // display: flex;
-  // flex-direction: row;
+export const StyledContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  box-shadow: 5px 5px 5px grey;
 `;
-export const StyledTitle = styled.h1`
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 20px;
+export const StyledContactMap = styled.div`
+  width: 50%;
+`;
+
+export const StyledContactPageWrapper = styled.div`
+  min-height: 100vh;
+  width: 70%;
+  margin: 40px auto;
+`;
+export const StyledTitle = styled.h4`
+  background: ${props => props.theme.color.watermelon};
+  color: ${props => props.theme.color.neutral};
+  padding-left: 20px;
+  padding-bottom: 10px;
+  font-size: 23px;
+  padding-top: 10px;
+  text-align: center;
+  border-radius: 3px;
+  width: 100%;
 `;
 export const StyledSelect = styled.select`
   background: black;

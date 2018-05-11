@@ -2,8 +2,15 @@ import React from "react";
 import { Field, reduxForm, reset, FormSection } from "redux-form/immutable";
 import { FormInput, FormTextarea } from "../../../components/FormElements/index";
 import Button from "../../../components/Button";
-import { StyledOrderField, StyledFormWrapper, StyledRow, StyledInformLabel, StyledOrderTitle } from "../styles";
-import MyDatePicker from "../../../components/DatePicker";
+import { 
+  StyledOrderField, 
+  StyledOrderWrapper,
+  StyledFormWrapper, 
+  StyledRow, 
+  StyledInformLabel, 
+  StyledOrderTitle 
+} from "../styles";
+// import MyDatePicker from "../../../components/DatePicker";
 import ServiceOrderItem from "../../../components/ServiceOrderItem";
 
 const OrderForm = props => {
@@ -62,9 +69,12 @@ const OrderForm = props => {
         {serviceItems.length > 0 ? (
           <div>
             <StyledOrderTitle>Pozadovany servisny ukon</StyledOrderTitle>
-            <FormSection name="serviceItems">
-              {serviceItems.map(option => <ServiceOrderItem item={option} key={option.id} />)}
-            </FormSection>
+              <FormSection name="serviceItems">
+              <StyledOrderWrapper>
+                {serviceItems.map(option => <ServiceOrderItem item={option} key={option.id} />)}
+                </StyledOrderWrapper>
+              </FormSection>
+            
           </div>
         ) : null}
 
@@ -93,7 +103,7 @@ const OrderForm = props => {
           <StyledOrderField>
             <Field name="yearOfMade" label="Rok vyroby" component={FormInput} type="text" border placeholder="2014"  labelColor="#545454" />
           </StyledOrderField>
-          <Field name="time" label="Orientacny cas" component={MyDatePicker} />
+          {/* <Field name="time" label="Orientacny cas" component={MyDatePicker} /> */}
         </StyledRow>
 
         <StyledOrderTitle>ĎAKUJEME</StyledOrderTitle>

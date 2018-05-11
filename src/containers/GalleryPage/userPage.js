@@ -1,7 +1,8 @@
 import React from "react";
 import { Col, Row, Grid } from "react-bootstrap";
 import Slider from "../../components/Slider";
-import { ImagesWrapper, StyledTitle, StyledWrapper } from "./styles";
+import StyledTitle from "../../components/Title";
+import { StyledImagesWrapper, StyledWrapper, StyledContent } from "./styles";
 import GalleryImage from "../../components/GalleryImage";
 import { returnFetchPhotosPromise } from "../../services/GalleryServices";
 import { errorNotification } from "../../services/toastServices";
@@ -139,14 +140,13 @@ class GalleryPageForUser extends React.Component {
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - imagesPerPage;
     const splitedArray = arrayOfImages.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
     const galerryImages = splitedArray.map((item, index) => (
-      <Col xs={12} sm={6} md={4} lg={4} xl={4} key={item.id}>
-        <GalleryImage
-          id={item.id}
-          obj={item.data}
-          position={index}
-          handleSliderAndPassImage={this.showSliderAndPassImage}
-        />
-      </Col>
+      <GalleryImage
+        key={item.id}
+        id={item.id}
+        obj={item.data}
+        position={index}
+        handleSliderAndPassImage={this.showSliderAndPassImage}
+      />
     ));
     const imageObj = splitedArray[positionOfSelectedImage];
     if (isLoading) {
@@ -168,15 +168,15 @@ class GalleryPageForUser extends React.Component {
             closeSlider={this.closeSlider}
           />
         ) : null}
-        <StyledTitle>Galeria</StyledTitle>
-        <Grid>
-          <Row className="show-grid">{galerryImages}</Row>
-        </Grid>
-        <PaginationComponent
-          arrayOfReviews={this.state.arrayOfImages}
-          setCurrentPage={this.handleSetCurrentPage}
-          todosPerPage={imagesPerPage}
-        />
+        <StyledContent>
+          <StyledTitle>Galeria</StyledTitle>
+          <StyledImagesWrapper>{galerryImages}</StyledImagesWrapper>
+          <PaginationComponent
+            arrayOfReviews={this.state.arrayOfImages}
+            setCurrentPage={this.handleSetCurrentPage}
+            todosPerPage={imagesPerPage}
+          />
+        </StyledContent>
       </StyledWrapper>
     );
   }

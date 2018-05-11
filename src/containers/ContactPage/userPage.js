@@ -7,7 +7,7 @@ import GoogleMapComponent from "../../components/GoogleMap";
 
 import ContactInfo from "./userComponents/contactInfo";
 import { isRequired } from "../../services/validation";
-import { StyledContactPageWrapper, StyledTitle, StyledRow } from "./styles";
+import { StyledContactPageWrapper, StyledContent, StyledTitle, StyledContact, StyledContactMap } from "./styles";
 import { sendContactFormular } from "../../services/axiosServices";
 import { returnContentDetailPromise } from "../../services/ContactPageServices";
 import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
@@ -67,24 +67,19 @@ class ContactPage extends React.Component {
 
     return (
       <StyledContactPageWrapper>
-        <Row className="show-grid">
-          <Col xs={12} md={12} lg={12}>
+        <StyledContent>
+          <StyledContactMap>
             <GoogleMapComponent
               MarkerPosition={MarkerPosition}
               CenterPosition={CenterPosition}
               isMarkerShown={this.state.isMarkerShown}
             />
-          </Col>
-        </Row>
-
-        <StyledRow>
-          <StyledTitle>Kontaktne informacie</StyledTitle>
-          {this.state.content == null ? <div>Empty</div> : <ContactInfo content={this.props.contactDetails} />}
-        </StyledRow>
-        {/* <Col xs={12} md={7} lg={6}>
-            <StyledTitle>Kontaktujte nas</StyledTitle>
-            <ContactForm onSubmit={this.handleSubmitForm} />
-          </Col> */}
+          </StyledContactMap>
+          <StyledContact>
+            <StyledTitle>KONTAKTNE INFORMACIE</StyledTitle>
+            {this.state.content == null ? null : <ContactInfo content={this.props.contactDetails} />}
+          </StyledContact>
+        </StyledContent>
       </StyledContactPageWrapper>
     );
   }

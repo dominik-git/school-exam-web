@@ -1,77 +1,92 @@
 import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
+import PropTypes from "prop-types";
 import {
   StyledWrapper,
-  StyledTable,
-  StyledTableHeader,
-  TableHeaderCell,
-  TableHeaderRow,
-  TableBody,
-  TableBodyRow,
-  TableBodyCell,
+  StyledContent,
+  StyledRow,
   StyledDetailTitle,
-  StyledTableWrapper,
-  StyledFormOverlay
+  StyledFormOverlay,
+  StyledOrderHeader,
+  StyledOrderContext,
+  StyledClose
 } from "./styles";
 import Button from "../../components/Button";
 
 const ExpanedRow = props => {
-  const {
-    carBrand,
-    carModel,
-    problemDescription,
-    serviceName,
-    time,
-    yearOfMade,
-    orderId,
-    executionFunction,
-    executionText,
-    deleteOrder,
-  } = props;
+  const { executionFunction, executionText, deleteOrder, row, closeExpand } = props;
   return (
     <StyledFormOverlay>
-    <StyledWrapper >
-      <StyledDetailTitle>Detail objednavky</StyledDetailTitle>
-      <StyledTableWrapper>
-        <StyledTable>
-          <StyledTableHeader>
-            <TableHeaderRow>
-              <TableHeaderCell>Znacka auta</TableHeaderCell>
-              <TableHeaderCell>Model auta</TableHeaderCell>
-              <TableHeaderCell>Rok vyroby</TableHeaderCell>
-              <TableHeaderCell>Popis zavady</TableHeaderCell>
-              <TableHeaderCell>Orientacny cas</TableHeaderCell>
-              <TableHeaderCell>Potrebna sluzba</TableHeaderCell>
-            </TableHeaderRow>
-          </StyledTableHeader>
-          <TableBody>
-            <TableBodyRow>
-              <TableBodyCell>{carBrand}</TableBodyCell>
-              <TableBodyCell>{carModel}</TableBodyCell>
-              <TableBodyCell>{yearOfMade}</TableBodyCell>
-              <TableBodyCell>{problemDescription}</TableBodyCell>
-              <TableBodyCell>{time}</TableBodyCell>
-              <TableBodyCell>{serviceName}</TableBodyCell>
-            </TableBodyRow>
-          </TableBody>
-        </StyledTable>
-      </StyledTableWrapper>
-      <ButtonToolbar style={{ float: "left", marginTop: "50px" }}>
-        {executionFunction === undefined ? null : (
-          <Button blue onClick={() => executionFunction(orderId)}>
-            {executionText}
-          </Button>
-        )}
-        {deleteOrder === undefined ? null : (
-          <Button grey onClick={() => deleteOrder(orderId)}>
-            Vymazat objednavku
-          </Button>
-        )}
-      </ButtonToolbar>
-
-      {/* <div onClick={() => executionFunction(orderId)}>{executionText}</div> */}
-    </StyledWrapper>
+      <StyledWrapper>
+        <StyledDetailTitle>Detail objednavky</StyledDetailTitle>
+        <StyledContent>
+          <StyledRow>
+            <StyledOrderHeader >Meno:</StyledOrderHeader>
+            <StyledOrderContext>{row.name}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Priezvisko:</StyledOrderHeader>
+            <StyledOrderContext>{row.surname}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Tel. cislo:</StyledOrderHeader>
+            <StyledOrderContext>{row.phoneNumber}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Emailova adresa:</StyledOrderHeader>
+            <StyledOrderContext>{row.emailAddress}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Znacka auta:</StyledOrderHeader>
+            <StyledOrderContext>{row.carBrand}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Model auta:</StyledOrderHeader>
+            <StyledOrderContext>{row.carModel}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Rok vyroby:</StyledOrderHeader>
+            <StyledOrderContext>{row.yearOfMade}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Popis zavady:</StyledOrderHeader>
+            <StyledOrderContext>{row.problemDescription}</StyledOrderContext>
+          </StyledRow>
+          <StyledRow>
+            <StyledOrderHeader>Pozadovane servisne ukony:</StyledOrderHeader>
+           { row.serviceItemNames !== undefined ? row.serviceItemNames.map((service,index) =>(
+            <StyledOrderContext key={index}>{service}</StyledOrderContext>
+           )) : null}
+          </StyledRow>
+          <div>
+          {executionFunction !== undefined ? (
+            <Button blue onClick={() => executionFunction(row.id)}>
+              {executionText}
+            </Button>
+          ):null}
+          {deleteOrder !== undefined ?  (
+            <Button grey onClick={() => deleteOrder(row.orderId)}>
+              Vymazat objednavku
+            </Button>
+          ): null}
+          
+      </div>
+        </StyledContent>
+     <StyledClose onClick={closeExpand}>X</StyledClose>
+      </StyledWrapper>
     </StyledFormOverlay>
   );
 };
+ 
+ExpanedRow.propTypes = {
+  row: PropTypes.shape({
+    serviceItemNames: PropTypes.arrayOf(PropTypes.string)
+  })
+};
+ExpanedRow.defaultProps = {
+  row: {
+    serviceItemNames:[]
+  },
+}
+
 export default ExpanedRow;
