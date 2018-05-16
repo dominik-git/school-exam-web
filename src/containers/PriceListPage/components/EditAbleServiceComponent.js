@@ -1,6 +1,6 @@
 import React from "react";
 import UpdateServiceForm from "./UpdateServiceForm";
-import { StyledWrapper, StyledLabel } from "./styles";
+import { StyledWrapper, StyledLabel,StyledOverlay } from "./styles";
 import ServiceItem from "../../../components/ServiceItem";
 // import { StyledWrapper, StyledServiceIcon, StyledServiceName, StyledServiceDesciption, StyledServicePrice, StyledButtonGroup } from "./styles";
 
@@ -37,7 +37,7 @@ class EditAbleServiceComponent extends React.Component {
     };
     if (this.state.isEdit) {
       return (
-        <StyledWrapper>
+        <StyledOverlay>
           <UpdateServiceForm
             serviceImage={data.serviceImage}
             initialValues={initialValues}
@@ -46,7 +46,7 @@ class EditAbleServiceComponent extends React.Component {
             onSubmit={this.handleSubmit}
             cancel={this.turnOffEdit}
           />
-        </StyledWrapper>
+        </StyledOverlay>
       );
     }
     return (

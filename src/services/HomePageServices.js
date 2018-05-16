@@ -5,7 +5,7 @@ export function returnUploadPhotoPromise(photoFile) {
   photoData.append("photo", photoFile);
   const options = {
     method: "POST",
-    url: "/api/gallery",
+    url: "/gallery",
     headers: { "Content-Type": "multipart/form-data" },
     data: photoData,
   };
@@ -15,7 +15,7 @@ export function returnUploadPhotoPromise(photoFile) {
 export function returnFetchPhotosPromise() {
   const options = {
     method: "GET",
-    url: "/api/gallery",
+    url: "/gallery",
   };
   return axios(options);
 }
@@ -23,7 +23,7 @@ export function returnFetchPhotosPromise() {
 export function returnDeletePhotosPromise(id) {
   const options = {
     method: "POST",
-    url: `/api/gallery/delete/${id}`,
+    url: `/gallery/delete/${id}`,
   };
   return axios(options);
 }

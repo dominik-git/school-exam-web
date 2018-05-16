@@ -10,17 +10,17 @@ class ApprovedOrders extends React.Component {
     this.state = {
       data: [],
       isLoading: true,
+      isExpand:false,
+      selectedRow:null
     };
-    this.expandComponent = this.expandComponent.bind(this);
-    this.archiveOrder = this.archiveOrder.bind(this);
   }
   componentDidMount() {
-    this.loadNewOrders();
+    this.loadApprovedOrders();
   }
 
-  async loadNewOrders() {
+  loadApprovedOrders = async ()=> {
     try {
-      const response = await returnGetPromise("/api/order/getAllApprovedOrder");
+      const response = await returnGetPromise("/order/getAllApprovedOrder");
       this.setState({
         data: response.data,
         isLoading: false,
@@ -29,39 +29,48 @@ class ApprovedOrders extends React.Component {
       console.log(err);
     }
   }
-  async archiveOrder(id) {
-    console.log("id",id);
+   archiveOrder = async (id) => {
     try {
-      await returnPostPathVariablePromise(`/api/order/archiveOrder/${id}`);
+      await returnPostPathVariablePromise(`/order/archiveOrder/${id}`);
       this.setState({data: this.state.data.filter(value => value.id !== id)});
+      this.closeExpand();
     } catch (err) {
       console.log(err);
     }
   }
-
-  isExpandableRow(row) {
-    return true;
-  }
-  expandComponent(row) {
-    return (
-      <ExpanedRow 
-       row={row}
-       executionFunction={this.archiveOrder}
-       executionText="Archivovat objednavku"
-     />
-    );
+  closeExpand = () => {
+    this.setState({
+      isExpand: false,
+      selectedRow:null
+    });
+  };
+  handleExpandComponent=(row)=> {
+    this.setState({
+      selectedRow:row,
+      isExpand: true 
+    })
+    console.log(row);
   }
 
   render() {
     const options = {
       sizePerPageList: [{ text: "5", value: 5 }, { text: "10", value: 10 }],
+      onRowClick: this.handleExpandComponent 
     };
 
     if (this.state.isLoading) {
       return <Loader />;
     }
-    if (this.state.isLoading && !this.state.data.length) {
-      return <span>Ziadne nove objednavky</span>;
+    if (this.state.isExpand) {
+      return (
+        <ExpanedRow
+          row={this.state.selectedRow}
+          deleteOrder={this.deleteOrder}
+          executionText="Archivovat objednavku"
+          closeExpand={this.closeExpand}
+          executionFunction={this.archiveOrder}
+        />
+      );
     }
 
     return (

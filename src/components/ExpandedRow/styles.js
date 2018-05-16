@@ -7,6 +7,10 @@ export const StyledClose = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  color: ${props => props.theme.color.watermelon};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const StyledFormOverlay = styled.div`
   position: absolute;

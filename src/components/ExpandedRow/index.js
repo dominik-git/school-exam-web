@@ -1,5 +1,4 @@
 import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
 import PropTypes from "prop-types";
 import {
   StyledWrapper,
@@ -65,7 +64,7 @@ const ExpanedRow = props => {
             </Button>
           ):null}
           {deleteOrder !== undefined ?  (
-            <Button grey onClick={() => deleteOrder(row.orderId)}>
+            <Button grey onClick={() => deleteOrder(row.id)}>
               Vymazat objednavku
             </Button>
           ): null}

@@ -4,28 +4,17 @@ import axios from "axios";
 export function returnContentDetailPromise() {
   const options = {
     method: "GET",
-    url: "/api/contact",
+    url: "/contact"
   };
   return axios(options);
 }
 // create content
 export function returnSaveContentDetailPromise(contentData) {
-  // const formData = {
-  //   serviceName: contentData.serviceName,
-  //   address: contentData.address,
-  //   emailAddress: contentData.emailAddress,
-  //   number1: contentData.number1,
-  //   number2: contentData.number2,
-  //   openDay: contentData.openDay,
-  //   closeDay: contentData.closeDay,
-  //   openTime,
-  //   closeTime,
-  // };
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    url: "/api/contact",
-    data: contentData,
+    url: "/contact",
+    data: contentData
   };
   return axios(options);
 }
@@ -33,10 +22,10 @@ export function returnSaveContentDetailPromise(contentData) {
 // update content
 export function returnUpdateContentDetailPromise(contentData) {
   const options = {
-    method: "POST",
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    url: `/api/contact/updateInfo/${contentData.id}`,
-    data: contentData,
+    url: `/contact/${contentData.id}`,
+    data: contentData
   };
   return axios(options);
 }

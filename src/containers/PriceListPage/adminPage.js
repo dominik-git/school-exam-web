@@ -1,8 +1,7 @@
 import React from "react";
-import UpdateServiceForm from "./components/UpdateServiceForm";
 import CreateNewServiceForm from "./components/CreateNewServiceForm";
 import EditAbleServiceComponent from "./components/EditAbleServiceComponent";
-import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
+import { sucessfulNotification, errorNotification } from "../../services/toastServices";
 import {
   returnAllServicesPromise,
   returnPromiseCreateNewService,
@@ -10,6 +9,7 @@ import {
   returnPromiseDeleteServiceById
 } from "../../services/priceListServices";
 import { StyledWrapper,StyledServicesWrapper,StyledIcon, StyledFormOverlay,StyledIconWrapper } from "./styles";
+import Loader from "../../components/Loader";
 
 
 class AdminPricePage extends React.Component {
@@ -78,7 +78,7 @@ class AdminPricePage extends React.Component {
   async updateService(id, serviceImage, service, description, price) {
     try {
       await returnPromiseUpdateServiceById(id, serviceImage, service, description, price);
-      sucessfulNotification("UPDATED");
+      sucessfulNotification("Sluzba bola zmenena");
       this.fetchServices();
     } catch (err) {
       errorNotification("chyba");
@@ -87,7 +87,11 @@ class AdminPricePage extends React.Component {
   }
   render() {
     if (this.state.isLoading) {
-      return (<div>Loading</div>);
+      return (
+        <StyledWrapper>
+          <Loader />
+        </StyledWrapper>
+      );
     }
     if (this.state.createNew) {
       return (

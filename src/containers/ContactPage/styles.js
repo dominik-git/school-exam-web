@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const StyledFormWrapper = styled.div`
-  min-height: 100vh;
-  width: 70%;
+  // min-height: 100vh;
+  // width: 70%;
 `;
 export const StyledForm = styled.form`
   // display: flex;

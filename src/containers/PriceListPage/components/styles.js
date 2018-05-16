@@ -2,15 +2,31 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+`;
+
+export const StyledOverlay = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  display: flex;
+  justify-content: center;
 `;
 export const StyledForm = styled.form`
-  margin: 30px;
+  margin: 0 auto;
   width: 500px;
 `;
 

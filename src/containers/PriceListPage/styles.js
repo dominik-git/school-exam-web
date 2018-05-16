@@ -20,13 +20,10 @@ export const StyledTitle = styled.h2`
   border-bottom: 1px solid ${props => props.theme.color.watermelon};
 `;
 export const StyledRow = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media (max-width: 850px) {
+  @media (max-width: 1180px) {
     display: flex;
-    -ms-flex-direction: column;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 `;
@@ -48,7 +45,7 @@ export const StyledForm = styled.form`
 
 export const StyledFormOverlay = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

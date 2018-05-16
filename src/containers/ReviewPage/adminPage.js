@@ -7,6 +7,7 @@ import { infoNotification, errorNotification } from "../../services/toastService
 import { toastForReviewPage } from "../../const/toastMessages";
 import DecisionModal from "../../components/DecisionModal";
 import { StyledMessageCell, StyledDeleteCell, StyledWrapper } from "./styles";
+import Loader from "../../components/Loader";
 import "./styles.css";
 
 
@@ -88,7 +89,7 @@ class ReviewPageForAdmin extends React.Component {
       ]
     };
     if (isLoading) {
-      return <div>Loading</div>;
+      return <StyledWrapper><Loader/></StyledWrapper>;
     }
 
     return (

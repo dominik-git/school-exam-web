@@ -3,7 +3,7 @@ import axios from "axios";
 export async function sendContactFormular(emailAddress, message, subject) {
   const options = {
     method: "POST",
-    url: "/api/sendEmail",
+    url: "/sendEmail",
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({ emailAddress, message, subject })
   };
@@ -20,7 +20,7 @@ export function UploadPhoto(photoFile) {
   photoData.append("photo", photoFile);
   const options = {
     method: "POST",
-    url: "/api/gallery",
+    url: "/gallery",
     headers: { "Content-Type": "multipart/form-data" },
     data: photoData
   };
@@ -29,7 +29,7 @@ export function UploadPhoto(photoFile) {
 export function returnFetchPhotosPromise() {
   const options = {
     method: "GET",
-    url: "/api/gallery"
+    url: "/gallery"
   };
   console.log("promise", axios(options));
   return axios(options);

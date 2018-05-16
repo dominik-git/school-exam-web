@@ -7,10 +7,10 @@ injectGlobal`
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-// @font-face {
-//   font-family: 'Marlboro';
-//   src: url('./fonts/Marlboro.ttf');
-// }
+@font-face {
+  font-family: 'Marlboro';
+  src: url('./fonts/Marlboro.ttf');
+}
 @font-face {
   font-family: 'OpenSans';
   src: url('../fonts/OpenSans-Regular.ttf')  format('truetype');
@@ -39,5 +39,14 @@ injectGlobal`
     margin:0;
     padding:0;
   }
+
+  p {
+    margin:0;
+    padding:0;
+  }
   
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    background-color:white;
+}
 `;

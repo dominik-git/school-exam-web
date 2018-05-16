@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
     console.log(base64.encode(`${username} ${password}`));
     const options = {
       method: "GET",
-      url: "/api/car/ping",
+      url: "/car/ping",
       headers: {
         Authorization: `Basic${base64.encode(`${username} ${password}`)}`,
       },

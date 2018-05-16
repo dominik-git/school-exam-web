@@ -4,6 +4,7 @@ import Loader from "../../../components/Loader";
 import { returnGetPromise, returnPostPathVariablePromise } from "../../../services/orderServices";
 import ExpanedRow from "../../../components/ExpandedRow/index";
 import { sucessfulNotification, infoNotification, errorNotification } from "../../../services/toastServices";
+import { Row } from "react-flexbox-grid";
 
 class NewOrders extends React.Component {
   constructor() {
@@ -11,7 +12,8 @@ class NewOrders extends React.Component {
     this.state = {
       data: [],
       isLoading: true,
-      isExpand:true
+      isExpand:false,
+      selectedRow:null
     };
     this.approveOrder = this.approveOrder.bind(this);
     this.deleteOrder = this.deleteOrder.bind(this);
@@ -23,7 +25,7 @@ class NewOrders extends React.Component {
 
   async loadNewOrders() {
     try {
-      const response = await returnGetPromise("/api/order/getAllNewOrders");
+      const response = await returnGetPromise("/order/getAllNewOrders");
       this.setState({
         data: response.data,
         isLoading: false,
@@ -35,71 +37,66 @@ class NewOrders extends React.Component {
 
   async approveOrder(id) {
     try {
-      await returnPostPathVariablePromise(`/api/order/approveOrder/${id}`);
+      await returnPostPathVariablePromise(`/order/approveOrder/${id}`);
       this.setState({data: this.state.data.filter(value => value.id !== id)});
       sucessfulNotification("Objednavka bola schvalena");
+      this.closeExpand();
     } catch (err) {
       console.log(err);
     }
   }
   async deleteOrder(id) {
     try {
-      await returnPostPathVariablePromise(`/api/order/deleteOrder/${id}`);
+      await returnPostPathVariablePromise(`/order/deleteOrder/${id}`);
       this.setState({data: this.state.data.filter(value => value.id !== id)});
+      this.closeExpand();
     } catch (err) {
       console.log(err);
     }
   }
 
-  isExpandableRow = () => {
-    return this.state.isExpand;
-  };
 
   closeExpand = () => {
-    this.setState({ isExpand: false });
- 
-    console.log("click");
+    this.setState({
+      isExpand: false,
+      selectedRow:null
+    });
   };
-  showExpand = () => {
-    this.setState({ isExpand: true });
- 
-    console.log("click");
-  };
-  expandComponent=(row)=> {
-    return (
-      <ExpanedRow
-   
-        row={row}
-        executionFunction={this.approveOrder}
-        deleteOrder={this.deleteOrder}
-        executionText="Potvrdit objednavku"
-        closeExpand={this.closeExpand}
-       
-      />
-    );
+  handleExpandComponent=(row)=> {
+    this.setState({
+      selectedRow:row,
+      isExpand: true 
+    })
+    console.log(row);
   }
 
   render() {
     const options = {
       sizePerPageList: [{ text: "5", value: 5 }, { text: "10", value: 10 }],
+      onRowClick: this.handleExpandComponent 
     };
 
     if (this.state.isLoading) {
       return <Loader />;
     }
-    if (this.state.isLoading && !this.state.data.length) {
-      return <span>Ziadne nove objednavky</span>;
+    if (this.state.isExpand) {
+      return (
+        <ExpanedRow
+          row={this.state.selectedRow}
+          executionFunction={this.approveOrder}
+          deleteOrder={this.deleteOrder}
+          executionText="Potvrdit objednavku"
+          closeExpand={this.closeExpand}
+        />
+      );
     }
 
     return (
       <div>
         <BootstrapTable
-         
           data={this.state.data}
           pagination
           options={options}
-          expandableRow={this.isExpandableRow}
-          expandComponent={this.expandComponent}
         >
           <TableHeaderColumn isKey dataField="id">
             Id objednavky

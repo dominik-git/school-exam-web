@@ -3,19 +3,18 @@ import axios from "axios";
 export function returnAllServicesPromise() {
   const options = {
     method: "GET",
-    url: "/api/pricelist",
+    url: "/pricelist"
   };
   return axios(options);
 }
-
 
 // create new service
 export function returnPromiseCreateNewService(serviceImage, service, description, price) {
   const options = {
     method: "POST",
-    url: "/api/pricelist",
+    url: "/pricelist",
     headers: { "Content-Type": "application/json" },
-    data: JSON.stringify({ serviceImage, service, description, price }),
+    data: JSON.stringify({ serviceImage, service, description, price })
   };
   return axios(options);
 }
@@ -23,10 +22,10 @@ export function returnPromiseCreateNewService(serviceImage, service, description
 // delete service by id
 export function returnPromiseUpdateServiceById(id, serviceImage, service, description, price) {
   const options = {
-    method: "POST",
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    url: `/api/pricelist/updateItem/${id}`,
-    data: JSON.stringify({ serviceImage, service, description, price }),
+    url: `/pricelist/${id}`,
+    data: JSON.stringify({ serviceImage, service, description, price })
   };
   return axios(options);
 }
@@ -34,10 +33,9 @@ export function returnPromiseUpdateServiceById(id, serviceImage, service, descri
 // delete service by id
 export function returnPromiseDeleteServiceById(id) {
   const options = {
-    method: "POST",
+    method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    url: `/api/pricelist/delete/${id}`,
+    url: `/pricelist/${id}`
   };
   return axios(options);
 }
-

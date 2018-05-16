@@ -1,18 +1,14 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form/immutable";
+import { Field, reduxForm, reset } from "redux-form/immutable";
 import ReactStars from "react-stars";
 import PropTypes from "prop-types";
-import { ReduxFormInputWithIcon, FormTextAreaWithIcon } from "../../../components/FormElements/index";
-import { StyledFormWrapper,StyledForm } from "../styles";
+import { FormInput, FormTextarea } from "../../../components/FormElements/index";
+import { StyledForm } from "../styles";
 import Button from "../../../components/Button";
 import ButtonGroup from "../../../components/ButtonGroup";
 
 const ReviewForm = props => {
   const { handleSubmit, ratingChanged, onCancel } = props;
-
-  const userIcon = <i className="fa fa-user fa-2x" aria-hidden="true" />;
-  const messageIcon = <i className="fa fa-commenting fa-2x" aria-hidden="true" />;
-  const starIcon = <i className="fa fa-star" aria-hidden="true" />;
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -20,14 +16,23 @@ const ReviewForm = props => {
         <Field
           name="nickName"
           label=""
-          component={ReduxFormInputWithIcon}
+          component={FormInput}
           type="text"
-          icon={userIcon}
+          border
           placeholder="Meno"
+          labelColor="#545454"
         />
       </div>
       <div>
-        <Field name="message" label="" component={FormTextAreaWithIcon} icon={messageIcon} placeholder="Napiste nam" />
+        <Field
+          name="message"
+          label=""
+          component={FormTextarea}
+          type="text"
+          placeholder="Bol som spokojny so sluzbami a zamestnancami servisu"
+          border
+          labelColor="#545454"
+        />
       </div>
       <div>
         <ReactStars count={5} onChange={ratingChanged} size={35} color2={"#ffd700"} />
@@ -36,20 +41,19 @@ const ReviewForm = props => {
         <Button type="submit" blue>
           Pridat
         </Button>
-        <Button grey onClick={onCancel}>
-          Spat
-        </Button>
       </ButtonGroup>
     </StyledForm>
   );
 };
+const afterSubmit = (result, dispatch) => dispatch(reset("reviewForm"));
 // create new, "configured" function
 export default reduxForm({
   // a unique name for the form
   form: "reviewForm",
+  onSubmitSuccess: afterSubmit
 })(ReviewForm);
 
 ReviewForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  ratingChanged: PropTypes.func.isRequired,
+  ratingChanged: PropTypes.func.isRequired
 };

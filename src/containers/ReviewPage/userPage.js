@@ -1,17 +1,16 @@
 import React from "react";
 import { SubmissionError } from "redux-form/immutable";
-import { ToastContainer } from "react-toastify";
-import { Row, Col, Grid } from "react-bootstrap";
 import ReviewForm from "./userComponents/form";
 import { isRequired } from "../../services/validation";
 import { returnAllReviewsPromise, returnPromiseUploadReview } from "../../services/ReviewServices";
-import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
-import Title from "../../components/Title";
+import { sucessfulNotification, errorNotification } from "../../services/toastServices";
 import PaginationComponent from "../../components/PaginationComponent";
 import ReviewComponent from "../../components/ReviewComponent";
-import { StyledWrapper, StyledBackground, StyledRow,StyledTitle,StyledFormOverlay,StyledIconWrapper,StyledIcon } from "./styles";
+import { StyledWrapper, StyledRow,StyledTitle,StyledFormOverlay,StyledIconWrapper,StyledIcon,StyledRewiesContainer,StyledAddReview } from "./styles";
 import "./styles.css";
 import ScrollTop from "../../components/ScrollTop";
+import Loader from "../../components/Loader";
+
 
 
 const itemsPerPage = 3;
@@ -22,7 +21,8 @@ class ReviewPageForUser extends React.Component {
       allReviewsArray: [],
       rating: 0,
       currentPage: 1,
-      addReview:false
+      addReview:false,
+      isLoading:true
     };
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.uploadReview = this.uploadReview.bind(this);
@@ -82,7 +82,10 @@ class ReviewPageForUser extends React.Component {
   async fetchReviews() {
     try {
       const response = await returnAllReviewsPromise();
-      this.setState({ allReviewsArray: response.data });
+      this.setState({ 
+        allReviewsArray: response.data,
+        isLoading:false
+       });
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +102,7 @@ class ReviewPageForUser extends React.Component {
   }
 
   render() {
-    const { currentPage, allReviewsArray } = this.state;
+    const { currentPage, allReviewsArray, isLoading } = this.state;
     const indexOfLastElementOnThePage = currentPage * itemsPerPage;
     const indexOfFirstElementOnThePage = indexOfLastElementOnThePage - itemsPerPage;
     const splitedArray = allReviewsArray.slice(indexOfFirstElementOnThePage, indexOfLastElementOnThePage);
@@ -112,34 +115,29 @@ class ReviewPageForUser extends React.Component {
         date={item.date}
         role="user"
       />
-    ));
-    if (this.state.addReview) {
-      return (
-        <StyledFormOverlay>
+    )); 
+    if (isLoading) {
+      return <StyledWrapper><Loader/></StyledWrapper>;
+    }
+    return (
+      <StyledWrapper>
+        <StyledAddReview>
+          <StyledTitle>Pridat Recenziu</StyledTitle>
           <ReviewForm
             onSubmit={this.handleSubmitForm}
             ratingChanged={this.ratingChanged}
             onCancel={this.handleAddReviewOff}
           />
-        </StyledFormOverlay>
-      );
-    }
-    return (
-      <StyledWrapper>
-        <StyledTitle>Recenzie</StyledTitle>
-        <StyledIconWrapper>
-          <StyledIcon className="fas fa-plus-circle fa-3x" onClick={this.handleAddReviewOn} />
-          <div>Pridat novu sluzbu</div>
-        </StyledIconWrapper>
-        <StyledBackground>
+        </StyledAddReview>
+        <StyledRewiesContainer>
+          <StyledTitle>Recenzie</StyledTitle>
           <StyledRow> {reviews} </StyledRow>
-
           <PaginationComponent
             arrayOfReviews={allReviewsArray}
             setCurrentPage={this.handleSetCurrentPage}
             todosPerPage={itemsPerPage}
           />
-        </StyledBackground>
+        </StyledRewiesContainer>
         <ScrollTop />
       </StyledWrapper>
     );

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { isRequired } from "../../services/validation";
 import { returnPostObjectPromise } from "../../services/orderServices";
 import { StyledTitle, StyledText, StyledWrapper, StyledContent } from "./styles";
+import { sucessfulNotification, errorNotification } from "../../services/toastServices";
 import Form from "./userComponents/form";
 import moment from "moment";
 import Axios from "axios";
@@ -33,7 +34,7 @@ class OrderPageForUser extends React.Component {
   }
   async fetchServices() {
     try {
-      const response = await Axios.get("/api/pricelist");
+      const response = await Axios.get("/pricelist");
       this.setState({ serviceItems: response.data });
       console.log(response.data);
     } catch (error) {
@@ -44,9 +45,11 @@ class OrderPageForUser extends React.Component {
   async handlePostOrder(orderObject) {
     try {
       console.log(orderObject);
-      await returnPostObjectPromise("/api/order", orderObject);
+      await returnPostObjectPromise("/order", orderObject);
+      sucessfulNotification("Objednavka bola uspesne odoslana");
     } catch (error) {
       console.log("error", error);
+      errorNotification("Objednavku sa nepodarilo odoslat, pracujeme na vyrieseni problemu");
     }
   }
 

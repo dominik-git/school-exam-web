@@ -12,6 +12,7 @@ import { sucessfulNotification, infoNotification, errorNotification } from "../.
 import { toastForGalleryPage } from "../../const/toastMessages";
 import PaginationComponent from "../../components/PaginationComponent";
 import StyledTitle from "../../components/Title";
+import Loader from "../../components/Loader";
 
 /*eslint-disable */
 const imagesPerPage = 8;
@@ -185,7 +186,12 @@ class GalleryPageForAdmin extends React.Component {
     ));
     const imageObj = splitedArray[positionOfSelectedImage];
     if (isLoading) {
-      return <div>Loading</div>;
+      return(
+        <StyledWrapper>
+          <Loader/>
+        </StyledWrapper>
+      )
+      
     }
     return (
       <StyledWrapper>

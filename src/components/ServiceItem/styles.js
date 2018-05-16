@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  display: flex;
+  display: inline-flex;
   border-radius: 5px;
   margin: 20px;
   min-height: 120px;
-  width: 70%;
+  width: 45%;
   flex-direction: row;
-  box-shadow: 5px 5px 5px grey;
+  // box-shadow: 5px 5px 5px grey;
+  border-bottom: 1px solid #253993;
+  border-right: 1px solid #253993;
 `;
 
 export const StyledContent = styled.div`

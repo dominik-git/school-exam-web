@@ -12,21 +12,20 @@ import {
   StyledIcon,
   StyledLeftSide,
   StyledRightSide,
-  StyledReviewFotter,
+  StyledReviewFotter
 } from "./styles";
 
 const ReviewComponent = props => {
   const { nickName, message, rating, date } = props;
-  const userIcon = <i className="fas fa-user-circle fa-4x" aria-hidden="true" />;
+  const userIcon = <i className="fas fa-user-circle fa-2x" aria-hidden="true" />;
   return (
-    <StyledWrapper className="effect">
-      <StyledIcon>{userIcon}</StyledIcon>
-      {/* <StyledDate>{date}</StyledDate> */}
-      <StyledMessage>{message}</StyledMessage>
-      <StyledReviewFotter>
+    <StyledWrapper>
+      <StyledHeader>
         <StyledNick>{nickName}</StyledNick>
         <ReactStars count={5} size={28} color2={"#ffd700"} edit={false} value={rating} />
-      </StyledReviewFotter>
+      </StyledHeader>
+      <StyledMessage>{message}</StyledMessage>
+      <StyledReviewFotter />
     </StyledWrapper>
   );
 };
@@ -39,7 +38,7 @@ ReviewComponent.propTypes = {
   id: PropTypes.string,
   rating: PropTypes.number,
   role: PropTypes.string,
-  date: PropTypes.string,
+  date: PropTypes.string
 };
 
 export default ReviewComponent;
