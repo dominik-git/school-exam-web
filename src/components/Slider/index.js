@@ -17,21 +17,18 @@ class Slider extends React.Component {
   constructor() {
     super();
   }
-  componentWillMount() {
-    console.log("image in slider", this.props.imageObj);
-  }
 
   render() {
     const image = this.props.imageObj.data;
     return (
-      <StyledWrapper isSliderShow={this.props.isSliderShow}>
-        <StyledOverlay onClick={this.props.closeSlider} />
+      <StyledWrapper isSliderShow={this.props.isSliderShow} onClick={this.props.closeSlider}>
+        {/* <StyledOverlay onClick={this.props.closeSlider} /> */}
         <StyledContent>
           <StyledImage src={`data:image;base64,${image}`} />
-          <LeftIconWrapper onClick={this.props.moveLeft} isMoveLeftPossible={this.props.isMoveLeftPossible}>
+          <LeftIconWrapper onClick={(e)=>{this.props.moveLeft(e)}} isMoveLeftPossible={this.props.isMoveLeftPossible}>
             <StyledLeftIcon src={BackIcon} onClick={this.handleResizeIcon} />
           </LeftIconWrapper>
-          <RightIconWrapper onClick={this.props.moveRight} isMoveRightPossible={this.props.isMoveRightPossible}>
+          <RightIconWrapper onClick={(e)=>{this.props.moveRight(e)}} isMoveRightPossible={this.props.isMoveRightPossible}>
             <StyledRightIcon src={NextIcon} />
           </RightIconWrapper>
         </StyledContent>

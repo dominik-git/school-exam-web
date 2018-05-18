@@ -3,7 +3,7 @@ import axios from "axios";
 export function returnAllReviewsPromise() {
   const options = {
     method: "GET",
-    url: "/api/review",
+    url: "/review"
   };
   return axios(options);
 }
@@ -12,18 +12,18 @@ export function returnAllReviewsPromise() {
 export function returnApprovedReviewsPromise() {
   const options = {
     method: "GET",
-    url: "/api/review/approved",
+    url: "/review/approved"
   };
   return axios(options);
 }
 
 // upload new review
-export function returnPromiseUploadReview(nickName, message, rating) {
+export function returnPromiseUploadReview(nickName, message, rating, date) {
   const options = {
     method: "POST",
-    url: "/api/review",
+    url: "/review",
     headers: { "Content-Type": "application/json" },
-    data: JSON.stringify({ nickName, message, rating }),
+    data: JSON.stringify({ nickName, message, rating, date })
   };
   return axios(options);
 }
@@ -31,19 +31,9 @@ export function returnPromiseUploadReview(nickName, message, rating) {
 // delete review by id
 export function returnPromiseDeleteReview(id) {
   const options = {
-    method: "POST",
+    method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    url: `/api/review/delete/${id}`,
-  };
-  return axios(options);
-}
-
-// approve review by id
-export function returnPromiseApproveReview(id) {
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    url: `/api/review/approve/${id}`,
+    url: `/review/${id}`
   };
   return axios(options);
 }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledMapWrapper = styled.div`
-  display: inline-block;
-  margin: 40px;
+  height: 400px;
+  width: 100%;
 `;
 export default StyledMapWrapper;

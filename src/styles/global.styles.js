@@ -1,29 +1,52 @@
 import { injectGlobal } from "styled-components";
-import BmwLogo from "../assets/bmwLogo.jpg";
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: 'Marlboro';
+  src: url('./fonts/Marlboro.ttf');
+}
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../fonts/OpenSans-Regular.ttf')  format('truetype');
+ 
+}
   html {
-  background: url(${BmwLogo});
-   box-sizing: border-box;
-   font-size: 16px;
-   height: 100%;
-
-  }
-  @font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('https://fonts.googleapis.com/css?family=Roboto');
+    height: 100%;
+    margin:0;
+    padding:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
   body {
-   height: 100%;
-   width:100%;
-   margin: 0;
-   font-family: 'Roboto', sans-serif;
-   #root {
-      min-width: 53.6rem;
-    }
+    height: 100%;
+   font-family:"OpenSans";
+    margin: 0 auto;
+    background-color: white;
+  
   }
+ 
   #root {
-   height: inherit;
+    height:100%;
   }
+  .row{
+    margin:0;
+    padding:0;
+  }
+
+  p {
+    margin:0;
+    padding:0;
+  }
+  
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    background-color:white;
+}
 `;

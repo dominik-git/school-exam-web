@@ -1,20 +1,69 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  background: grey;
+  background-color: ${props => props.theme.color.neutral};
+  width: 100%;
+  max-width: 400px;
   color: black;
-  height: 100px;
-  width: 300px;
   display: flex;
-  margin: 30px;
+  border: 1px solid ${props => props.theme.color.carbon};
+  border-radius: 3px;
+  margin-bottom: 20px;
+
+  flex-direction: column;
+  // @media (max-width: 850px) {
+  //   width: 55%;
+  //   margin-bottom: 10px;
+  //   min-width: 270px;
+  // }
 `;
-export const StyledMessage = styled.div`
-  display: inline-block;
-  margin: 20px;
+
+export const StyledRightSide = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
-export const StyledEmail = styled.div`
-  display: inline-block;
-  margin: 20px;
+export const StyledLeftSide = styled.div`
+  text-align: center;
+  background: white;
+  font-size: 18px;
+`;
+export const StyledHeader = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background: ${props => props.theme.color.carbon};
+  color: ${props => props.theme.color.neutral};
+`;
+// export const StyledHeader = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   margin-bottom: 30px;
+//   justify-content: center;
+//   align-items: center;
+//   background: ${props => props.theme.color.carbon};
+//   color: #ffffff;
+//   border-bottom: 3px solid #bbb;
+//   box-shadow: 0 8px 17px 0 ${props => props.theme.color.sky}, 0 6px 20px 0 ${props => props.theme.color.sky};
+// `;
+export const StyledIcon = styled.span`
+  border-radius: 50%;
+  color: ${props => props.theme.color.carbon};
+`;
+export const StyledMessage = styled.span`
+  word-wrap: break-word;
+  min-height: 55px;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  color: ${props => props.theme.color.carbon};
+`;
+export const StyledDate = styled.div``;
+export const StyledNick = styled.div`
+  font-size: 16px;
+  font-weight: bold;
 `;
 export const StyledDelete = styled.div`
   display: inline-block;
@@ -27,4 +76,19 @@ export const StyledApprove = styled.div`
   background: green;
   height: 100px;
   width: 30px;
+`;
+export const StyledReviewFotter = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 20px;
+`;
+export const StyledDeleteIcon = styled.span`
+  color: red;
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
