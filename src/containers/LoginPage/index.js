@@ -17,6 +17,7 @@ class LoginPage extends React.Component {
       const response = await login(username, password);
       this.props.logIn();
       LoginPage.saveTokenToSessionStorage(response.data);
+      this.props.history.push("/");
     } catch (err) {
       console.log(err);
     }
