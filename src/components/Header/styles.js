@@ -125,7 +125,22 @@ export const StyledLogoWrapper = styled.div`
   width: 250px;
 `;
 
+export const StyledLogout = styled.div`
+  position: absolute;
+  right: 5%;
+  color: ${props => props.theme.color.neutral};
+  font-size: 16px;
+  &:hover {
+    cursor:pointer;
+    font-weight: bold;
+  }
+  @media (max-width: 840px) {
+    margin-top: 20px;
+  }
+`;
+
 export const StyledMenuWrapper = styled.div`
+  position: relative;
   background: ${props => props.theme.color.carbon};
   display: flex;
   flex-direction: row;

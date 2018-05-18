@@ -2,25 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { withRouter } from "react-router";
+import {logOut} from "../../actions/roleActions";
 import { selectContactDetails } from "../../selectors/contactDetailDataSelector";
-// import PropTypes from "prop-types";
+import getStateIsAdmin from "../../selectors/roleSelector";
 import {
   StyledHeaderWrapper,
   StyledLogoWrapper,
-  StyledNavLink,
   StyledToogleButton,
   StyledInfoWrapper,
-  StyledMenuWrapper,
   StyledToogleButtonWrapper,
   StyledNumber,
   StyledEmail,
   StyledIcon,
-  StyledTime,
-  StyledMenu,
   StyledIconsWrapper,
-  StyledLogoText,
   StyledLogo
 } from "./styles";
+import UserHeader from "./parts/userHeader";
+import AdminHeader from "./parts/adminHeader";
 import bmwLogo from "../../assets/servis.png";
 
 class Header extends React.Component {
@@ -44,7 +42,13 @@ class Header extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindowDimensions);
   }
-
+  setNavExpanded() {
+    if (this.state.isExpand) {
+      this.setState({ isExpand: false });
+    } else if (!this.state.isExpand) {
+      this.setState({ isExpand: true });
+    }
+  }
   handleExpand() {
     if (this.state.width < 840) {
       this.setState({
@@ -58,13 +62,9 @@ class Header extends React.Component {
       });
     }
   }
-
-  setNavExpanded() {
-    if (this.state.isExpand) {
-      this.setState({ isExpand: false });
-    } else if (!this.state.isExpand) {
-      this.setState({ isExpand: true });
-    }
+  handleLogOut = () => {
+    window.sessionStorage.removeItem("token");
+    this.props.logoutAdmin();
   }
 
   closeNav() {
@@ -77,7 +77,6 @@ class Header extends React.Component {
     console.log(window.innerWidth);
   }
   render() {
-    const activeStyle = { background: "#253993" }; // #FF3B3F
     const toggleIcon = <i className="fa fa-bars fa-2x" aria-hidden="true" />;
     const phoneIcon = <i className="fas fa-mobile-alt fa-2x" aria-hidden="true" />;
     const timeIcon = <i className="far fa-clock fa-2x" aria-hidden="true" />;
@@ -99,13 +98,11 @@ class Header extends React.Component {
    
     return (
       <StyledHeaderWrapper>
-
         <StyledInfoWrapper>
           <StyledLogoWrapper>
             <StyledLogo src={bmwLogo} alt="bmwLogo" />
             {/* <StyledLogoText>BAVARIA SERVIS</StyledLogoText> */}
           </StyledLogoWrapper>
-           
            <StyledIconsWrapper>
            <StyledNumber>
              <StyledIcon>{phoneIcon}</StyledIcon>
@@ -117,8 +114,6 @@ class Header extends React.Component {
            </StyledEmail>
          </StyledIconsWrapper> 
 
-         
-         
         </StyledInfoWrapper>
         <StyledToogleButtonWrapper>
           <StyledToogleButton isShow={this.state.isShow} onClick={this.setNavExpanded}>
@@ -126,34 +121,18 @@ class Header extends React.Component {
           </StyledToogleButton>
         </StyledToogleButtonWrapper>
 
-        <StyledMenuWrapper>
-          <StyledMenu isExpand={this.state.isExpand}>
-            <StyledNavLink exact to="/" activeStyle={activeStyle}>
-              Domov
-            </StyledNavLink>
-            <StyledNavLink to="/services" activeStyle={activeStyle}>
-              Sluzby
-            </StyledNavLink>
-            <StyledNavLink to="/orders/newOrders" activeStyle={activeStyle}>
-              Objednat sa
-            </StyledNavLink>
-            <StyledNavLink to="/galery" activeStyle={activeStyle}>
-              Galeria
-            </StyledNavLink>
-            <StyledNavLink to="/contact" activeStyle={activeStyle}>
-              Kontakt
-        </StyledNavLink>
-            <StyledNavLink to="/review" activeStyle={activeStyle}>
-              Recenzie
-        </StyledNavLink>
-          </StyledMenu>
-        </StyledMenuWrapper>
-      </StyledHeaderWrapper>)
-
+       {this.props.isAdmin === true ? <AdminHeader isExpand={this.state.isExpand} logout={this.handleLogOut}/> : <UserHeader isExpand={this.state.isExpand}/>}
+      </StyledHeaderWrapper>
+      )
   }
 }
 const mapStateToProps = createStructuredSelector({
   contactDetails: selectContactDetails(),
+  isAdmin: getStateIsAdmin(),
 });
 
-export default withRouter(connect(mapStateToProps, null)(Header));
+const mapDispatchToProps = dispatch => ({
+  logoutAdmin: () => dispatch(logOut()),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

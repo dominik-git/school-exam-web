@@ -4,8 +4,9 @@ import { createStructuredSelector } from "reselect";
 import {
   selectContactDetails,
   selectContactDetailsError,
-  selectContactDetailLoading,
+  selectContactDetailLoading
 } from "../../selectors/contactDetailDataSelector";
+import { logIn, logOut } from "../../actions/roleActions";
 import fetchContactDetailDataAction from "../../actions/contactDetailActions";
 import Loader from "../Loader";
 
@@ -13,13 +14,25 @@ class Root extends React.Component {
   constructor() {
     super();
     this.state = {
-      isLoading: true,
+      isLoading: true
     };
   }
-  componentDidMount() {
-    this.props.fetchContactDetailDataAction();
-  }
 
+  componentWillMount() {
+    this.props.fetchContactDetailDataAction();
+    this.getTokenFromSessionStorage();
+  }
+  getTokenFromSessionStorage() {
+    const token = window.sessionStorage.getItem("token");
+    console.log(token === null);
+    if (token !== null && token === "") {
+      this.props.logIn();
+     
+    } else {
+      this.props.logOut();
+      
+    }
+  }
   render() {
     console.log("render");
     if (this.props.isLoading) {
@@ -36,10 +49,13 @@ class Root extends React.Component {
 const mapStateToProps = createStructuredSelector({
   contactDetails: selectContactDetails(),
   error: selectContactDetailsError(),
-  isLoading: selectContactDetailLoading(),
+  isLoading: selectContactDetailLoading()
 });
-const mapDispatchToProps = {
-  fetchContactDetailDataAction,
-};
+
+const mapDispatchToProps = dispatch => ({
+  fetchContactDetailDataAction: () => dispatch(fetchContactDetailDataAction()),
+  logIn: () => dispatch(logIn()),
+  logOut: () => dispatch(logOut())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

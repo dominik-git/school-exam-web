@@ -1,52 +1,31 @@
 import React from "react";
-import axios from "axios";
-import base64 from "base-64";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { logIn } from "../../actions/roleActions";
 import LoginForm from "./form";
-import {StyledWrapper} from "./styles";
+import login from "../../services/user.service";
+import { StyledWrapper } from "./styles";
 
 class LoginPage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      password: "",
-    };
-    this.handleSetPassword = this.handleSetPassword.bind(this);
-    this.handleSetUsername = this.handleSetUsername.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  static saveTokenToSessionStorage(token) {
+    window.sessionStorage.setItem("token", token);
   }
-  handleSetPassword(e) {
-    this.setState({ password: e.target.value });
-  }
-  handleSetUsername(e) {
-    this.setState({ username: e.target.value });
-  }
-  async handleSubmit(values) {
+
+  handleSubmit = async values => {
     const { username, password } = values.toJS();
-    console.log(base64.encode(`${username} ${password}`));
-    const options = {
-      method: "GET",
-      url: "/car/ping",
-      headers: {
-        Authorization: `Basic${base64.encode(`${username} ${password}`)}`,
-      },
-    };
     try {
-      await axios(options);
+      const response = await login(username, password);
       this.props.logIn();
+      LoginPage.saveTokenToSessionStorage(response.data);
     } catch (err) {
       console.log(err);
-      this.props.logIn();
     }
-  }
+  };
 
   render() {
     return (
       <StyledWrapper>
-      <LoginForm onSubmit={this.handleSubmit} />
+        <LoginForm onSubmit={this.handleSubmit} />
       </StyledWrapper>
     );
   }
