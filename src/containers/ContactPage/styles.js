@@ -72,7 +72,6 @@ export const StyledText = styled.span`
 export const StyledContent = styled.div`
   display: flex;
   flex-direction: row;
-  box-shadow: 5px 5px 5px grey;
 `;
 export const StyledContactMap = styled.div`
   width: 50%;
@@ -93,6 +92,7 @@ export const StyledTitle = styled.h4`
   text-align: center;
   border-radius: 3px;
   width: 100%;
+  box-shadow: 5px 5px 5px grey;
 `;
 export const StyledSelect = styled.select`
   background: black;

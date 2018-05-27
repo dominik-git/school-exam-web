@@ -18,6 +18,7 @@ export const StyledTitle = styled.h2`
   font-weight: bold;
   color: ${props => props.theme.color.watermelon};
   border-bottom: 1px solid ${props => props.theme.color.watermelon};
+  box-shadow: 5px 5px 5px grey;
 `;
 export const StyledRow = styled.div`
   @media (max-width: 1180px) {

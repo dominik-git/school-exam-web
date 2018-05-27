@@ -1,11 +1,11 @@
 import React from "react";
 import DragAndDropList from "../../components/DragAndDropComponent";
-// import { connect } from "react-redux";
-// import { bindActionCreators } from "redux";
-// import { fetchContactDetailsAction } from "../../actions/contactDetailActions";
-// import { returnContentDetailPromise } from "../../services/ContactPageServices";
-// import PropTypes from "prop-types";
-import { HomePageWrapper, StyledContent, StyledSlider, StyledImg } from "./styles";
+import { HomePageWrapper, StyledSlider, StyledImg } from "./styles";
+import {
+  returnUploadPhotoPromise,
+  returnFetchPhotosPromise,
+  returnDeletePhotosPromise,
+} from "../../services/HomePageServices";
 import slide1 from "./assets/bmw_mini.jpg";
 import slide2 from "./assets/bmw9.jpg";
 import slide3 from "./assets/mini.jpg";
@@ -19,7 +19,10 @@ class HomePage extends React.Component {
     super();
     this.state = {
       slides: [slide1, slide2, slide3],
-      possition: defaultSlidePossition
+      possition: defaultSlidePossition,
+      allPhotos: [],
+      photoFile: {},
+      photosToUpload:[],
     };
     this.handlePossiiton = this.handlePossiiton.bind(this);
     this.handleSetSlides = this.handleSetSlides.bind(this);
@@ -27,12 +30,37 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     myInterval = setInterval(this.handlePossiiton, timePerSlide);
-    // this.handleFetchContantDetail();
   }
   componentWillUnmount() {
     clearInterval(myInterval);
   }
-
+  getAllPhotosRequest = async () => {
+    try {
+      const response = await returnFetchPhotosPromise();
+      this.setState({ allPhotos: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  uploadPhotoRequest = async photoFile => {
+    try {
+      await returnUploadPhotoPromise(photoFile);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  deletePhotoRequest = async id => {
+    try {
+      await returnDeletePhotosPromise(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  pushPhotoToArray = photo => {
+    this.setState({ photosToUpload: [...this.state.photosToUpload, photo] },()=>{
+      console.log(this.state.photosToUpload);
+    });
+  };
   handleSetSlides(arrayOfSlides) {
     this.setState({ slides: arrayOfSlides });
   }
@@ -47,7 +75,11 @@ class HomePage extends React.Component {
       console.log("possition: ", possition);
     });
   }
-
+  onDragEnter = e => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log(e.target.value);
+}
   render() {
     const { slides, possition } = this.state;
     const imageOnThePossition = slides[possition];

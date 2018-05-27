@@ -11,9 +11,7 @@ export const StyledWrapper = styled.div`
   width: 70%;
   margin: 40px auto;
 `;
-export const StyledContent = styled.div`
-  box-shadow: 5px 5px 5px grey;
-`;
+export const StyledContent = styled.div``;
 export const StyledRow = styled.div`
   width: 100%;
   display: flex;
@@ -45,6 +43,7 @@ export const StyledTitle = styled.h3`
   font-size: 23px;
   padding-top: 10px;
   font-weight: bold;
+  box-shadow: 5px 5px 5px grey;
   color: ${props => props.theme.color.neutral};
   background: ${props => props.theme.color.watermelon};
 `;

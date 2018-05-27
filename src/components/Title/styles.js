@@ -7,5 +7,6 @@ const StyledTitle = styled.h1`
   border-radius: 3px;
   color: ${props => props.theme.color.neutral};
   background: ${props => props.theme.color.watermelon};
+  box-shadow: 5px 5px 5px grey;
 `;
 export default StyledTitle;

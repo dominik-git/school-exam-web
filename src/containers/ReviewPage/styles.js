@@ -99,6 +99,7 @@ export const StyledTitle = styled.h2`
   width: 100%;
   color: ${props => props.theme.color.neutral};
   background: ${props => props.theme.color.watermelon};
+  box-shadow: 5px 5px 5px grey;
 `;
 
 export const StyledMessageCell = styled.div`
