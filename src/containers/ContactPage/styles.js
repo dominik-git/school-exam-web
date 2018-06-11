@@ -18,7 +18,6 @@ export const StyledContact = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
-  background: ${props => props.theme.color.neutral};
 `;
 export const StyledContactRow = styled.div`
   display: flex;

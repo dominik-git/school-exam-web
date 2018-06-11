@@ -13,7 +13,7 @@ export const StyledInfoWrapper = styled.div`
   align-items: center;
   font-size: 15px;
   font-weight: bold;
-  padding: 10px 0;
+  padding: 10px 20px;
   background: ${props => props.theme.color.watermelon};
   color: ${props => props.theme.color.neutral};
   @media (max-width: 1000px) {

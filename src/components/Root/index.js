@@ -27,10 +27,8 @@ class Root extends React.Component {
     console.log(token === null);
     if (token !== null && token === "") {
       this.props.logIn();
-     
     } else {
       this.props.logOut();
-      
     }
   }
   render() {

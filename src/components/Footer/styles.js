@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const StyledFooter = styled.div`
+  padding: 15px;
+  margin-top: 50px;
   width: 100%;
   background: ${props => props.theme.color.carbon};
   color: ${props => props.theme.color.neutral};
-  text-align: center;
 `;
 
 export const StyledA = styled.a`
@@ -33,7 +34,7 @@ export const StyledAwesomeIcon = styled.i`
 
 export const StyledInfoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 `;

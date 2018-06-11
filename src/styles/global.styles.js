@@ -1,4 +1,5 @@
 import { injectGlobal } from "styled-components";
+import texture from "./texture7.jpg";
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -20,15 +21,15 @@ injectGlobal`
     height: 100%;
     margin:0;
     padding:0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
   body {
-    height: 100%;
+    // height: 100%;
    font-family:"OpenSans";
     margin: 0 auto;
-    background-color: white;
+    background: url(${texture}) no-repeat center center fixed;
+    background-size: cover;
+    
   
   }
  

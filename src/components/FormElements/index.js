@@ -6,6 +6,7 @@ import FormSelect from "./formSelect";
 import FormCheckBox from "./formCheckBox";
 import CheckboxGroup from "./checkboxGroup";
 import CheckBoxArray from "./checkBoxArray";
+import FileInput from "./fileInput";
 
 export {
   FormInput,
@@ -15,5 +16,6 @@ export {
   FormSelect,
   FormCheckBox,
   CheckboxGroup,
-  CheckBoxArray
+  CheckBoxArray,
+  FileInput
 };
