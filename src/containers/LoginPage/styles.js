@@ -1,8 +1,15 @@
 import styled from "styled-components";
 
 export const StyledFormWrapper = styled.div`
-  margin: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 400px;
+  height: 400px;
+  box-shadow: 5px 5px 5px grey;
+  & form {
+    width: 350px;
+  }
 `;
 export const StyledWrapper = styled.div`
   min-height: 100vh;

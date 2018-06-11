@@ -60,11 +60,9 @@ class GalleryPageForAdmin extends React.Component {
   }
   handleSetFile(e) {
     const imageFile = e.target.files[0];
-
     this.setState({ uploadFile: imageFile });
   }
   async handleUploadPhoto() {
-    console.log("upload");
     try {
       const response = await returnUploadPhotoPromise(this.state.uploadFile);
       this.fetchPhotos();

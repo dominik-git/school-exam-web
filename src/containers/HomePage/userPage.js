@@ -1,64 +1,50 @@
 import React from "react";
-import DragAndDropList from "../../components/DragAndDropComponent";
-// import { connect } from "react-redux";
-// import { bindActionCreators } from "redux";
-// import { fetchContactDetailsAction } from "../../actions/contactDetailActions";
-// import { returnContentDetailPromise } from "../../services/ContactPageServices";
-// import PropTypes from "prop-types";
-import { HomePageWrapper, StyledContent, StyledSlider, StyledImg } from "./styles";
-// import slide1 from "./assets/bmw_mini.jpg";
-import slide2 from "./assets/bmw9.jpg";
-import slide3 from "./assets/mini.jpg";
+import { HomePageWrapper, StyledContent, StyledSlider, StyledImg, StyledUserContent } from "./styles";
+import { returnFetchPhotosPromise,getAboutItemsPromise } from "../../services/HomePageServices";
+import HomePageSlider from "../../components/HomePageSlider";
+import AboutItem from "../../components/AboutItem/AboutItem";
 
-const timePerSlide = 5000;
-const defaultSlidePossition = 0;
-let myInterval = {};
 
 class HomePage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      slides: [slide2, slide3],
-      possition: defaultSlidePossition,
-    };
-    this.handlePossiiton = this.handlePossiiton.bind(this);
-    this.handleSetSlides = this.handleSetSlides.bind(this);
+  state = {
+    allPhotos: [],
+    aboutItems: [],
+  };
+
+  componentWillMount() {
+    this.getAllPhotosRequest();
+    this.getAboutItems();
   }
 
-  componentDidMount() {
-    myInterval = setInterval(this.handlePossiiton, timePerSlide);
-    // this.handleFetchContantDetail();
-  }
-  componentWillUnmount() {
-    clearInterval(myInterval);
-  }
-
-  handleSetSlides(arrayOfSlides) {
-    this.setState({ slides: arrayOfSlides });
-  }
-
-  handlePossiiton() {
-    const { slides, possition } = this.state;
-    const lenghtOfArray = slides.length - 1;
-    this.setState({ possition: possition + 1 }, () => {
-      if (possition >= lenghtOfArray) {
-        this.setState({ possition: defaultSlidePossition });
-      }
-      console.log("possition: ", possition);
-    });
-  }
+  getAllPhotosRequest = async () => {
+    try {
+      const response = await returnFetchPhotosPromise();
+      this.setState({ allPhotos: response.data });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getAboutItems = async () => {
+    try {
+      const response = await getAboutItemsPromise();
+      console.log(response.data);
+      this.setState({ aboutItems: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   render() {
-    const { slides, possition } = this.state;
-    const imageOnThePossition = slides[possition];
-
+    const aboutItems = this.state.aboutItems.map(item => (
+      <AboutItem item={item} key={item.id} deleteFunc={this.deleteAboutItem}/>
+    ))
     return (
-      <HomePageWrapper>
-        <StyledSlider>
-        <StyledImg src={imageOnThePossition} />
-        </StyledSlider>
-      </HomePageWrapper>
-    );
+    <div>
+    {this.state.allPhotos.length > 0 ? <HomePageSlider sliderPhotos={this.state.allPhotos} /> : null}
+      <StyledUserContent>{ this.state.aboutItems.length>0 ? aboutItems :null}</StyledUserContent>
+    </div>
+  );
   }
 }
 export default HomePage;

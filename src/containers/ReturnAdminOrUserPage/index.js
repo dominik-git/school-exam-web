@@ -7,7 +7,6 @@ import getStateIsAdmin from "../../selectors/roleSelector";
 export default function getComponents(AdminComponent, UserComponent) {
   class Wrapper extends React.Component {
     render() {
-      console.log("role", this.props.isAdmin);
       if (this.props.isAdmin) {
         return <AdminComponent />;
       }

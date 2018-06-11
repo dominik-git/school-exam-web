@@ -1,39 +1,51 @@
 import React from "react";
-import DragAndDropList from "../../components/DragAndDropComponent";
-import { HomePageWrapper, StyledSlider, StyledImg } from "./styles";
+import Axios from "axios";
+import DragAndDropArea from "../../components/DragAndDropArea";
+import { HomePageWrapper, StyledTitle, StyledRow } from "./styles";
 import {
-  returnUploadPhotoPromise,
   returnFetchPhotosPromise,
   returnDeletePhotosPromise,
+  getAboutItemsPromise,
+  deleteAboutItemPromise,
+  postAboutItemPromise
 } from "../../services/HomePageServices";
-import slide1 from "./assets/bmw_mini.jpg";
-import slide2 from "./assets/bmw9.jpg";
-import slide3 from "./assets/mini.jpg";
-
-const timePerSlide = 5000;
-const defaultSlidePossition = 0;
-let myInterval = {};
+import Photo from "./parts/Photo";
+import AboutItem from "../../components/AboutItem/AboutItem";
+import AboutItemCreate from "../../components/AboutItem/AboutItemCreate";
 
 class HomePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      slides: [slide1, slide2, slide3],
-      possition: defaultSlidePossition,
       allPhotos: [],
+      aboutItems: [],
       photoFile: {},
       photosToUpload:[],
+      parsedFileToShow:[]
     };
-    this.handlePossiiton = this.handlePossiiton.bind(this);
-    this.handleSetSlides = this.handleSetSlides.bind(this);
   }
 
   componentDidMount() {
-    myInterval = setInterval(this.handlePossiiton, timePerSlide);
+    this.getAllPhotosRequest();
+    this.getAboutItems();
   }
-  componentWillUnmount() {
-    clearInterval(myInterval);
+
+  onSubmitAboutItem= async (values) =>{
+    const { description, photo, secondTitle, title } = values.toJS();
+    const form = new FormData();
+        form.append("description", description);
+        form.append("photo", photo[0]);
+        form.append("secondTitle", secondTitle);
+        form.append("title", title);
+    console.log(form);
+   try {
+      await postAboutItemPromise(form);
+      this.getAboutItems();
+      console.log()
+   } catch (err) {
+   }
   }
+
   getAllPhotosRequest = async () => {
     try {
       const response = await returnFetchPhotosPromise();
@@ -42,54 +54,139 @@ class HomePage extends React.Component {
       console.log(err);
     }
   };
-  uploadPhotoRequest = async photoFile => {
+
+  getAboutItems = async () => {
     try {
-      await returnUploadPhotoPromise(photoFile);
+      const response = await getAboutItemsPromise();
+      console.log(response.data);
+      this.setState({ aboutItems: response.data });
     } catch (err) {
       console.log(err);
     }
   };
-  deletePhotoRequest = async id => {
+
+  uploadPhotoRequest = async () => {
+    const photoData = new FormData();
+    this.state.photosToUpload.map( item =>(
+      photoData.append("photoList", item)  
+    ));
     try {
-      await returnDeletePhotosPromise(id);
+      const response = await Axios({
+        method: "POST",
+        url: "/home",
+        headers: { "Content-Type": "multipart/form-data" },
+        mimeType: "multipart/form-data",
+        data: photoData
+      })
+      this.setState({photosToUpload:[]});
+      this.getAllPhotosRequest();
     } catch (err) {
       console.log(err);
     }
   };
-  pushPhotoToArray = photo => {
-    this.setState({ photosToUpload: [...this.state.photosToUpload, photo] },()=>{
-      console.log(this.state.photosToUpload);
-    });
+  
+  deletePhoto = async photoID => {
+    try {
+      await returnDeletePhotosPromise(photoID);
+      const newArray = this.state.allPhotos.filter(value => value.id !== photoID);
+      this.setState({ allPhotos: newArray })
+    } catch (err) {
+      console.log(err);
+    }
   };
+  deleteAboutItem = async photoID => {
+    try {
+      await deleteAboutItemPromise(photoID);
+      const newArray = this.state.aboutItems.filter(value => value.id !== photoID);
+      this.setState({ aboutItems: newArray });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  pushPhotoToArray = photos => {
+    const copy = [];
+    for (let i = 0; i < photos.length; i += 1) {
+      copy.push(photos[i]);
+    }
+    const arrayToSave = this.state.photosToUpload.concat(copy);
+    this.setState({ photosToUpload: arrayToSave });
+  };
+
   handleSetSlides(arrayOfSlides) {
     this.setState({ slides: arrayOfSlides });
   }
 
-  handlePossiiton() {
-    const { slides, possition } = this.state;
-    const lenghtOfArray = slides.length - 1;
-    this.setState({ possition: possition + 1 }, () => {
-      if (possition >= lenghtOfArray) {
-        this.setState({ possition: defaultSlidePossition });
-      }
-      console.log("possition: ", possition);
-    });
-  }
-  onDragEnter = e => {
+
+  onDragEnter=(e)=> {
     e.stopPropagation();
     e.preventDefault();
-    console.log(e.target.value);
-}
+
+  }
+
+  onDragOver=(e)=> {
+    e.stopPropagation();
+    e.preventDefault();
+  
+  }
+
+  onDragLeave=(e)=> {
+    e.stopPropagation();
+    e.preventDefault();
+
+  }
+
+  onDrop=(e)=> {
+    e.stopPropagation();
+    e.preventDefault();
+    const copy= [];
+      if (e.dataTransfer.items) {
+      // Use DataTransferItemList interface to access the file(s)
+      for (let i = 0; i < e.dataTransfer.items.length; i+=1) {
+        // If dropped items aren't files, reject them
+        if (e.dataTransfer.items[i].kind === 'file') {
+          const file = e.dataTransfer.items[i].getAsFile();
+          copy.push(file);
+        }
+      }
+    } 
+    this.pushPhotoToArray(copy);
+  }
+  onUploadFile = (e) => {
+    this.pushPhotoToArray(e.target.files);
+  }
   render() {
-    const { slides, possition } = this.state;
-    const imageOnThePossition = slides[possition];
+    const photoImages = this.state.allPhotos.map(photoFile => (
+      <Photo deletePhoto={this.deletePhoto} photoFile={photoFile} key={photoFile.id}/>
+    ))
+    const aboutItems = this.state.aboutItems.map(item => (
+      <AboutItem item={item} key={item.id} deleteFunc={this.deleteAboutItem}/>
+    ))
 
     return (
       <HomePageWrapper>
-        <StyledSlider>
-          <StyledImg image={imageOnThePossition} />
-        </StyledSlider>
-        <DragAndDropList photos={this.state.slides} handleSetSlides={this.handleSetSlides} />
+    
+    <StyledTitle>Slider foto</StyledTitle>
+    <StyledRow>
+      { this.state.allPhotos.length>0 ? photoImages :<span>Ziadne fotky</span> }
+    </StyledRow>
+    <StyledTitle>Domovoske polozky </StyledTitle>
+    <StyledRow>
+      { this.state.aboutItems.length>0 ? aboutItems :<span>Ziadne domovske polozky</span> }
+      </StyledRow>
+    <StyledTitle>Pridat domovsku polozku</StyledTitle>
+    <div>
+      <AboutItemCreate onSubmit={this.onSubmitAboutItem} />
+    </div>
+    <StyledTitle>Pridat fotku</StyledTitle>
+      <DragAndDropArea 
+        onDragEnter={this.onDragEnter} 
+        onDragOver={this.onDragOver} 
+        onDragLeave={this.onDragLeave} 
+        onDrop={this.onDrop}
+        photoArray={this.state.photosToUpload} 
+        uploadFile={this.onUploadFile}
+        uploadPhotos={this.uploadPhotoRequest}
+      />
       </HomePageWrapper>
     );
   }
