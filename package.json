@@ -22,7 +22,7 @@
     "@storybook/addon-actions": "^3.2.6",
     "@storybook/addon-links": "^3.2.6",
     "@storybook/react": "^3.2.8",
-    "axios": "^0.16.2",
+    "axios": "^0.19.1",
     "babel-polyfill": "^6.26.0",
     "base-64": "^0.1.0",
     "chai": "^4.1.2",
