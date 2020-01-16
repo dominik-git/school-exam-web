@@ -53,11 +53,20 @@ export const StyledTableWrapper = styled.div`
   color: ${props => props.theme.color.carbon};
 `;
 export const StyledDetailTitle = styled.h3`
-  color: ${props => props.theme.color.carbon};
-  padding-top: 20px;
-  padding-bottom: 20px;
+  // color: ${props => props.theme.color.carbon};
+  // padding-top: 20px;
+  // padding-bottom: 20px;
+  // padding-bottom: 10px;
+  // border-bottom: 2px solid ${props => props.theme.color.carbon};
+  margin-bottom: 20px;
+  padding-left: 20px;
   padding-bottom: 10px;
-  border-bottom: 2px solid ${props => props.theme.color.carbon};
+  font-size: 23px;
+  padding-top: 10px;
+  font-weight: bold;
+  box-shadow: 5px 5px 5px grey;
+  color: ${props => props.theme.color.neutral};
+  background: ${props => props.theme.color.watermelon};S
 `;
 export const StyledTable = styled.table`
   width: 100%;
@@ -72,3 +81,16 @@ export const TableBody = styled.tbody`
 `;
 export const TableBodyRow = styled.tr``;
 export const TableBodyCell = styled.td``;
+
+export const StyledTitle = styled.h3`
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  font-size: 23px;
+  padding-top: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+  box-shadow: 5px 5px 5px grey;
+  color: ${props => props.theme.color.neutral};
+  background: ${props => props.theme.color.watermelon};
+`;

@@ -6,7 +6,7 @@ import GalleryImage from "../../components/GalleryImage";
 import {
   returnDeletePhotosPromise,
   returnFetchPhotosPromise,
-  returnUploadPhotoPromise
+  returnUploadPhotoPromise,
 } from "../../services/GalleryServices";
 import { sucessfulNotification, infoNotification, errorNotification } from "../../services/toastServices";
 import { toastForGalleryPage } from "../../const/toastMessages";

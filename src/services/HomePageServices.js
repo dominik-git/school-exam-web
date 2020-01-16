@@ -41,10 +41,13 @@ export function getAboutItemsPromise() {
   return axios(options);
 }
 
-export function deleteAboutItemPromise(id) {
+export function deleteAboutItemPromise(id, token) {
   const options = {
     method: "DELETE",
-    url: `/aboutItem/${id}`
+    url: `/aboutItem/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   };
   return axios(options);
 }
@@ -54,7 +57,7 @@ export function postAboutItemPromise(data) {
     method: "POST",
     url: "/aboutItem",
     mimeType: "multipart/form-data",
-    data,
+    data
   };
   return axios(options);
 }

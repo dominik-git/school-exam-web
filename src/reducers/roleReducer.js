@@ -2,7 +2,7 @@ import { fromJS } from "immutable";
 import { LOG_IN, LOG_OUT } from "../const/const";
 
 const initialState = fromJS({
-  isAdmin: true
+  isAdmin: false
 });
 
 export function roleReducer(state = initialState, action = {}) {

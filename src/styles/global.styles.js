@@ -25,7 +25,7 @@ injectGlobal`
   }
   body {
     // height: 100%;
-   font-family:"OpenSans";
+   font-family:"Marlboro OpenSans";
     margin: 0 auto;
     background: url(${texture}) no-repeat center center fixed;
     background-size: cover;

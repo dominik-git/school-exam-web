@@ -14,16 +14,12 @@ export const StyledWrapper = styled.div`
 
 export const StyledOverlay = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+  height: 100%;
+  overflow-y: scroll;
+  position: fixed;
   top: 0;
   left: 0;
   background: white;
-  display: flex;
-  justify-content: center;
 `;
 export const StyledForm = styled.form`
   margin: 0 auto;

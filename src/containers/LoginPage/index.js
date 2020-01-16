@@ -13,6 +13,7 @@ class LoginPage extends React.Component {
 
   handleSubmit = async values => {
     const { username, password } = values.toJS();
+    console.log(username, password );
     try {
       const response = await login(username, password);
       this.props.logIn();

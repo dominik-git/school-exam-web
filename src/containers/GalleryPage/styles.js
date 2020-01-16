@@ -47,7 +47,8 @@ export const StyledUploadWrapper = styled.div`
   align-items: center;
   height: 100px;
   margin-bottom: 20px;
-  background: #c1c1c1;
+  background:${props => props.theme.color.carbon};
+  color:white;
 `;
 
 export const StyledImagesWrapper = styled.div``;

@@ -7,7 +7,7 @@ import {
   returnDeletePhotosPromise,
   getAboutItemsPromise,
   deleteAboutItemPromise,
-  postAboutItemPromise
+  postAboutItemPromise,
 } from "../../services/HomePageServices";
 import Photo from "./parts/Photo";
 import AboutItem from "../../components/AboutItem/AboutItem";
@@ -20,31 +20,37 @@ class HomePage extends React.Component {
       allPhotos: [],
       aboutItems: [],
       photoFile: {},
-      photosToUpload:[],
-      parsedFileToShow:[]
+      photosToUpload:  [],
+      parsedFileToShow:  [],
+      token:  "",
     };
   }
 
+  componentWillMount()  {
+    this.setState({  token: sessionStorage.getItem("token") }, () => {
+      console.log(this.state.token);
+});
+  }
   componentDidMount() {
     this.getAllPhotosRequest();
     this.getAboutItems();
   }
 
-  onSubmitAboutItem= async (values) =>{
+  onSubmitAboutItem = async values =>  {
     const { description, photo, secondTitle, title } = values.toJS();
     const form = new FormData();
-        form.append("description", description);
-        form.append("photo", photo[0]);
-        form.append("secondTitle", secondTitle);
-        form.append("title", title);
+    form.append("description", description);
+    form.append("photo", photo[0]);
+    form.append("secondTitle", secondTitle);
+    form.append("title", title);
     console.log(form);
-   try {
+     try {
       await postAboutItemPromise(form);
       this.getAboutItems();
-      console.log()
-   } catch (err) {
-   }
-  }
+      console.log();;
+    } catch (err) {
+    }
+  };
 
   getAllPhotosRequest = async () => {
     try {
@@ -67,8 +73,8 @@ class HomePage extends React.Component {
 
   uploadPhotoRequest = async () => {
     const photoData = new FormData();
-    this.state.photosToUpload.map( item =>(
-      photoData.append("photoList", item)  
+    this.state.photosToUpload.map(item => (
+      photoData.append("photoList", item)
     ));
     try {
       const response = await Axios({
@@ -76,27 +82,27 @@ class HomePage extends React.Component {
         url: "/home",
         headers: { "Content-Type": "multipart/form-data" },
         mimeType: "multipart/form-data",
-        data: photoData
-      })
-      this.setState({photosToUpload:[]});
+        data: photoData,
+      });;
+      this.setState({  photosToUpload: []  });
       this.getAllPhotosRequest();
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   deletePhoto = async photoID => {
     try {
       await returnDeletePhotosPromise(photoID);
       const newArray = this.state.allPhotos.filter(value => value.id !== photoID);
-      this.setState({ allPhotos: newArray })
+      this.setState({ allPhotos: newArray });;
     } catch (err) {
       console.log(err);
     }
   };
   deleteAboutItem = async photoID => {
     try {
-      await deleteAboutItemPromise(photoID);
+      await deleteAboutItemPromise(photoID,  this.state.token);
       const newArray = this.state.aboutItems.filter(value => value.id !== photoID);
       this.setState({ aboutItems: newArray });
     } catch (err) {
@@ -117,76 +123,74 @@ class HomePage extends React.Component {
   }
 
 
-  onDragEnter=(e)=> {
+  onDragEnter=(e) => {
     e.stopPropagation();
     e.preventDefault();
 
   }
 
-  onDragOver=(e)=> {
-    e.stopPropagation();
-    e.preventDefault();
-  
-  }
-
-  onDragLeave=(e)=> {
+  onDragOver = e  => {
     e.stopPropagation();
     e.preventDefault();
 
   }
 
-  onDrop=(e)=> {
+  onDragLeave = e  => {
     e.stopPropagation();
     e.preventDefault();
-    const copy= [];
-      if (e.dataTransfer.items) {
+
+  };
+
+  onDrop = e  => {
+    e.stopPropagation();
+    e.preventDefault();
+    const copy  = [];
+    if (e.dataTransfer.items) {
       // Use DataTransferItemList interface to access the file(s)
-      for (let i = 0; i < e.dataTransfer.items.length; i+=1) {
+      for (let i = 0; i < e.dataTransfer.items.length; i += 1) {
         // If dropped items aren't files, reject them
-        if (e.dataTransfer.items[i].kind === 'file') {
+        if (e.dataTransfer.items[i].kind === "file") {
           const file = e.dataTransfer.items[i].getAsFile();
           copy.push(file);
         }
       }
-    } 
+    }
     this.pushPhotoToArray(copy);
-  }
-  onUploadFile = (e) => {
+  };
+  onUploadFile = e => {
     this.pushPhotoToArray(e.target.files);
-  }
+  };
   render() {
     const photoImages = this.state.allPhotos.map(photoFile => (
-      <Photo deletePhoto={this.deletePhoto} photoFile={photoFile} key={photoFile.id}/>
-    ))
+      <Photo deletePhoto={this.deletePhoto} photoFile={photoFile} key={photoFile.id}  />
+    ));;
     const aboutItems = this.state.aboutItems.map(item => (
-      <AboutItem item={item} key={item.id} deleteFunc={this.deleteAboutItem}/>
-    ))
+      <AboutItem item={item} key={item.id} deleteFunc={this.deleteAboutItem}  />
+    ));;
 
     return (
       <HomePageWrapper>
-    
-    <StyledTitle>Slider foto</StyledTitle>
-    <StyledRow>
-      { this.state.allPhotos.length>0 ? photoImages :<span>Ziadne fotky</span> }
-    </StyledRow>
-    <StyledTitle>Domovoske polozky </StyledTitle>
-    <StyledRow>
-      { this.state.aboutItems.length>0 ? aboutItems :<span>Ziadne domovske polozky</span> }
-      </StyledRow>
-    <StyledTitle>Pridat domovsku polozku</StyledTitle>
-    <div>
-      <AboutItemCreate onSubmit={this.onSubmitAboutItem} />
-    </div>
-    <StyledTitle>Pridat fotku</StyledTitle>
-      <DragAndDropArea 
-        onDragEnter={this.onDragEnter} 
-        onDragOver={this.onDragOver} 
-        onDragLeave={this.onDragLeave} 
-        onDrop={this.onDrop}
-        photoArray={this.state.photosToUpload} 
-        uploadFile={this.onUploadFile}
-        uploadPhotos={this.uploadPhotoRequest}
-      />
+
+        <StyledTitle>Slider foto</StyledTitle>
+        <StyledRow>
+          { this.state.allPhotos.length > 0 ? photoImages : <span>Ziadne fotky</span> }
+        </StyledRow>
+        <StyledTitle>Domovske polozky </StyledTitle>
+            <StyledRow>{this.state.aboutItems.length > 0 ? aboutItems : <span>Ziadne domovske polozky</span>}</StyledRow>
+        <StyledTitle>Pridat domovsku polozku</StyledTitle>
+            <div>
+              <AboutItemCreate onSubmit={this.onSubmitAboutItem} />
+        </div>
+            <StyledTitle>Pridat fotku</StyledTitle>
+        <DragAndDropArea
+          onDragEnter={this.onDragEnter}
+            onDragOver={this.onDragOver}
+            onDragLeave={this.onDragLeave}
+          onDrop={this.onDrop}
+          photoArray={this.state.photosToUpload}
+            uploadFile={this.onUploadFile}
+            uploadPhotos={this.uploadPhotoRequest}
+          />
       </HomePageWrapper>
     );
   }

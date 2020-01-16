@@ -1,6 +1,6 @@
 import React from "react";
 import UpdateServiceForm from "./UpdateServiceForm";
-import { StyledWrapper, StyledLabel,StyledOverlay } from "./styles";
+import { StyledWrapper, StyledLabel, StyledOverlay } from "./styles";
 import ServiceItem from "../../../components/ServiceItem";
 // import { StyledWrapper, StyledServiceIcon, StyledServiceName, StyledServiceDesciption, StyledServicePrice, StyledButtonGroup } from "./styles";
 
@@ -8,7 +8,7 @@ class EditAbleServiceComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEdit: false,
+      isEdit: false
     };
     this.turnOnEdit = this.turnOnEdit.bind(this);
     this.turnOffEdit = this.turnOffEdit.bind(this);
@@ -33,9 +33,10 @@ class EditAbleServiceComponent extends React.Component {
       serviceImage: data.serviceImage,
       service: data.service,
       description: data.description,
-      price: data.price,
+      price: data.price
     };
     if (this.state.isEdit) {
+      document.body.style.overflow = "hidden";
       return (
         <StyledOverlay>
           <UpdateServiceForm
@@ -49,9 +50,8 @@ class EditAbleServiceComponent extends React.Component {
         </StyledOverlay>
       );
     }
-    return (
-      <ServiceItem item={data} isAdmin edit={this.turnOnEdit} onDelete={onDelete} />
-    );
+    document.body.style.overflow = "auto";
+    return <ServiceItem item={data} isAdmin edit={this.turnOnEdit} onDelete={onDelete} />;
   }
 }
 
